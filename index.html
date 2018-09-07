@@ -54,82 +54,93 @@
         <div class="container topnav">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
+                <!--
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand topnav" href="http://tweetalyze.com/">Tweetalyze</a>
+                </button> -->
+                <h1><a href="http://tweetalyze.com/">Tweetalyze</a></h1>
+                <p>Information on demand.</p>
             </div>
             
         </div>
         <!-- /.container -->
     </nav>
 
+    <main>
+        <h2>Query Form</h2>
+        <p>Enter a Twitter user's handle and a search term, and we'll query Twitter and give you some statistics!</p>
+        <form id="tweetForm">
+            <label for="pw">Access key: </label>
+            <input type="password" name="pw" id="pw" />
+            <br />
 
-    <form id="tweetForm">
-        <label for="pw">Access key: </label>
-        <input type="password" name="pw" id="pw" />
-        <br />
+            <label for="user">Twitter handle: @</label>
+            <input type="text" name="user" id="user" value="realDonaldTrump"/>
+            <br />
 
-        <label for="user">Twitter handle: @</label>
-        <input type="text" name="user" id="user" value="realDonaldTrump"/>
-        <br />
+            <label for="replies">Include replies?</label>
+            <input type="checkbox" name="replies" id="replies" />
+            <br />
 
-        <label for="replies">Include replies?</label>
-        <input type="checkbox" name="replies" id="replies" />
-        <br />
+            <label for="rts">Include retweets?</label>
+            <input type="checkbox" name="rts" id="rts"/>
+            <br />
 
-        <label for="rts">Include retweets?</label>
-        <input type="checkbox" name="rts" id="rts"/>
-        <br />
+            <label for="search">Count tweets including: </label>
+            <input type="text" name="search" id="search"/>
+            <br />
 
-        <label for="search">Count tweets including: </label>
-        <input type="text" name="search" id="search"/>
-        <br />
+            <button type="submit" id="tweetSubmit">Submit</button>
+            <br><br>
+        </form>
 
-        <button type="submit" id="tweetSubmit">Submit</button>
+        <label>Minimum Number of Occurences to Appear in Word Cloud: </label> <input id="wordCloudMinSize" type="number" min="1" max="8" value="5" style="width: 35px" />
+
+        <section id="error"><h1 id="errorDesc"></h1></section>
+        <section id="tweetResults">
+            <br>
+            <h4><span id="userSpan"></span> Recent Tweet Stats</h4>
+            <p>Sample size: <span id="sampleSize"></span></p>
+            <p>Sample average frequency: <span id="perDay"></span> tweets/day</p>
+            <p>Sample average time between tweets: <span id="averageHoursBetween"></span> hours</p>
+            <p id="searchHitsLabel">Sample number of tweets including <span id="searchPhrase"></span>: <span id="searchHits"></span></p>
+            <p>Time since last tweet: <span id="daysSince"></span> days</p>
+            <p>List of times tweeted</p>
+            <ul id="timestamps"></ul>
+
+            
+        </section>
+        <table id="resultsTable">
+            <tr style="border: 1px solid gray">
+                <td>Username</td>
+                <td>Search Term</td>
+                <td>Sample Size</td>
+                <td>Avg Tweets Per Day</td>
+                <td>Avg Hours Between Tweets</td>
+                <td>Tweets Including Search Term</td>
+            </tr>
+        </table>
         <br><br>
-    </form>
+        <label>Time Requested: </label><p id="currentDate"></p>
 
-    <section id="error"><h1 id="errorDesc"></h1></section>
-    <section id="tweetResults">
-        <br>
-        <h4><span id="userSpan"></span> Recent Tweet Stats</h4>
-        <p>Sample size: <span id="sampleSize"></span></p>
-        <p>Sample average frequency: <span id="perDay"></span> tweets/day</p>
-        <p>Sample average time between tweets: <span id="averageHoursBetween"></span> hours</p>
-        <p id="searchHitsLabel">Sample number of tweets including <span id="searchPhrase"></span>: <span id="searchHits"></span></p>
-        <p>Time since last tweet: <span id="daysSince"></span> days</p>
-        <p>List of times tweeted</p>
-        <ul id="timestamps"></ul>
+        <div id="ByUsername"><!-- Plotly chart will be drawn inside this DIV --></div>
+        <br><br>
+        <div id="ByUsername_p"><!-- Plotly chart will be drawn inside this DIV --></div>
+        <br><br>
+        <div id="BySearch"><!-- Plotly chart will be drawn inside this DIV --></div>
+        <br><br>
+        <div id="BySearch_p"><!-- Plotly chart will be drawn inside this DIV --></div>
+        <br><br>
+        <div id="ByFrequency"><!-- Plotly chart will be drawn inside this DIV --></div>
 
-        
-    </section>
-    <table id="resultsTable">
-        <tr>
-            <td>Username</td>
-            <td>Search Term</td>
-            <td>Sample Size</td>
-            <td>Avg Tweets Per Day</td>
-            <td>Avg Hours Between Tweets</td>
-            <td>Tweets Including Search Term</td>
-        </tr>
-    </table>
-    <br><br>
-    <label>Time Requested: </label><p id="currentDate"></p>
-
-    <div id="ByUsername"><!-- Plotly chart will be drawn inside this DIV --></div>
-    <br><br>
-    <div id="ByUsername_p"><!-- Plotly chart will be drawn inside this DIV --></div>
-    <br><br>
-    <div id="BySearch"><!-- Plotly chart will be drawn inside this DIV --></div>
-    <br><br>
-    <div id="BySearch_p"><!-- Plotly chart will be drawn inside this DIV --></div>
-    <br><br>
-    <div id="ByFrequency"><!-- Plotly chart will be drawn inside this DIV --></div>
-    
+        <div id="wordCloudDiv">
+            <h2>Word Cloud</h2>
+            <canvas id="wordCloud" width="650" height="650"></canvas>
+        </div>
+    </main>
     <!-- Footer -->
     <footer>
         <div class="container">
@@ -141,7 +152,7 @@
                         </li>
                         <li class="footer-menu-divider">&sdot;</li>
                         <li>
-                            <a href="http://adamgincel.com">Adam Gincel</a>
+                            <a href="https://adamgincel.com">Adam Gincel</a>
                         </li>
                         <li class="footer-menu-divider">&sdot;</li>
                         <li>
@@ -154,11 +165,7 @@
         </div>
     </footer>
 
-    <!-- jQuery -->
-    <script src="js/jquery.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
+    <script src="wordcloud2.js"></script>
 
 </body>
 
@@ -378,10 +385,26 @@
                     };
 
                 Plotly.newPlot('ByFrequency', data3, layout3); //------------------------------ NOTE: due to the placement of the current logic, a search term with hits must be entered
+                let wordCloud = [];
+                let minCount = parseInt($("#wordCloudMinSize").val());
+                for (let i = 0; i < responseText.wordCloudList.length; i++) {
+                    if (responseText.wordCloudList[i][1] >= minCount)
+                        wordCloud.push(responseText.wordCloudList[i]);
+                }
+                $("#wordCloudDiv").show();
+                WordCloud(document.getElementById("wordCloud"), {
+                    list: wordCloud, 
+                    gridSize: Math.round(16 * $('#wordCloud').width() / 1024),
+                    weightFactor: function (size) {
+                        return Math.pow(size, 2.3) * $('#wordCloud').width() / 1024;
+                    },
+                    minSize: 8
+                });
             }
         });
         $("#tweetResults").hide();
         $("#error").hide();
+        $("#wordCloudDiv").hide();
     });
 </script>
     

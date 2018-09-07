@@ -8,6 +8,7 @@ body,
 html {
     width: 100%;
     height: 100%;
+    background-color: rgb(250, 250, 250, 1);
 }
 
 body,
@@ -22,7 +23,31 @@ h6 {
 }
 
 .topnav {
-    font-size: 14px; 
+    font-size: 14px;
+    text-align: center;
+    width: 100%;
+    background-color: rgba(220, 220, 220, 1);
+    position: fixed;
+    top: 0;
+}
+
+.navbar-header {
+    width: 100%;
+}
+
+main {
+    width: 95%;
+    padding: 20px;
+    margin: auto;
+    margin-top: 80px;
+    margin-bottom: 80px;
+    border: 1px solid gray;
+    border-radius: 0.25em;
+    box-shadow: 1px 1px;
+}
+
+.navbar-header h1 {
+    margin: none;
 }
 
 .lead {
@@ -43,6 +68,11 @@ h6 {
     position: relative;
     padding-top: 20%;
     padding-bottom: 20%;
+}
+
+#wordCloudDiv {
+    margin: auto;
+    text-align: center;
 }
 
 .intro-message > h1 {
@@ -161,8 +191,17 @@ h6 {
 }
 
 footer {
-    padding: 50px 0;
+    padding: 20px 0;
+    position: fixed;
+    bottom: 0;
     background-color: #f8f8f8;
+    width: 100%;
+    text-align: center;
+    background-color: lightgray;
+}
+
+footer #container {
+    margin: auto;
 }
 
 p.copyright {
