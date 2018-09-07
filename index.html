@@ -139,6 +139,10 @@
         <div id="wordCloudDiv">
             <h2>Word Cloud</h2>
             <canvas id="wordCloud" width="650" height="650"></canvas>
+            <h3>Word List</h3>
+            <table id="wordList">
+
+            </table>
         </div>
     </main>
     <!-- Footer -->
@@ -391,15 +395,27 @@
                     if (responseText.wordCloudList[i][1] >= minCount)
                         wordCloud.push(responseText.wordCloudList[i]);
                 }
-                $("#wordCloudDiv").show();
+                
                 WordCloud(document.getElementById("wordCloud"), {
                     list: wordCloud, 
-                    gridSize: Math.round(16 * $('#wordCloud').width() / 1024),
+                    gridSize: 10,
                     weightFactor: function (size) {
-                        return Math.pow(size, 2.3) * $('#wordCloud').width() / 1024;
+                        //return Math.pow(size, 2.3) * $('#wordCloud').width() / 1024;
+                        return size * 2.75;
                     },
-                    minSize: 8
+                    minFontSize: "40px"
                 });
+
+                let wordList = "<tr><td><strong>Word</strong></td><td><strong>Quantity</strong></td></tr>";
+                wordCloud.sort(function(a, b) {
+                    return b[1] - a[1]
+                });
+                for (let i = 0; i < wordCloud.length; i++) {
+                    wordList += "<tr><td>" + wordCloud[i][0] + "</td><td>" + wordCloud[i][1] + "</td></tr>";
+                }
+                document.getElementById("wordList").innerHTML = wordList;
+
+                $("#wordCloudDiv").show();
             }
         });
         $("#tweetResults").hide();
