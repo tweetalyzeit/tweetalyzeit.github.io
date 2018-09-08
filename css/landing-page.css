@@ -120,7 +120,7 @@ canvas {
     }
 
     canvas {
-        width: 85%;
+        width: 85% !important;
     }
 }
 
