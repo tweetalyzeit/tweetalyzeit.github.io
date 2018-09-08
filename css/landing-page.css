@@ -81,6 +81,11 @@ main {
     font-size: 5em;
 }
 
+canvas {
+    width: 60%;
+    height: auto;
+}
+
 .intro-divider {
     width: 400px;
     border-top: 1px solid #f8f8f8;
@@ -112,6 +117,10 @@ main {
 
     .intro-divider {
         width: 100%;
+    }
+
+    canvas {
+        width: 85%;
     }
 }
 
