@@ -398,10 +398,10 @@
                 
                 WordCloud(document.getElementById("wordCloud"), {
                     list: wordCloud, 
-                    gridSize: 10,
+                    gridSize: 12,
                     weightFactor: function (size) {
                         //return Math.pow(size, 2.3) * $('#wordCloud').width() / 1024;
-                        return size * 2.5;
+                        return size * 2;
                     },
                     minFontSize: "35px"
                 });
