@@ -396,25 +396,29 @@
                     if (responseText.wordCloudList[i][1] >= minCount)
                         wordCloud.push(responseText.wordCloudList[i]);
                 }
+
+                let wordList = "<tr><td><strong>Word</strong></td><td><strong>Quantity</strong></td></tr>";
+                wordCloud.sort(function(a, b) {
+                    return b[1] - a[1]
+                });
+                let max = parseInt(wordCloud[0][1]);
+                for (let i = 0; i < wordCloud.length; i++) {
+                    wordList += "<tr><td>" + wordCloud[i][0] + "</td><td>" + wordCloud[i][1] + "</td></tr>";
+                    wordCloud[i][1] = Math.ceil((wordCloud[i][1] * 100) / max);
+                }
+                document.getElementById("wordList").innerHTML = wordList;
                 
                 WordCloud(document.getElementById("wordCloud"), {
                     list: wordCloud, 
                     gridSize: 12,
                     weightFactor: function (size) {
                         //return Math.pow(size, 2.3) * $('#wordCloud').width() / 1024;
-                        return size * 2;
+                        return size * 2.1;
                     },
                     minFontSize: "35px"
                 });
 
-                let wordList = "<tr><td><strong>Word</strong></td><td><strong>Quantity</strong></td></tr>";
-                wordCloud.sort(function(a, b) {
-                    return b[1] - a[1]
-                });
-                for (let i = 0; i < wordCloud.length; i++) {
-                    wordList += "<tr><td>" + wordCloud[i][0] + "</td><td>" + wordCloud[i][1] + "</td></tr>";
-                }
-                document.getElementById("wordList").innerHTML = wordList;
+                
 
                 $("#wordCloudDiv").show(); //------------------------------------------------------------------------ end word cloud
             }
