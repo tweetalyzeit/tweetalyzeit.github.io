@@ -274,21 +274,8 @@
                 }
 
                 //Plotly JS goes here-------------------------------------------------------------------------- PLOTLY begin
-                /*var data = [{
-                    x: plotly_UNs, //[$('#user').val()]
-                    y: plotly_searchHits, //[responseText.searchHits]
-                    type: 'bar',
-                    text: plotly_searchHits,
-                    textposition: 'auto'
-                    }];
 
-                var layout = {
-                    title: 'Sample Number of Tweets Including "' + $('#search').val() + '" by Username'
-                    };
-
-                Plotly.newPlot('ByUsername', data, layout); //------------------------------*/
-
-                var data_p = [{
+                var data_p = [{ //-------------------------------Prevalence of Single Term by Multiple Users
                     x: plotly_UNs, 
                     y: plotly_searchPercent, 
                     type: 'bar',
@@ -297,7 +284,6 @@
                     }];
 
                 var layout_p = {
-                    //title: 'Percentage of Sampled Tweets Including "' + $('#search').val() + '" by Username',
                     title: 'Prevalence of "' + $('#search').val() + '" in Tweets',
                     yaxis: {
                         title: '% of Sampled Tweets incl. "' + $('#search').val() + '"',
@@ -313,24 +299,9 @@
                             }
                     };
 
-                if(plotly_UNs[0] != plotly_UNs[1])
-                    Plotly.newPlot('ByUsername_p', data_p, layout_p); //------------------------------
+                Plotly.newPlot('ByUsername_p', data_p, layout_p); 
 
-                /*var data2 = [{
-                    x: plotly_searchTerms,
-                    y: plotly_searchHits, 
-                    type: 'bar',
-                    text: plotly_searchHits,
-                    textposition: 'auto'
-                    }];
-
-                var layout2 = {
-                    title: 'Sample Number of Tweets by @' + $('#user').val() + ' Including Search Terms'
-                    };
-
-                Plotly.newPlot('BySearch', data2, layout2); //------------------------------*/
-
-                var data2_p = [{
+                var data2_p = [{ //-------------------------------Prevalence of Multiple Terms for Single user
                     x: plotly_searchTerms,
                     y: plotly_searchPercent, 
                     type: 'bar',
@@ -354,10 +325,9 @@
                             }
                     };
 
-                if(plotly_searchTerms[0] != plotly_searchTerms[1])
-                    Plotly.newPlot('BySearch_p', data2_p, layout2_p); //------------------------------
+                Plotly.newPlot('BySearch_p', data2_p, layout2_p); 
 
-                var data3 = [{
+                var data3 = [{ //-------------------------------------Frequencies by Username
                     x: plotly_UNs, 
                     y: plotly_frequencies, 
                     type: 'bar',
