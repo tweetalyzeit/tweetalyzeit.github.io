@@ -97,7 +97,12 @@
             <br><br>
         </form>
 
-        <label>Minimum Number of Occurences to Appear in Word Cloud: </label> <input id="wordCloudMinSize" type="number" min="1" max="8" value="5" style="width: 35px" />
+        <label>Display Raw Response Table?</label><input id="ui_RawResponseTable" type = "checkbox" /><br>
+        <label>Plot Single Search Term, Multiple Users?</label><input id="ui_SSTMU" type = "checkbox" /><br>
+        <label>Plot Multiple Search Terms, Single User?</label><input id="ui_MSTSU" type = "checkbox" /><br>
+        <label>Plot Tweet Frequencies?</label><input id="ui_Frequencies" type = "checkbox" /><br>
+        <label>Generate Word Cloud?</label><input id="ui_WordCloud" type = "checkbox" /><br>
+        <label>Minimum Number of Occurences to Appear in Word Cloud: </label> <input id="wordCloudMinSize" type="number" min="1" max="10" value="5" style="width: 35px" />
         <br><br>
 
         <section id="error"><h1 id="errorDesc"></h1></section>
@@ -120,7 +125,7 @@
                 <td>Search Term</td>
                 <td>Sample Size</td>
                 <td>Avg Tweets Per Day</td>
-                <td>Avg Hours Between Tweets</td>
+                <!-- <td>Avg Hours Between Tweets</td> -->
                 <td>Tweets Including Search Term</td>
             </tr>
         </table>
@@ -248,10 +253,10 @@
                 else 
                     row += "<td>0</td>"; //$("#perDay").html("0");
 
-                if (responseText.avgHoursBetween)
+                /*if (responseText.avgHoursBetween)
                     row += "<td>" + responseText.avgHoursBetween.toFixed(4).toString() + "</td>"; //$("#averageHoursBetween").html(responseText.avgHoursBetween.toFixed(4));
                 else
-                    row += "<td>0</td>"; //$("#averageHoursBetween").html("0");
+                    row += "<td>0</td>"; //$("#averageHoursBetween").html("0");*/
 
                 /*if (responseText.daysSince)
                     $("#daysSince").html(responseText.daysSince.toFixed(4));
@@ -320,7 +325,8 @@
                     }
                     }]
 
-                Plotly.plot('ResponseTable', data);
+                if($('#ui_RawResponseTable:checked').val()){
+                    Plotly.plot('ResponseTable', data);}
 
                 var data_p = [{ //-------------------------------Prevalence of Single Term by Multiple Users
                     x: plotly_UNs, 
@@ -346,7 +352,8 @@
                             }
                     };
 
-                Plotly.newPlot('ByUsername_p', data_p, layout_p); 
+                if($('#ui_SSTMU:checked').val()){
+                    Plotly.newPlot('ByUsername_p', data_p, layout_p);} 
 
                 var data2_p = [{ //-------------------------------Prevalence of Multiple Terms for Single user
                     x: plotly_searchTerms,
@@ -372,7 +379,8 @@
                             }
                     };
 
-                Plotly.newPlot('BySearch_p', data2_p, layout2_p); 
+                if($('#ui_MSTSU:checked').val()){
+                    Plotly.newPlot('BySearch_p', data2_p, layout2_p);} 
 
                 var data3 = [{ //-------------------------------------Frequencies by Username
                     x: plotly_UNs, 
@@ -398,38 +406,40 @@
                             }
                     };
 
-                Plotly.newPlot('ByFrequency', data3, layout3); //-----------------------------------------------end plotly 
+                if($('#ui_Frequencies:checked').val()){
+                    Plotly.newPlot('ByFrequency', data3, layout3);} //-----------------------------------------------end plotly 
 
                 //---------------------------------------------------------------------------------------------WORD CLOUD BEGIN
-                let wordCloud = [];
-                let minCount = parseInt($("#wordCloudMinSize").val());
-                for (let i = 0; i < responseText.wordCloudList.length; i++) {
-                    if (responseText.wordCloudList[i][1] >= minCount)
-                        wordCloud.push(responseText.wordCloudList[i]);
-                }
+                if($('#ui_WordCloud:checked').val()){
+                    let wordCloud = [];
+                    let minCount = parseInt($("#wordCloudMinSize").val());
+                    for (let i = 0; i < responseText.wordCloudList.length; i++) {
+                        if (responseText.wordCloudList[i][1] >= minCount)
+                            wordCloud.push(responseText.wordCloudList[i]);
+                    }
 
-                let wordList = "<tr><td><strong>Word</strong></td><td><strong>Quantity</strong></td></tr>";
-                wordCloud.sort(function(a, b) {
-                    return b[1] - a[1]
-                });
-                let max = parseInt(wordCloud[0][1]);
-                for (let i = 0; i < wordCloud.length; i++) {
-                    wordList += "<tr><td>" + wordCloud[i][0] + "</td><td>" + wordCloud[i][1] + "</td></tr>";
-                    wordCloud[i][1] = Math.ceil((wordCloud[i][1] * 100) / max);
-                }
-                document.getElementById("wordList").innerHTML = wordList;
-                let canvas = document.getElementById("wordCloud");
-                WordCloud(canvas, {
-                    list: wordCloud, 
-                    gridSize: 10,
-                    weightFactor: function (size) {
-                        //return Math.pow(size, 2.3) * $('#wordCloud').width() / 1024;
-                        return size * (wordCloud.length > 100 ? 1.4 : 2);
-                    },
-                    minFontSize: "30px"
-                });              
+                    let wordList = "<tr><td><strong>Word</strong></td><td><strong>Quantity</strong></td></tr>";
+                    wordCloud.sort(function(a, b) {
+                        return b[1] - a[1]
+                    });
+                    let max = parseInt(wordCloud[0][1]);
+                    for (let i = 0; i < wordCloud.length; i++) {
+                        wordList += "<tr><td>" + wordCloud[i][0] + "</td><td>" + wordCloud[i][1] + "</td></tr>";
+                        wordCloud[i][1] = Math.ceil((wordCloud[i][1] * 100) / max);
+                    }
+                    document.getElementById("wordList").innerHTML = wordList;
+                    let canvas = document.getElementById("wordCloud");
+                    WordCloud(canvas, {
+                        list: wordCloud, 
+                        gridSize: 10,
+                        weightFactor: function (size) {
+                            //return Math.pow(size, 2.3) * $('#wordCloud').width() / 1024;
+                            return size * (wordCloud.length > 100 ? 1.4 : 2);
+                        },
+                        minFontSize: "30px"
+                    });              
 
-                $("#wordCloudDiv").show(); //------------------------------------------------------------------------ end word cloud
+                    $("#wordCloudDiv").show();} //------------------------------------------------------------------------ end word cloud
             }
         });
         $("#tweetResults").hide();
