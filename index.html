@@ -139,11 +139,13 @@
             <h2>Word Cloud</h2>
             <canvas id="wordCloud" width="1460" height="840" style="width: 65%; height: auto;"></canvas>
             <br />
-            <button onclick="openImage()">Open In New Tab</button>
+            <button onclick="openImage()">Create Saveable Img at bottom</button>
             <h3>Word List</h3>
             <table id="wordList">
 
             </table>
+            <br /> <br />
+            <img id="wordCloudImg" src="" alt="save me!" />
         </div>
     </main>
     <!-- Footer -->
@@ -191,7 +193,9 @@
 
     function openImage() {
         let canvas = document.getElementById("wordCloud");
-        window.open(canvas.toDataURL("image/png"), "_blank");
+        let img = document.getElementById("wordCloudImg");
+        img.src = canvas.toDataURL("image/png");
+        window.scrollTo(0,document.body.scrollHeight);
     }
 
     $(document).ready(function() {
@@ -420,7 +424,7 @@
                     gridSize: 10,
                     weightFactor: function (size) {
                         //return Math.pow(size, 2.3) * $('#wordCloud').width() / 1024;
-                        return size * 2;
+                        return size * (wordCloud.length > 100 ? 1.4 : 2);
                     },
                     minFontSize: "30px"
                 });              
