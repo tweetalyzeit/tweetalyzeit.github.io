@@ -127,11 +127,7 @@
         <br><br>
         <label>Time Requested: </label><p id="currentDate"></p>
 
-        <div id="ByUsername"><!-- Plotly chart will be drawn inside this DIV --></div>
-        <br><br>
         <div id="ByUsername_p"><!-- Plotly chart will be drawn inside this DIV --></div>
-        <br><br>
-        <div id="BySearch"><!-- Plotly chart will be drawn inside this DIV --></div>
         <br><br>
         <div id="BySearch_p"><!-- Plotly chart will be drawn inside this DIV --></div>
         <br><br>
@@ -252,12 +248,6 @@
                 }*/
                 if (responseText.searchHits) {
                     row += "<td>" + responseText.searchHits.toString() + "</td>";
-                    /*plotly_UNs.push(responseText.name);
-                    plotly_searchHits.push(responseText.searchHits);
-                    plotly_searchTerms.push($('#search').val());
-                    plotly_frequencies.push(responseText.perDay.toFixed(2));
-                    plotly_samplesize.push(responseText.sampleSize);
-                    plotly_searchPercent.push(((responseText.searchHits / responseText.sampleSize)*100).toFixed(2));*/
                 } else {
                     row += "<td>0</td>";
                 }
