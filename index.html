@@ -127,6 +127,8 @@
         <br><br>
         <label>Time Requested: </label><p id="currentDate"></p>
 
+        <div id="ResponseTable"><!-- Plotly chart will be drawn inside this DIV --></div>
+        <br><br>
         <div id="ByUsername_p"><!-- Plotly chart will be drawn inside this DIV --></div>
         <br><br>
         <div id="BySearch_p"><!-- Plotly chart will be drawn inside this DIV --></div>
@@ -274,6 +276,34 @@
                 }
 
                 //Plotly JS goes here-------------------------------------------------------------------------- PLOTLY begin
+
+                var values = [ //-------------------------------------------------------Raw Response Table
+                        plotly_UNs,
+                        plotly_searchTerms,
+                        plotly_samplesize,
+                        plotly_frequencies,
+                        plotly_hoursBetween,
+                        plotly_searchHits]
+
+                    var data = [{
+                    type: 'table',
+                    header: {
+                        values: [["Username"], ["Search Term"],
+                                    ["Sample Size"], ["Avg Tweets Per Day"], ["Avg Hours Between Tweets"], ["Tweets Including Search Term"]],
+                        align: "center",
+                        line: {width: 1, color: 'black'},
+                        fill: {color: 'rgb(0, 128, 255)'},
+                        font: {family: "Arial", size: 12, color: "white"}
+                    },
+                    cells: {
+                        values: values,
+                        align: "center",
+                        line: {color: "black", width: 1},
+                        font: {family: "Arial", size: 11, color: ["black"]}
+                    }
+                    }]
+
+                Plotly.plot('ResponseTable', data);
 
                 var data_p = [{ //-------------------------------Prevalence of Single Term by Multiple Users
                     x: plotly_UNs, 
