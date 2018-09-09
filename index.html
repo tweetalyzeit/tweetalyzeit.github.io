@@ -273,7 +273,7 @@
                     document.getElementById("resultsTable").innerHTML = document.getElementById("resultsTable").innerHTML + row;
                 }
 
-                //Plotly JS goes here------------------------------------------------ 
+                //Plotly JS goes here-------------------------------------------------------------------------- PLOTLY begin
                 /*var data = [{
                     x: plotly_UNs, //[$('#user').val()]
                     y: plotly_searchHits, //[responseText.searchHits]
@@ -381,7 +381,9 @@
                             }
                     };
 
-                Plotly.newPlot('ByFrequency', data3, layout3); //------------------------------ 
+                Plotly.newPlot('ByFrequency', data3, layout3); //-----------------------------------------------end plotly 
+
+                //---------------------------------------------------------------------------------------------WORD CLOUD BEGIN
                 let wordCloud = [];
                 let minCount = parseInt($("#wordCloudMinSize").val());
                 for (let i = 0; i < responseText.wordCloudList.length; i++) {
@@ -408,7 +410,7 @@
                 }
                 document.getElementById("wordList").innerHTML = wordList;
 
-                $("#wordCloudDiv").show();
+                $("#wordCloudDiv").show(); //------------------------------------------------------------------------ end word cloud
             }
         });
         $("#tweetResults").hide();
