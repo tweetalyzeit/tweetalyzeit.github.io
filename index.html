@@ -101,6 +101,7 @@
         <label>Plot Single Search Term, Multiple Users?</label><input id="ui_SSTMU" type = "checkbox" /><br>
         <label>Plot Multiple Search Terms, Single User?</label><input id="ui_MSTSU" type = "checkbox" /><br>
         <label>Plot Tweet Frequencies?</label><input id="ui_Frequencies" type = "checkbox" /><br>
+        <label>Plot Tweet Lengths?</label><input id="ui_Lengths" type = "checkbox" /><br>
         <label>Generate Word Cloud?</label><input id="ui_WordCloud" type = "checkbox" /><br>
         <label>Minimum Number of Occurences to Appear in Word Cloud: </label> <input id="wordCloudMinSize" type="number" min="1" max="10" value="5" style="width: 35px" />
         <br><br>
@@ -139,6 +140,8 @@
         <div id="BySearch_p"><!-- Plotly chart will be drawn inside this DIV --></div>
         <br><br>
         <div id="ByFrequency"><!-- Plotly chart will be drawn inside this DIV --></div>
+        <br><br>
+        <div id="ByLength"><!-- Plotly chart will be drawn inside this DIV --></div>
 
         <div id="wordCloudDiv">
             <h2>Word Cloud</h2>
@@ -407,7 +410,34 @@
                     };
 
                 if($('#ui_Frequencies:checked').val()){
-                    Plotly.newPlot('ByFrequency', data3, layout3);} //-----------------------------------------------end plotly 
+                    Plotly.newPlot('ByFrequency', data3, layout3);} 
+
+                var data4 = [{ //-------------------------------------Average Length by Username
+                    x: plotly_UNs, 
+                    y: plotly_tweetLength, 
+                    type: 'bar',
+                    text: plotly_tweetLength,
+                    textposition: 'auto'
+                    }];
+
+                var layout4 = {
+                    title: 'Average Tweet Length',
+                    yaxis: {
+                        title: 'Average Characters per Tweet',
+                        titlefont: {
+                            size: 12,
+                            color: 'rgb(107, 107, 107)'},
+                            },
+                    xaxis: {
+                        title: 'Twitter Username',
+                        titlefont: {
+                            size: 12,
+                            color: 'rgb(107, 107, 107)'},
+                            }
+                    };
+
+                if($('#ui_Lengths:checked').val()){
+                    Plotly.newPlot('ByLength', data4, layout4);} //-----------------------------------------------end plotly 
 
                 //---------------------------------------------------------------------------------------------WORD CLOUD BEGIN
                 if($('#ui_WordCloud:checked').val()){
