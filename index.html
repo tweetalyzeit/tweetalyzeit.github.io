@@ -417,12 +417,12 @@
                 let canvas = document.getElementById("wordCloud");
                 WordCloud(canvas, {
                     list: wordCloud, 
-                    gridSize: 12,
+                    gridSize: 10,
                     weightFactor: function (size) {
                         //return Math.pow(size, 2.3) * $('#wordCloud').width() / 1024;
-                        return size * 2.1;
+                        return size * 2;
                     },
-                    minFontSize: "35px"
+                    minFontSize: "30px"
                 });              
 
                 $("#wordCloudDiv").show(); //------------------------------------------------------------------------ end word cloud
