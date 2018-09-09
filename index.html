@@ -184,6 +184,8 @@
     var plotly_samplesize = [];
     var plotly_searchPercent = [];
     var plotly_hoursBetween = [];
+    var plotly_tweetLength = [];
+    var plotly_uniqueWords = [];
 
     $(document).ready(function() {
         $("#tweetForm").ajaxForm({
@@ -214,6 +216,8 @@
                     plotly_samplesize.push(responseText.sampleSize);
                     plotly_searchPercent.push(((responseText.searchHits / responseText.sampleSize)*100).toFixed(2));
                     plotly_hoursBetween.push((responseText.avgHoursBetween).toFixed(2));
+                    plotly_tweetLength.push((responseText.avgTweetLength).toFixed(2));
+                    plotly_uniqueWords.push(responseText.uniqueWords);
                 }
                 else
                     row += "<td>Name Not Found</td>";//$("#userSpan").html("Name Not Found");
@@ -283,13 +287,15 @@
                         plotly_samplesize,
                         plotly_frequencies,
                         plotly_hoursBetween,
+                        plotly_tweetLength,
+                        plotly_uniqueWords,
                         plotly_searchHits]
 
                     var data = [{
                     type: 'table',
                     header: {
                         values: [["Username"], ["Search Term"],
-                                    ["Sample Size"], ["Avg Tweets Per Day"], ["Avg Hours Between Tweets"], ["Tweets Including Search Term"]],
+                                    ["Sample Size"], ["Avg Tweets Per Day"], ["Avg Hours Between Tweets"], ["Average Tweet Length"], ["Unique Words"], ["Tweets Including Search Term"]],
                         align: "center",
                         line: {width: 1, color: 'black'},
                         fill: {color: 'rgb(0, 128, 255)'},
