@@ -138,6 +138,8 @@
         <div id="wordCloudDiv">
             <h2>Word Cloud</h2>
             <canvas id="wordCloud" width="1280" height="720" style="width: 65%; height: auto;"></canvas>
+            <br />
+            <button onclick="openImage()">Open In New Tab</button>
             <h3>Word List</h3>
             <table id="wordList">
 
@@ -186,6 +188,11 @@
     var plotly_hoursBetween = [];
     var plotly_tweetLength = [];
     var plotly_uniqueWords = [];
+
+    function openImage() {
+        let canvas = document.getElementById("wordCloud");
+        window.open(canvas.toDataURL("image/png"), "_blank");
+    }
 
     $(document).ready(function() {
         $("#tweetForm").ajaxForm({
@@ -407,8 +414,8 @@
                     wordCloud[i][1] = Math.ceil((wordCloud[i][1] * 100) / max);
                 }
                 document.getElementById("wordList").innerHTML = wordList;
-                
-                WordCloud(document.getElementById("wordCloud"), {
+                let canvas = document.getElementById("wordCloud");
+                WordCloud(canvas, {
                     list: wordCloud, 
                     gridSize: 12,
                     weightFactor: function (size) {
@@ -416,9 +423,7 @@
                         return size * 2.1;
                     },
                     minFontSize: "35px"
-                });
-
-                
+                });              
 
                 $("#wordCloudDiv").show(); //------------------------------------------------------------------------ end word cloud
             }
