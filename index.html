@@ -181,6 +181,7 @@
     var plotly_frequencies = [];
     var plotly_samplesize = [];
     var plotly_searchPercent = [];
+    var plotly_hoursBetween = [];
 
     $(document).ready(function() {
         $("#tweetForm").ajaxForm({
@@ -210,6 +211,7 @@
                     plotly_frequencies.push(responseText.perDay.toFixed(2));
                     plotly_samplesize.push(responseText.sampleSize);
                     plotly_searchPercent.push(((responseText.searchHits / responseText.sampleSize)*100).toFixed(2));
+                    plotly_hoursBetween.push((responseText.avgHoursBetween).toFixed(2));
                 }
                 else
                     row += "<td>Name Not Found</td>";//$("#userSpan").html("Name Not Found");
