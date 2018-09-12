@@ -99,6 +99,7 @@
 
         <label>Display Raw Response Table?</label><input id="ui_RawResponseTable" type = "checkbox" /><br>
         <label>Plot x: username, y: term prevalence?</label><input id="ui_SSTMU" type = "checkbox" /><br>
+        <label>Plot x: username, y: 2 term prevalence?</label><input id="ui_SSTMU2" type = "checkbox" /><br>
         <label>Plot x: term, y: prevalence?</label><input id="ui_MSTSU" type = "checkbox" /><br>
         <label>Plot Tweet Frequency?</label><input id="ui_Frequencies" type = "checkbox" /><br>
         <label>Plot Tweet Length?</label><input id="ui_Lengths" type = "checkbox" /><br>
@@ -136,6 +137,8 @@
         <div id="ResponseTable"><!-- Plotly chart will be drawn inside this DIV --></div>
         <br><br>
         <div id="ByUsername_p"><!-- Plotly chart will be drawn inside this DIV --></div>
+        <br><br>
+        <div id="ByUsername_p2"><!-- Plotly chart will be drawn inside this DIV --></div>
         <br><br>
         <div id="BySearch_p"><!-- Plotly chart will be drawn inside this DIV --></div>
         <br><br>
@@ -357,6 +360,61 @@
 
                 if($('#ui_SSTMU:checked').val()){
                     Plotly.newPlot('ByUsername_p', data_p, layout_p);} 
+
+                var arrayLength = plotly_UNs.length; // -----------------testing prevalance of two terms for multiple users
+                var plotx = [];
+                var y1 = [];
+                var y2 = [];
+                var name1 = "";
+                var name2 = "";
+                for (var i = 0; i < arrayLength; i++) {
+                    if(i%2==0){
+                        y1.push(plotly_searchPercent[i]);
+                        name1 = plotly_searchTerms[i];
+                        plotx.push(plotly_UNs[i]);
+                    }
+                    else{
+                        y2.push(plotly_searchPercent[i]);
+                        name2 = plotly_searchTerms[i];
+                    }
+                }
+                var trace1_p2 = { 
+                    x: plotx,
+                    y: y1,
+                    name: name1,
+                    text: y1,
+                    textposition: 'auto',
+                    type: 'bar'
+                    };
+
+                    var trace2_p2 = {
+                    x: plotx,
+                    y: y2,
+                    name: name2,
+                    text: y2,
+                    textposition: 'auto',
+                    type: 'bar'
+                    };
+
+                    var data_p2 = [trace1_p2, trace2_p2];
+
+                    var layout_p2 = {barmode: 'group',
+                        title: 'Prevalence of Searched Terms in Tweets',
+                        yaxis: {
+                            title: '% of Sampled Tweets incl. Term',
+                            titlefont: {
+                                size: 12,
+                                color: 'rgb(107, 107, 107)'},
+                                },
+                        xaxis: {
+                            title: 'Twitter Username',
+                            titlefont: {
+                                size: 12,
+                                color: 'rgb(107, 107, 107)'},
+                                }
+                    };
+                if($('#ui_SSTMU2:checked').val()){
+                    Plotly.newPlot('ByUsername_p2', data_p2, layout_p2);}
 
                 var data2_p = [{ //-------------------------------Prevalence of Multiple Terms for Single user
                     x: plotly_searchTerms,
