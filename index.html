@@ -192,7 +192,10 @@
 <!--Analytics-->
 
 <script>
+    var plotly_timestamp = [];
     var plotly_UNs = [];
+    var plotly_replies = [];
+    var plotly_rts = [];
     var plotly_searchHits = [];
     var plotly_searchTerms = [];
     var plotly_frequencies = [];
@@ -231,7 +234,10 @@
                 let row = "<tr>";
                 if (responseText.name){
                     row += "<td>" + responseText.name + "</td>";   //$("#userSpan").html("@" + responseText.name);
+                    plotly_timestamp.push(Date(Date.now()));
                     plotly_UNs.push(responseText.name);
+                    plotly_replies.push($('#replies').is(":checked"));
+                    plotly_rts.push($('#rts').is(":checked"));
                     plotly_searchHits.push(responseText.searchHits);
                     plotly_searchTerms.push($('#search').val());
                     plotly_frequencies.push(responseText.perDay.toFixed(2));
@@ -304,7 +310,10 @@
                 //Plotly JS goes here-------------------------------------------------------------------------- PLOTLY begin
 
                 var values = [ //-------------------------------------------------------Raw Response Table
+                        plotly_timestamp,
                         plotly_UNs,
+                        plotly_replies,
+                        plotly_rts,
                         plotly_searchTerms,
                         plotly_samplesize,
                         plotly_frequencies,
@@ -316,7 +325,7 @@
                     var data = [{
                     type: 'table',
                     header: {
-                        values: [["Username"], ["Search Term"],
+                        values: [["Timestamp"], ["Username"], ["Include Replies?"], ["Include Retweets?"], ["Search Term"],
                                     ["Sample Size"], ["Average Frequency (Tweets/Day)"], ["Average Period Between Tweets (Hours)"], ["Average Tweet Length (Characters)"], ["Unique Words"], ["Tweets Including Search Term"]],
                         align: "center",
                         line: {width: 1, color: 'black'},
