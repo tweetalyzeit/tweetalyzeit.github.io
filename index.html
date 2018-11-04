@@ -246,7 +246,7 @@
                     plotly_replies.push($('#replies').is(":checked"));
                     plotly_rts.push($('#rts').is(":checked"));
                     plotly_searchHits.push(responseText.searchHits);
-                    plotly_searchTerms.push($('#search').val());
+                    plotly_searchTerms.push($('#search').val().toLowerCase());
                     plotly_frequencies.push(responseText.perDay.toFixed(2));
                     plotly_samplesize.push(responseText.sampleSize);
                     plotly_searchPercent.push(((responseText.searchHits / responseText.sampleSize)*100).toFixed(2));
@@ -257,7 +257,7 @@
                 else
                     row += "<td>Name Not Found</td>";//$("#userSpan").html("Name Not Found");
 
-                row += "<td>" + $('#search').val() + "</td>";
+                row += "<td>" + $('#search').val().toLowerCase() + "</td>";
                 console.log($("#search").val());
                 
                 if (responseText.sampleSize)
