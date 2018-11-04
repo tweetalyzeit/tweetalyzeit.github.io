@@ -123,12 +123,15 @@
         </section>
         <table id="resultsTable">
             <tr style="border: 1px solid gray">
+                <td>Timestamp</td>
                 <td>Username</td>
+                <td>Inc. Replies?</td>
+                <td>Inc. RTs?</td>
                 <td>Search Term</td>
                 <td>Sample Size</td>
-                <td>Avg Tweets Per Day</td>
+                <!--<td>Avg Tweets Per Day</td>-->
                 <!-- <td>Avg Hours Between Tweets</td> -->
-                <td>Tweets Including Search Term</td>
+                <!--<td>Tweets Including Search Term</td>-->
             </tr>
         </table>
         <br><br>
@@ -233,7 +236,11 @@
                                 
                 let row = "<tr>";
                 if (responseText.name){
+                    row += "<td>" + Date(Date.now()) + "</td>";
                     row += "<td>" + responseText.name + "</td>";   //$("#userSpan").html("@" + responseText.name);
+                    row += "<td>" + $('#replies').is(":checked") + "</td>";
+                    row += "<td>" + $('#rts').is(":checked") + "</td>";
+
                     plotly_timestamp.push(Date(Date.now()));
                     plotly_UNs.push(responseText.name);
                     plotly_replies.push($('#replies').is(":checked"));
@@ -258,12 +265,12 @@
                 else
                     row += "<td>0</td>"; //$("#sampleSize").html("0");
 
-                if (responseText.perDay)
+                /*if (responseText.perDay)
                 {
                     row += "<td>" + responseText.perDay.toFixed(4).toString() + "</td>"; //$("#perDay").html(responseText.perDay.toFixed(4));
                 }
                 else 
-                    row += "<td>0</td>"; //$("#perDay").html("0");
+                    row += "<td>0</td>"; //$("#perDay").html("0");*/
 
                 /*if (responseText.avgHoursBetween)
                     row += "<td>" + responseText.avgHoursBetween.toFixed(4).toString() + "</td>"; //$("#averageHoursBetween").html(responseText.avgHoursBetween.toFixed(4));
@@ -282,11 +289,11 @@
                 } else {
                     $("#searchHitsLabel").hide();
                 }*/
-                if (responseText.searchHits) {
+                /*if (responseText.searchHits) {
                     row += "<td>" + responseText.searchHits.toString() + "</td>";
                 } else {
                     row += "<td>0</td>";
-                }
+                }*/
 
                 row += "</tr>";
                 
