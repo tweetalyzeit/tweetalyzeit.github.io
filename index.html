@@ -103,6 +103,9 @@
         <label>Plot x: term, y: prevalence?</label><input id="ui_MSTSU" type = "checkbox" /><br>
         <label>Plot Tweet Frequency?</label><input id="ui_Frequencies" type = "checkbox" /><br>
         <label>Plot Tweet Length?</label><input id="ui_Lengths" type = "checkbox" /><br>
+        <label>Plot Followers?</label><input id="ui_Followers" type = "checkbox" /><br>
+        <label>Plot Following?</label><input id="ui_Following" type = "checkbox" /><br>
+        <label>Plot Followers and Following?</label><input id="ui_Followers_and_Following" type = "checkbox" /><br>
         <label>Generate Word Cloud?</label><input id="ui_WordCloud" type = "checkbox" /><br>
         <label>Minimum number of occurences to appear in Word Cloud: </label> <input id="wordCloudMinSize" type="number" min="1" max="10" value="5" style="width: 35px" />
         <br><br>
@@ -148,6 +151,12 @@
         <div id="ByFrequency"><!-- Plotly chart will be drawn inside this DIV --></div>
         <br><br>
         <div id="ByLength"><!-- Plotly chart will be drawn inside this DIV --></div>
+        <br><br>
+        <div id="ByFollowers"><!-- Plotly chart will be drawn inside this DIV --></div>
+        <br><br>
+        <div id="ByFollowing"><!-- Plotly chart will be drawn inside this DIV --></div>
+        <br><br>
+        <div id="ByFollowersAndFollowing"><!-- Plotly chart will be drawn inside this DIV --></div>
 
         <div id="wordCloudDiv">
             <h2>Word Cloud</h2>
@@ -207,6 +216,8 @@
     var plotly_hoursBetween = [];
     var plotly_tweetLength = [];
     var plotly_uniqueWords = [];
+    var plotly_followers = [];
+    var plotly_followings = [];
 
     function openImage() {
         let canvas = document.getElementById("wordCloud");
@@ -253,6 +264,8 @@
                     plotly_hoursBetween.push((responseText.avgHoursBetween).toFixed(2));
                     plotly_tweetLength.push((responseText.avgTweetLength).toFixed(2));
                     plotly_uniqueWords.push(responseText.uniqueWords);
+                    plotly_followers.push(responseText.followers);
+                    plotly_followings.push(responseText.followings);
                 }
                 else
                     row += "<td>Name Not Found</td>";//$("#userSpan").html("Name Not Found");
@@ -327,13 +340,15 @@
                         plotly_hoursBetween,
                         plotly_tweetLength,
                         plotly_uniqueWords,
-                        plotly_searchHits]
+                        plotly_searchHits,
+                        plotly_followers,
+                        plotly_followings]
 
                     var data = [{
                     type: 'table',
                     header: {
                         values: [["Timestamp"], ["Username"], ["Include Replies?"], ["Include Retweets?"], ["Search Term"],
-                                    ["Sample Size"], ["Average Frequency (Tweets/Day)"], ["Average Period Between Tweets (Hours)"], ["Average Tweet Length (Characters)"], ["Unique Words"], ["Tweets Including Search Term"]],
+                                    ["Sample Size"], ["Average Frequency (Tweets/Day)"], ["Average Period Between Tweets (Hours)"], ["Average Tweet Length (Characters)"], ["Unique Words"], ["Tweets Including Search Term"],["Followers"], ["Following"]],
                         align: "center",
                         line: {width: 1, color: 'black'},
                         fill: {color: 'rgb(0, 128, 255)'},
@@ -377,7 +392,7 @@
                 if($('#ui_SSTMU:checked').val()){
                     Plotly.newPlot('ByUsername_p', data_p, layout_p);} 
 
-                var arrayLength = plotly_UNs.length; // -----------------testing prevalance of two terms for multiple users
+                var arrayLength = plotly_UNs.length; // ----------------- prevalance of two terms for multiple users
                 var plotx = [];
                 var y1 = [];
                 var y2 = [];
@@ -511,7 +526,102 @@
                     };
 
                 if($('#ui_Lengths:checked').val()){
-                    Plotly.newPlot('ByLength', data4, layout4);} //-----------------------------------------------end plotly 
+                    Plotly.newPlot('ByLength', data4, layout4);} 
+
+                var data5 = [{ //-------------------------------------Followers by Username
+                x: plotly_UNs, 
+                y: plotly_followers, 
+                type: 'bar',
+                text: plotly_followers,
+                textposition: 'auto'
+                }];
+
+                var layout5 = {
+                    title: 'Twitter Followers',
+                    yaxis: {
+                        title: 'Followers (# of Users)',
+                        titlefont: {
+                            size: 12,
+                            color: 'rgb(107, 107, 107)'},
+                            },
+                    xaxis: {
+                        title: 'Twitter Username',
+                        titlefont: {
+                            size: 12,
+                            color: 'rgb(107, 107, 107)'},
+                            }
+                    };
+
+                if($('#ui_Followers:checked').val()){
+                    Plotly.newPlot('ByFollowers', data5, layout5);}
+
+                var data6 = [{ //-------------------------------------Followings by Username
+                x: plotly_UNs, 
+                y: plotly_followings, 
+                type: 'bar',
+                text: plotly_followings,
+                textposition: 'auto'
+                }];
+
+                var layout6 = {
+                    title: 'Twitter Friends (Following)',
+                    yaxis: {
+                        title: 'Following (# of Users)',
+                        titlefont: {
+                            size: 12,
+                            color: 'rgb(107, 107, 107)'},
+                            },
+                    xaxis: {
+                        title: 'Twitter Username',
+                        titlefont: {
+                            size: 12,
+                            color: 'rgb(107, 107, 107)'},
+                            }
+                    };
+
+                if($('#ui_Following:checked').val()){
+                    Plotly.newPlot('ByFollowing', data6, layout6);}
+
+                           
+                var trace7_p1 = { // ----------------- followers vs followings
+                    x: plotly_UNs,
+                    y: plotly_followers,
+                    name: "Followers",
+                    text: plotly_followers,
+                    textposition: 'auto',
+                    type: 'bar'
+                    };
+
+                    var trace7_p2 = {
+                    x: plotly_UNs,
+                    y: plotly_followings,
+                    name: "Friends (Following)",
+                    text: plotly_followings,
+                    textposition: 'auto',
+                    type: 'bar'
+                    };
+
+                    var data7 = [trace7_p1, trace7_p2];
+
+                    var layout7 = {barmode: 'group',
+                        title: 'Twitter Followers vs. Friends (Following)',
+                        yaxis: {
+                            title: '# of Users',
+                            titlefont: {
+                                size: 12,
+                                color: 'rgb(107, 107, 107)'},
+                                },
+                        xaxis: {
+                            title: 'Twitter Username',
+                            titlefont: {
+                                size: 12,
+                                color: 'rgb(107, 107, 107)'},
+                                }
+                    };
+                if($('#ui_Followers_and_Following:checked').val()){
+                    Plotly.newPlot('ByFollowersAndFollowing', data7, layout7);}
+                    
+                    //----------------------------------------------------------------------------------------------------end plotly 
 
                 //---------------------------------------------------------------------------------------------WORD CLOUD BEGIN
                 if($('#ui_WordCloud:checked').val()){
