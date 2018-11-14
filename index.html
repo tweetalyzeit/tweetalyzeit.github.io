@@ -217,7 +217,7 @@
     $(document).ready(function() {
         $("#tweetForm").ajaxForm({
             //url: 'http://tweetgettimestamps.herokuapp.com/?' + $('#tweetForm').serialize(),
-            url: 'http://tweetgettimestamps.herokuapp.com/?pw=' + $('#pw').val() + '&user=' + $('#user').val() + ($('#replies').is(":checked") ? '&replies=1' : '') + ($('#rts').is(":checked") ? '&rts=1' : '') + ($('#search').val() != "" ? "&search=" + $("#search").val() : "" ),
+            url: 'https://tweetgettimestamps.herokuapp.com/?pw=' + $('#pw').val() + '&user=' + $('#user').val() + ($('#replies').is(":checked") ? '&replies=1' : '') + ($('#rts').is(":checked") ? '&rts=1' : '') + ($('#search').val() != "" ? "&search=" + $("#search").val() : "" ),
             type: 'get', 
             beforeSend: function() {
                 $('#tweetSubmit').attr("disabled",true);
@@ -225,7 +225,7 @@
                 $("#tweetResults").hide();
                 $("#error").hide();
                // console.log('http://tweetgettimestamps.herokuapp.com/?pw=' + $('#pw').val() + '&user=' + $('#user').val() + ($('#replies').is(":checked") ? '&replies=1' : '') + ($('#rts').is(":checked") ? '&rts=1' : ''));
-               console.log('http://tweetgettimestamps.herokuapp.com/?pw=' + $('#pw').val() + '&user=' + $('#user').val() + ($('#replies').is(":checked") ? '&replies=1' : '') + ($('#rts').is(":checked") ? '&rts=1' : '') + ($('#search').val() != "" ? "&search=" + $("#search").val() : "" ));
+               console.log('https://tweetgettimestamps.herokuapp.com/?pw=' + $('#pw').val() + '&user=' + $('#user').val() + ($('#replies').is(":checked") ? '&replies=1' : '') + ($('#rts').is(":checked") ? '&rts=1' : '') + ($('#search').val() != "" ? "&search=" + $("#search").val() : "" ));
                 $("#currentDate").html(new Date().toString());
             },
             success: function(responseText, statusText, xhr, $form) {
