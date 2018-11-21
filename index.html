@@ -106,6 +106,8 @@
         <label>Plot Followers?</label><input id="ui_Followers" type = "checkbox" /><br>
         <label>Plot Following?</label><input id="ui_Following" type = "checkbox" /><br>
         <label>Plot Followers and Following?</label><input id="ui_Followers_and_Following" type = "checkbox" /><br>
+        <label>Plot Likes?</label><input id="ui_Likes" type = "checkbox" /><br>
+        <label>Plot Retweets?</label><input id="ui_Retweets" type = "checkbox" /><br>
         <label>Generate Word Cloud?</label><input id="ui_WordCloud" type = "checkbox" /><br>
         <label>Minimum number of occurences to appear in Word Cloud: </label> <input id="wordCloudMinSize" type="number" min="1" max="10" value="5" style="width: 35px" />
         <br><br>
@@ -145,6 +147,10 @@
         <div id="ByFollowing"><!-- Plotly chart will be drawn inside this DIV --></div>
         <br><br>
         <div id="ByFollowersAndFollowing"><!-- Plotly chart will be drawn inside this DIV --></div>
+        <br><br>
+        <div id="ByLikes"><!-- Plotly chart will be drawn inside this DIV --></div>
+        <br><br>
+        <div id="ByRetweets"><!-- Plotly chart will be drawn inside this DIV --></div>
 
         <div id="wordCloudDiv">
             <h2>Word Cloud</h2>
@@ -206,6 +212,8 @@
     var plotly_uniqueWords = [];
     var plotly_followers = [];
     var plotly_followings = [];
+    var plotly_avg_retweets = [];
+    var plotly_avg_likes = [];
 
     function openImage() {
         let canvas = document.getElementById("wordCloud");
@@ -254,6 +262,8 @@
                     plotly_uniqueWords.push(responseText.uniqueWords);
                     plotly_followers.push(responseText.followers);
                     plotly_followings.push(responseText.followings);
+                    plotly_avg_retweets.push((responseText.avg_retweets).toFixed(2));
+                    plotly_avg_likes.push((responseText.avg_likes).toFixed(2));
                 }
                 else
                     row += "<td>Name Not Found</td>";//$("#userSpan").html("Name Not Found");
@@ -330,13 +340,17 @@
                         plotly_uniqueWords,
                         plotly_searchHits,
                         plotly_followers,
-                        plotly_followings]
+                        plotly_followings,
+                        plotly_avg_likes,
+                        plotly_avg_retweets]
 
                     var data = [{
                     type: 'table',
                     header: {
                         values: [["Timestamp"], ["Username"], ["Include Replies?"], ["Include Retweets?"], ["Search Term"],
-                                    ["Sample Size"], ["Average Frequency (Tweets/Day)"], ["Average Period Between Tweets (Hours)"], ["Average Tweet Length (Characters)"], ["Unique Words"], ["Tweets Including Search Term"],["Followers"], ["Following"]],
+                                    ["Sample Size"], ["Average Frequency (Tweets/Day)"], ["Average Period Between Tweets (Hours)"], 
+                                    ["Average Tweet Length (Characters)"], ["Unique Words"], ["Tweets Including Search Term"],["Followers"], ["Following"], 
+                                    ["Average Tweet Likes"], ["Average Tweet Retweets"]],
                         align: "center",
                         line: {width: 1, color: 'black'},
                         fill: {color: 'rgb(0, 128, 255)'},
@@ -608,6 +622,60 @@
                     };
                 if($('#ui_Followers_and_Following:checked').val()){
                     Plotly.newPlot('ByFollowersAndFollowing', data7, layout7);}
+
+                var data8 = [{ //-------------------------------------Likes by Username
+                x: plotly_UNs, 
+                y: plotly_avg_likes, 
+                type: 'bar',
+                text: plotly_avg_likes,
+                textposition: 'auto'
+                }];
+
+                var layout8 = {
+                    title: 'Tweet Likes',
+                    yaxis: {
+                        title: 'Average Tweet Likes (Likes/Tweet)',
+                        titlefont: {
+                            size: 12,
+                            color: 'rgb(107, 107, 107)'},
+                            },
+                    xaxis: {
+                        title: 'Twitter Username',
+                        titlefont: {
+                            size: 12,
+                            color: 'rgb(107, 107, 107)'},
+                            }
+                    };
+
+                if($('#ui_Likes:checked').val()){
+                    Plotly.newPlot('ByLikes', data8, layout8);}
+                
+                var data9 = [{ //-------------------------------------Retweets by Username
+                x: plotly_UNs, 
+                y: plotly_avg_retweets, 
+                type: 'bar',
+                text: plotly_avg_likes,
+                textposition: 'auto'
+                }];
+
+                var layout9 = {
+                    title: 'Tweet Retweets',
+                    yaxis: {
+                        title: 'Average Tweet Retweets (Retweets/Tweet)',
+                        titlefont: {
+                            size: 12,
+                            color: 'rgb(107, 107, 107)'},
+                            },
+                    xaxis: {
+                        title: 'Twitter Username',
+                        titlefont: {
+                            size: 12,
+                            color: 'rgb(107, 107, 107)'},
+                            }
+                    };
+
+                if($('#ui_Retweets:checked').val()){
+                    Plotly.newPlot('ByRetweets', data9, layout9);}
                     
                     //----------------------------------------------------------------------------------------------------end plotly 
 
