@@ -122,10 +122,29 @@
                 <input type="radio" name="build_chart_type" id="build_chart_type" value="bar" checked onclick="setBar()"> Bar
                 <input type="radio" name="build_chart_type" id="build_chart_type" value="line" onclick="setLine()"> Line 
                 <input type="radio" name="build_chart_type" id="build_chart_type" value="pie" onclick ="setPie()"> Pie<br>
+            <label>X-Axis Data:</label>
+                <input type="radio" name="build_chart_xaxis" id="build_chart_xaxis" value="username" checked onclick="setxUNs()"> Username
+                <input type="radio" name="build_chart_xaxis" id="build_chart_xaxis" value="term" onclick="setxTerms()"> Searched Terms 
+                <input type="radio" name="build_chart_xaxis" id="build_chart_xaxis" value="frequency" onclick ="setxFrequencies()"> Tweet Frequency
+                <input type="radio" name="build_chart_xaxis" id="build_chart_xaxis" value="periodbetween" onclick="setxPeriod()"> Period Between Tweets
+                <input type="radio" name="build_chart_xaxis" id="build_chart_xaxis" value="length" onclick="setxLength()"> Tweet Length 
+                <input type="radio" name="build_chart_xaxis" id="build_chart_xaxis" value="uniquewords" onclick ="setxUniqueWords()"> Unique Words
+                <input type="radio" name="build_chart_xaxis" id="build_chart_xaxis" value="followers" onclick="setxFollowers()"> Followers
+                <input type="radio" name="build_chart_xaxis" id="build_chart_xaxis" value="followings" onclick="setxFollowings()"> Followings 
+                <input type="radio" name="build_chart_xaxis" id="build_chart_xaxis" value="likes" onclick ="setxLikes()"> Likes
+                <input type="radio" name="build_chart_xaxis" id="build_chart_xaxis" value="retweets" onclick ="setxRetweets()"> Retweets<br>
+            <label>Y-Axis Data:</label>
+                <input type="radio" name="build_chart_yaxis" id="build_chart_yaxis" value="prevalance" checked onclick="setyPrev()"> Term Prevalence 
+                <input type="radio" name="build_chart_yaxis" id="build_chart_yaxis" value="frequency" onclick ="setyFrequencies()"> Tweet Frequency
+                <input type="radio" name="build_chart_yaxis" id="build_chart_yaxis" value="periodbetween" onclick="setyPeriod()"> Period Between Tweets
+                <input type="radio" name="build_chart_yaxis" id="build_chart_yaxis" value="length" onclick="setyLength()"> Tweet Length 
+                <input type="radio" name="build_chart_yaxis" id="build_chart_yaxis" value="uniquewords" onclick ="setyUniqueWords()"> Unique Words
+                <input type="radio" name="build_chart_yaxis" id="build_chart_yaxis" value="followers" onclick="setyFollowers()"> Followers
+                <input type="radio" name="build_chart_yaxis" id="build_chart_yaxis" value="followings" onclick="setyFollowings()"> Followings 
+                <input type="radio" name="build_chart_yaxis" id="build_chart_yaxis" value="likes" onclick ="setyLikes()"> Likes
+                <input type="radio" name="build_chart_yaxis" id="build_chart_yaxis" value="retweets" onclick ="setyRetweets()"> Retweets<br>
             <label>Chart Title:</label>
                 <input type="text" name="build_chart_title_text" id="build_chart_title_text" value=""/>
-                <!--<input type="text" name="build_chart_title_font" id="build_chart_title_text" value=""/>
-                <input type="number" name="build_chart_title_size" id="build_chart_title_text" min="8" max ="48" value="18"/>-->
                 <input type="color" name="build_chart_title_color" id="build_chart_title_color" value="#000000"/> <br>
             <label>X-Axis Label:</label>
                 <input type="text" name="build_chart_xaxis_text" id="build_chart_xaxis_text" value=""/>
@@ -770,7 +789,9 @@
         hiddenElement.click();
     }
 
+    // ---------------------------------------------------------------------------------------------------------User generated plot prep
     $('#UserGeneratedPlot').hide();
+
     let build_chart_type = "bar";
     function setBar() {
         build_chart_type = "bar";
@@ -780,13 +801,74 @@
     function setPie() {
         build_chart_type = "pie";
     }
+
+    let build_chart_xaxis = plotly_UNs;
+    function setxUNs(){
+        build_chart_xaxis = plotly_UNs;
+    }
+    function setxTerms(){
+        build_chart_xaxis = plotly_searchTerms;
+    }
+    function setxFrequencies(){
+        build_chart_xaxis = plotly_frequencies;
+    }
+    function setxPeriod(){
+        build_chart_xaxis = plotly_hoursBetween;
+    }
+    function setxLength(){
+        build_chart_xaxis = plotly_tweetLength;
+    }
+    function setxUniqueWords(){
+        build_chart_xaxis = plotly_uniqueWords;
+    }
+    function setxFollowers(){
+        build_chart_xaxis = plotly_followers;
+    }
+    function setxFollowings(){
+        build_chart_xaxis = plotly_followings;
+    }
+    function setxLikes(){
+        build_chart_xaxis = plotly_avg_likes;
+    }
+    function setxRetweets(){
+        build_chart_xaxis = plotly_avg_retweets;
+    }
+    let build_chart_yaxis = plotly_searchPercent;
+    function setyPrev(){
+        build_chart_yaxis = plotly_searchPercent;
+    }
+    function setyFrequencies(){
+        build_chart_yaxis = plotly_frequencies;
+    }
+    function setyPeriod(){
+        build_chart_yaxis = plotly_hoursBetween;
+    }
+    function setyLength(){
+        build_chart_yaxis = plotly_tweetLength;
+    }
+    function setyUniqueWords(){
+        build_chart_yaxis = plotly_uniqueWords;
+    }
+    function setyFollowers(){
+        build_chart_yaxis = plotly_followers;
+    }
+    function setyFollowings(){
+        build_chart_yaxis = plotly_followings;
+    }
+    function setyLikes(){
+        build_chart_yaxis = plotly_avg_likes;
+    }
+    function setyRetweets(){
+        build_chart_yaxis = plotly_avg_retweets;
+    }
+
     function generate_plot(){ //----------------------------------------------------------------------------------generate the user generated plotly
         console.log(build_chart_type);
         var data_user = [{ //------------------------------------------------------------------User Generated Plot
-                    x: plotly_UNs, 
-                    y: plotly_frequencies, 
+                    x: build_chart_xaxis, 
+                    y: build_chart_yaxis, 
                     type: build_chart_type,
-                    text: plotly_frequencies,
+                    text: build_chart_yaxis,
                     textposition: 'auto'
                     }];
 
