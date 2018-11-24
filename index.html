@@ -119,11 +119,9 @@
         </section>
         <section id="build">
             <label>Chart Type:</label>
-            <form>
-                <input type="radio" name="build_chart_type" id="build_chart_type" value="bar" checked> Bar
-                <input type="radio" name="build_chart_type" id="build_chart_type" value="line"> Line 
-                <input type="radio" name="build_chart_type" id="build_chart_type" value="pie"> Pie<br>
-            </form>
+                <input type="radio" name="build_chart_type" id="build_chart_type" value="bar" checked onclick="setBar()"> Bar
+                <input type="radio" name="build_chart_type" id="build_chart_type" value="line" onclick="setLine()"> Line 
+                <input type="radio" name="build_chart_type" id="build_chart_type" value="pie" onclick ="setPie()"> Pie<br>
             <label>Chart Title:</label>
                 <input type="text" name="build_chart_title_text" id="build_chart_title_text" value=""/>
                 <!--<input type="text" name="build_chart_title_font" id="build_chart_title_text" value=""/>
@@ -773,11 +771,21 @@
     }
 
     $('#UserGeneratedPlot').hide();
+    let build_chart_type = "bar";
+    function setBar() {
+        build_chart_type = "bar";
+    }function setLine() {
+        build_chart_type = "line";
+    }
+    function setPie() {
+        build_chart_type = "pie";
+    }
     function generate_plot(){ //----------------------------------------------------------------------------------generate the user generated plotly
+        console.log(build_chart_type);
         var data_user = [{ //------------------------------------------------------------------User Generated Plot
                     x: plotly_UNs, 
                     y: plotly_frequencies, 
-                    type: $('#build_chart_type').val(),
+                    type: build_chart_type,
                     text: plotly_frequencies,
                     textposition: 'auto'
                     }];
