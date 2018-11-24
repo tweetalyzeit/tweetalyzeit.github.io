@@ -97,19 +97,45 @@
             <br><br>
         </form>
 
-        <label>Display Raw Response Table?</label><input id="ui_RawResponseTable" type = "checkbox" /><br>
-        <label>Plot x: username, y: term prevalence?</label><input id="ui_SSTMU" type = "checkbox" /><br>
-        <label>Plot x: username, y: 2 term prevalence?</label><input id="ui_SSTMU2" type = "checkbox" /><br>
-        <label>Plot x: term, y: prevalence?</label><input id="ui_MSTSU" type = "checkbox" /><br>
-        <label>Plot Tweet Frequency?</label><input id="ui_Frequencies" type = "checkbox" /><br>
-        <label>Plot Tweet Length?</label><input id="ui_Lengths" type = "checkbox" /><br>
-        <label>Plot Followers?</label><input id="ui_Followers" type = "checkbox" /><br>
-        <label>Plot Following?</label><input id="ui_Following" type = "checkbox" /><br>
-        <label>Plot Followers and Following?</label><input id="ui_Followers_and_Following" type = "checkbox" /><br>
-        <label>Plot Likes?</label><input id="ui_Likes" type = "checkbox" /><br>
-        <label>Plot Retweets?</label><input id="ui_Retweets" type = "checkbox" /><br>
-        <label>Generate Word Cloud?</label><input id="ui_WordCloud" type = "checkbox" /><br>
-        <label>Minimum number of occurences to appear in Word Cloud: </label> <input id="wordCloudMinSize" type="number" min="1" max="10" value="5" style="width: 35px" />
+        <form>
+            <input type="radio" name="prefabs_or_build" value="prefabs" checked onclick="showPrefabs()"> Use Tweetalyze Graphs
+            <input type="radio" name="prefabs_or_build" value="build" onclick="showBuild()"> Build Your Own Graph
+        </form>
+        <br>
+        <section id="prefabs">
+            <label>Display Raw Response Table?</label><input id="ui_RawResponseTable" type = "checkbox" /><br>
+            <label>Plot x: username, y: term prevalence?</label><input id="ui_SSTMU" type = "checkbox" /><br>
+            <label>Plot x: username, y: 2 term prevalence?</label><input id="ui_SSTMU2" type = "checkbox" /><br>
+            <label>Plot x: term, y: prevalence?</label><input id="ui_MSTSU" type = "checkbox" /><br>
+            <label>Plot Tweet Frequency?</label><input id="ui_Frequencies" type = "checkbox" /><br>
+            <label>Plot Tweet Length?</label><input id="ui_Lengths" type = "checkbox" /><br>
+            <label>Plot Followers?</label><input id="ui_Followers" type = "checkbox" /><br>
+            <label>Plot Following?</label><input id="ui_Following" type = "checkbox" /><br>
+            <label>Plot Followers and Following?</label><input id="ui_Followers_and_Following" type = "checkbox" /><br>
+            <label>Plot Likes?</label><input id="ui_Likes" type = "checkbox" /><br>
+            <label>Plot Retweets?</label><input id="ui_Retweets" type = "checkbox" /><br>
+            <label>Generate Word Cloud?</label><input id="ui_WordCloud" type = "checkbox" /><br>
+            <label>Minimum number of occurences to appear in Word Cloud: </label> <input id="wordCloudMinSize" type="number" min="1" max="10" value="5" style="width: 35px" />
+        </section>
+        <section id="build">
+            <label>Chart Type:</label>
+                <input type="radio" name="build_chart_type" value="bar" checked> Bar
+                <input type="radio" name="build_chart_type" value="line"> Line 
+                <input type="radio" name="build_chart_type" value="pie"> Pie<br>
+            <label>Chart Title:</label>
+                <input type="text" name="build_chart_title_text" id="build_chart_title_text" value=""/>
+                <!--<input type="text" name="build_chart_title_font" id="build_chart_title_text" value=""/>
+                <input type="number" name="build_chart_title_size" id="build_chart_title_text" min="8" max ="48" value="18"/>-->
+                <input type="color" name="build_chart_title_color" id="build_chart_title_color" value="#000000"/> <br>
+            <label>X-Axis Label:</label>
+                <input type="text" name="build_chart_xaxis_text" id="build_chart_xaxis_text" value=""/>
+                <input type="color" name="build_chart_xaxis_color" id="build_chart_xaxis_color" value="#7f7f7f"/><br>
+            <label>Y-Axis Label:</label>
+                <input type="text" name="build_chart_yaxis_text" id="build_chart_yaxis_text" value=""/>
+                <input type="color" name="build_chart_yaxis_color" id="build_chart_yaxis_color" value="#7f7f7f"/><br>
+            <br>
+            <button onclick="generate_plot()">Generate Plot</button>
+        </section>
         <br><br>
 
         <section id="error"><h1 id="errorDesc"></h1></section>
@@ -132,6 +158,8 @@
         <br><br>
         <!--<label>Time Requested: </label><p id="currentDate"></p>-->
 
+        <div id="UserGeneratedPlot"><!-- Plotly chart will be drawn inside this DIV --></div>
+        <br><br>
         <div id="ResponseTable"><!-- Plotly chart will be drawn inside this DIV --></div>
         <br><br>
         <div id="ByUsername_p"><!-- Plotly chart will be drawn inside this DIV --></div>
@@ -225,6 +253,18 @@
         window.scrollTo(0,document.body.scrollHeight);
     }
 
+    //control which graph options display to the user
+    $('#build').hide(); //hide on page load
+    function showPrefabs() {
+        $('#build').hide();
+        $('#prefabs').show();
+    }
+
+    function showBuild(){
+        $('#prefabs').hide();
+        $('#build').show();
+    }
+
     $(document).ready(function() {
         $("#tweetForm").ajaxForm({
             //url: 'http://tweetgettimestamps.herokuapp.com/?' + $('#tweetForm').serialize(),
@@ -235,8 +275,7 @@
                 $('#tweetSubmit').html("Loading");  
                 $("#tweetResults").hide();
                 $("#error").hide();
-               // console.log('http://tweetgettimestamps.herokuapp.com/?pw=' + $('#pw').val() + '&user=' + $('#user').val() + ($('#replies').is(":checked") ? '&replies=1' : '') + ($('#rts').is(":checked") ? '&rts=1' : ''));
-               console.log('https://tweetgettimestamps.herokuapp.com/?pw=' + $('#pw').val() + '&user=' + $('#user').val() + ($('#replies').is(":checked") ? '&replies=1' : '') + ($('#rts').is(":checked") ? '&rts=1' : '') + ($('#search').val() != "" ? "&search=" + $("#search").val() : "" ));
+                console.log('https://tweetgettimestamps.herokuapp.com/?pw=' + $('#pw').val() + '&user=' + $('#user').val() + ($('#replies').is(":checked") ? '&replies=1' : '') + ($('#rts').is(":checked") ? '&rts=1' : '') + ($('#search').val() != "" ? "&search=" + $("#search").val() : "" ));
                 $("#currentDate").html(new Date().toString());
             },
             success: function(responseText, statusText, xhr, $form) {
@@ -330,7 +369,7 @@
                     document.getElementById("resultsTable").innerHTML = document.getElementById("resultsTable").innerHTML + row;
                 }
 
-                //Plotly JS goes here-------------------------------------------------------------------------- PLOTLY begin
+                //Plotly JS goes here-------------------------------------------------------------------------- PLOTLY prefabs begin
 
                 var values = [ //-------------------------------------------------------Raw Response Table
                         plotly_timestamp,
@@ -722,13 +761,48 @@
         $("#wordCloudDiv").hide();
     });
 
-    function download_csv() { // CSV download
+    function download_csv() { // ---------------------------------------------------------------------------------CSV download
         console.log(csvString);
         var hiddenElement = document.createElement('a');
         hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csvString);
         hiddenElement.target = '_blank';
         hiddenElement.download = 'tweetalyze-raw.csv';
         hiddenElement.click();
+    }
+
+    $('#UserGeneratedPlot').hide();
+    function generate_plot(){ //----------------------------------------------------------------------------------generate the user generated plotly
+        var data_user = [{ //------------------------------------------------------------------User Generated Plot
+                    x: plotly_UNs, 
+                    y: plotly_frequencies, 
+                    type: $('#build_chart_type').val(),
+                    text: plotly_frequencies,
+                    textposition: 'auto'
+                    }];
+
+                var layout_user = {
+                    title: $('#build_chart_title_text').val(),
+                    titlefont: {
+                        //family: $('#build_chart_title_font').val(),
+                        //size: $('#build_chart_title_size').val(),
+                        color: $('#build_chart_title_color').val()
+                    },
+                    yaxis: {
+                        title: $('#build_chart_yaxis_text').val(),
+                        titlefont: {
+                            size: 12,
+                            color: $('#build_chart_yaxis_color').val()},
+                            },
+                    xaxis: {
+                        title: $('#build_chart_xaxis_text').val(),
+                        titlefont: {
+                            size: 12,
+                            color: $('#build_chart_xaxis_color').val()},
+                            }
+                    };
+
+        Plotly.newPlot('UserGeneratedPlot', data_user, layout_user); 
+        $('#UserGeneratedPlot').show();
     }
 
 </script>
