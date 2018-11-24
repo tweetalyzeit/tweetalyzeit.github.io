@@ -153,7 +153,11 @@
                 <input type="text" name="build_chart_yaxis_text" id="build_chart_yaxis_text" value=""/>
                 <input type="color" name="build_chart_yaxis_color" id="build_chart_yaxis_color" value="#7f7f7f"/><br>
             <label>Display Y-Axis Value?</label><input id="build_chart_yaxis_display" type = "checkbox" /><br>
-            <br>
+            <label>Bar - Fill Color:</label><input type="color" name="build_chart_bar_fillcolor" id="build_chart_bar_fillcolor" value="#1F77B4"/>
+                <label>Fill Opacity:</label><input type="number" name="build_chart_bar_opacity" id="build_chart_bar_opacity" min="0" max="1" value="1"/>
+                <label>Outline Color:</label><input type="color" name="build_chart_bar_outlinecolor" id="build_chart_bar_outlinecolor" value="#000000"/>
+                <label>Outline Width:</label><input type="number" name="build_chart_bar_outlinewidth" id="build_chart_bar_outlinewidth" min="0" max="10" value="0"/>
+            <br><br>
             <button onclick="generate_plot()">Generate Plot</button>
         </section>
         <br><br>
@@ -869,34 +873,44 @@
         if($('#build_chart_yaxis_display:checked').val()){
             build_chart_yaxis_display = build_chart_yaxis;
         }
-        var data_user = [{ //------------------------------------------------------------------User Generated Plot
-                    x: build_chart_xaxis, 
-                    y: build_chart_yaxis, 
-                    type: build_chart_type,
-                    text: build_chart_yaxis_display,
-                    textposition: 'auto'
-                    }];
 
-                var layout_user = {
-                    title: $('#build_chart_title_text').val(),
-                    titlefont: {
-                        //family: $('#build_chart_title_font').val(),
-                        //size: $('#build_chart_title_size').val(),
-                        color: $('#build_chart_title_color').val()
+        //--------------------------------------------------------------------------------------User Generated Plot
+        var data_user = [{ 
+                x: build_chart_xaxis, 
+                y: build_chart_yaxis, 
+                type: build_chart_type,
+                text: build_chart_yaxis_display,
+                textposition: 'auto',
+                marker: {
+                    color: $('#build_chart_bar_fillcolor').val(),
+                    opacity: $('#build_chart_bar_opacity').val(),
+                    line: {
+                        color: $('#build_chart_bar_outlinecolor').val(),
+                        width: $('#build_chart_bar_outlinewidth').val()
+                    }
+                }
+                }];
+
+        var layout_user = {
+            title: $('#build_chart_title_text').val(),
+            titlefont: {
+                //family: $('#build_chart_title_font').val(),
+                //size: $('#build_chart_title_size').val(),
+                color: $('#build_chart_title_color').val()
+            },
+            yaxis: {
+                title: $('#build_chart_yaxis_text').val(),
+                titlefont: {
+                    size: 12,
+                    color: $('#build_chart_yaxis_color').val()},
                     },
-                    yaxis: {
-                        title: $('#build_chart_yaxis_text').val(),
-                        titlefont: {
-                            size: 12,
-                            color: $('#build_chart_yaxis_color').val()},
-                            },
-                    xaxis: {
-                        title: $('#build_chart_xaxis_text').val(),
-                        titlefont: {
-                            size: 12,
-                            color: $('#build_chart_xaxis_color').val()},
-                            }
-                    };
+            xaxis: {
+                title: $('#build_chart_xaxis_text').val(),
+                titlefont: {
+                    size: 12,
+                    color: $('#build_chart_xaxis_color').val()},
+                    }
+        };
 
         Plotly.newPlot('UserGeneratedPlot', data_user, layout_user); 
         $('#UserGeneratedPlot').show();
