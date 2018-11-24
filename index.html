@@ -153,10 +153,17 @@
                 <input type="text" name="build_chart_yaxis_text" id="build_chart_yaxis_text" value=""/>
                 <input type="color" name="build_chart_yaxis_color" id="build_chart_yaxis_color" value="#7f7f7f"/><br>
             <label>Display Y-Axis Value?</label><input id="build_chart_yaxis_display" type = "checkbox" /><br>
-            <label>Opacity:</label><input type="number" name="build_chart_bar_opacity" id="build_chart_bar_opacity" min="0" max="1" value="1"/>
+            <form id="build_bar_aesthetic">
+                <label>Opacity:</label><input type="number" name="build_chart_bar_opacity" id="build_chart_bar_opacity" min="0" max="1" value="1"/>
                 <label>Fill Color:</label><input type="color" name="build_chart_bar_fillcolor" id="build_chart_bar_fillcolor" value="#1F77B4"/>
                 <label>Outline Color:</label><input type="color" name="build_chart_bar_outlinecolor" id="build_chart_bar_outlinecolor" value="#000000"/>
                 <label>Outline Width:</label><input type="number" name="build_chart_bar_outlinewidth" id="build_chart_bar_outlinewidth" min="0" max="10" value="0"/>
+            </form>
+            <form id="build_line_aesthetic">
+                    <label>Opacity:</label><input type="number" name="build_chart_bar_opacity" id="build_chart_bar_opacity" min="0" max="1" value="1"/>
+                    <label>Line Color:</label><input type="color" name="build_chart_bar_fillcolor" id="build_chart_bar_fillcolor" value="#1F77B4"/>
+                    <label>Point Color:</label><input type="color" name="build_chart_bar_outlinecolor" id="build_chart_bar_outlinecolor" value="#000000"/>
+            </form>
             <br><br>
             <button onclick="generate_plot()">Generate Plot</button>
         </section>
@@ -796,15 +803,23 @@
 
     // ---------------------------------------------------------------------------------------------------------User generated plot prep
     $('#UserGeneratedPlot').hide();
+    $('#build_line_aesthetic').hide();
 
     let build_chart_type = "bar";
     function setBar() {
         build_chart_type = "bar";
-    }function setLine() {
+        $('#build_line_aesthetic').hide();
+        $('#build_bar_aesthetic').show();
+    }
+    function setLine() {
         build_chart_type = "line";
+        $('#build_bar_aesthetic').hide();
+        $('#build_line_aesthetic').show();
     }
     function setPie() {
         build_chart_type = "pie";
+        $('#build_line_aesthetic').hide();
+        $('#build_bar_aesthetic').hide();
     }
 
     let build_chart_xaxis = plotly_UNs;
