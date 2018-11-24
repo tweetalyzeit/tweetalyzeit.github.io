@@ -128,6 +128,8 @@
             </tr>
         </table>
         <br><br>
+        <button onclick="download_csv()">Download Results CSV</button> 
+        <br><br>
         <!--<label>Time Requested: </label><p id="currentDate"></p>-->
 
         <div id="ResponseTable"><!-- Plotly chart will be drawn inside this DIV --></div>
@@ -198,6 +200,7 @@
 <!--Analytics-->
 
 <script>
+    let csvString = "Timestamp,Username,Include Replies?,Include Retweets?,Search Term,Sample Size,Average Frequency (Tweets/Day),Average Period Between Tweets (Hours),Average Tweet Length (Characters),Unique Words,Tweets Including Search Term,Followers,Following,Average Tweet Likes,Average Tweet Retweets\n";
     var plotly_timestamp = [];
     var plotly_UNs = [];
     var plotly_replies = [];
@@ -247,6 +250,8 @@
                     row += "<td>" + responseText.name + "</td>";   //$("#userSpan").html("@" + responseText.name);
                     row += "<td>" + $('#replies').is(":checked") + "</td>";
                     row += "<td>" + $('#rts').is(":checked") + "</td>";
+                    
+                    csvString += Date(Date.now()) + "," + responseText.name + "," + $('#replies').is(":checked") + "," + $('#rts').is(":checked") + "," + $('#search').val().toLowerCase() + "," + responseText.sampleSize + "," + responseText.perDay + "," + responseText.avgHoursBetween + "," + responseText.avgTweetLength + "," + responseText.uniqueWords + "," + responseText.searchHits + "," + responseText.followers + ","+ responseText.followings + "," + responseText.avg_likes + "," + responseText.avg_retweets + "\n";
 
                     plotly_timestamp.push(Date(Date.now()));
                     plotly_UNs.push(responseText.name);
@@ -709,13 +714,23 @@
                         minFontSize: "30px"
                     });              
 
-                    $("#wordCloudDiv").show();} //------------------------------------------------------------------------ end word cloud
+                    $("#wordCloudDiv").show();} //------------------------------------------------------------------------ end word cloud 
             }
         });
         $("#tweetResults").hide();
         $("#error").hide();
         $("#wordCloudDiv").hide();
     });
+
+    function download_csv() { // CSV download
+        console.log(csvString);
+        var hiddenElement = document.createElement('a');
+        hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csvString);
+        hiddenElement.target = '_blank';
+        hiddenElement.download = 'tweetalyze-raw.csv';
+        hiddenElement.click();
+    }
+
 </script>
     
   </html>
