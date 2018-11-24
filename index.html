@@ -152,6 +152,7 @@
             <label>Y-Axis Label:</label>
                 <input type="text" name="build_chart_yaxis_text" id="build_chart_yaxis_text" value=""/>
                 <input type="color" name="build_chart_yaxis_color" id="build_chart_yaxis_color" value="#7f7f7f"/><br>
+            <label>Display Y-Axis Value?</label><input id="build_chart_yaxis_display" type = "checkbox" /><br>
             <br>
             <button onclick="generate_plot()">Generate Plot</button>
         </section>
@@ -863,12 +864,16 @@
     }
 
     function generate_plot(){ //----------------------------------------------------------------------------------generate the user generated plotly
-        console.log(build_chart_type);
+        console.log($('#build_chart_yaxis_display:checked').val());
+        build_chart_yaxis_display = "";
+        if($('#build_chart_yaxis_display:checked').val()){
+            build_chart_yaxis_display = build_chart_yaxis;
+        }
         var data_user = [{ //------------------------------------------------------------------User Generated Plot
                     x: build_chart_xaxis, 
                     y: build_chart_yaxis, 
                     type: build_chart_type,
-                    text: build_chart_yaxis,
+                    text: build_chart_yaxis_display,
                     textposition: 'auto'
                     }];
 
