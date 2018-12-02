@@ -159,7 +159,7 @@
                 <label>Outline Color:</label><input type="color" name="build_chart_bar_outlinecolor" id="build_chart_bar_outlinecolor" value="#000000"/>
                 <label>Outline Width:</label><input type="number" name="build_chart_bar_outlinewidth" id="build_chart_bar_outlinewidth" min="0" max="10" value="0"/>
             </form>
-            <form id="build_line_aesthetic">
+            <div id="build_line_aesthetic">
                 <label>Line Mode:</label>
                     <input type="radio" name="build_chart_linemode" id="build_chart_linemode" value="lines+markers" checked onclick="setLineModeBoth()"> Lines and Markers
                     <input type="radio" name="build_chart_linemode" id="build_chart_linemode" value="lines" onclick="setLineModeLines()"> Lines 
@@ -172,11 +172,9 @@
                     <label>Marker Size:</label></label><input type="number" name="build_chart_line_marker_size" id="build_chart_line_marker_size" min="1" max="24" value="12"/>
                     <label>Marker Color:</label><input type="color" name="build_chart_line_marker_color" id="build_chart_line_marker_color" value="#1F77B4"/>
                 </div>
-            </form>
+            </div>
             <form id="build_pie_aesthetic">
-                <label>Chart Title:</label>
-                    <input type="text" name="build_chart_title_text" id="build_chart_title_text" value=""/>
-                    <input type="color" name="build_chart_title_color" id="build_chart_title_color" value="#000000"/> <br>
+                
             </form>
             <br><br>
             <button onclick="generate_plot()">Generate Plot</button>
