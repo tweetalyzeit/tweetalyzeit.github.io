@@ -122,38 +122,38 @@
                 <input type="radio" name="build_chart_type" id="build_chart_type" value="bar" checked onclick="setBar()"> Bar
                 <input type="radio" name="build_chart_type" id="build_chart_type" value="line" onclick="setLine()"> Line 
                 <input type="radio" name="build_chart_type" id="build_chart_type" value="pie" onclick ="setPie()"> Pie<br>
+            <label>X-Axis Data:</label>
+                <input type="radio" name="build_chart_xaxis" id="build_chart_xaxis" value="username" checked onclick="setxUNs()"> Username
+                <input type="radio" name="build_chart_xaxis" id="build_chart_xaxis" value="term" onclick="setxTerms()"> Searched Terms 
+                <input type="radio" name="build_chart_xaxis" id="build_chart_xaxis" value="frequency" onclick ="setxFrequencies()"> Tweet Frequency
+                <input type="radio" name="build_chart_xaxis" id="build_chart_xaxis" value="periodbetween" onclick="setxPeriod()"> Period Between Tweets
+                <input type="radio" name="build_chart_xaxis" id="build_chart_xaxis" value="length" onclick="setxLength()"> Tweet Length 
+                <input type="radio" name="build_chart_xaxis" id="build_chart_xaxis" value="uniquewords" onclick ="setxUniqueWords()"> Unique Words
+                <input type="radio" name="build_chart_xaxis" id="build_chart_xaxis" value="followers" onclick="setxFollowers()"> Followers
+                <input type="radio" name="build_chart_xaxis" id="build_chart_xaxis" value="followings" onclick="setxFollowings()"> Followings 
+                <input type="radio" name="build_chart_xaxis" id="build_chart_xaxis" value="likes" onclick ="setxLikes()"> Likes
+                <input type="radio" name="build_chart_xaxis" id="build_chart_xaxis" value="retweets" onclick ="setxRetweets()"> Retweets<br>
+            <label>Y-Axis Data:</label>
+                <input type="radio" name="build_chart_yaxis" id="build_chart_yaxis" value="prevalance" checked onclick="setyPrev()"> Term Prevalence 
+                <input type="radio" name="build_chart_yaxis" id="build_chart_yaxis" value="frequency" onclick ="setyFrequencies()"> Tweet Frequency
+                <input type="radio" name="build_chart_yaxis" id="build_chart_yaxis" value="periodbetween" onclick="setyPeriod()"> Period Between Tweets
+                <input type="radio" name="build_chart_yaxis" id="build_chart_yaxis" value="length" onclick="setyLength()"> Tweet Length 
+                <input type="radio" name="build_chart_yaxis" id="build_chart_yaxis" value="uniquewords" onclick ="setyUniqueWords()"> Unique Words
+                <input type="radio" name="build_chart_yaxis" id="build_chart_yaxis" value="followers" onclick="setyFollowers()"> Followers
+                <input type="radio" name="build_chart_yaxis" id="build_chart_yaxis" value="followings" onclick="setyFollowings()"> Followings 
+                <input type="radio" name="build_chart_yaxis" id="build_chart_yaxis" value="likes" onclick ="setyLikes()"> Likes
+                <input type="radio" name="build_chart_yaxis" id="build_chart_yaxis" value="retweets" onclick ="setyRetweets()"> Retweets<br>
+            <label>Chart Title:</label>
+                <input type="text" name="build_chart_title_text" id="build_chart_title_text" value=""/>
+                <input type="color" name="build_chart_title_color" id="build_chart_title_color" value="#000000"/> <br>
+            <label>X-Axis Label:</label>
+                <input type="text" name="build_chart_xaxis_text" id="build_chart_xaxis_text" value=""/>
+                <input type="color" name="build_chart_xaxis_color" id="build_chart_xaxis_color" value="#7f7f7f"/><br>
+            <label>Y-Axis Label:</label>
+                <input type="text" name="build_chart_yaxis_text" id="build_chart_yaxis_text" value=""/>
+                <input type="color" name="build_chart_yaxis_color" id="build_chart_yaxis_color" value="#7f7f7f"/><br>
+            <label>Display Y-Axis Value?</label><input id="build_chart_yaxis_display" type = "checkbox" /><br>
             <form id="build_bar_aesthetic">
-                <label>X-Axis Data:</label>
-                    <input type="radio" name="build_chart_xaxis" id="build_chart_xaxis" value="username" checked onclick="setxUNs()"> Username
-                    <input type="radio" name="build_chart_xaxis" id="build_chart_xaxis" value="term" onclick="setxTerms()"> Searched Terms 
-                    <input type="radio" name="build_chart_xaxis" id="build_chart_xaxis" value="frequency" onclick ="setxFrequencies()"> Tweet Frequency
-                    <input type="radio" name="build_chart_xaxis" id="build_chart_xaxis" value="periodbetween" onclick="setxPeriod()"> Period Between Tweets
-                    <input type="radio" name="build_chart_xaxis" id="build_chart_xaxis" value="length" onclick="setxLength()"> Tweet Length 
-                    <input type="radio" name="build_chart_xaxis" id="build_chart_xaxis" value="uniquewords" onclick ="setxUniqueWords()"> Unique Words
-                    <input type="radio" name="build_chart_xaxis" id="build_chart_xaxis" value="followers" onclick="setxFollowers()"> Followers
-                    <input type="radio" name="build_chart_xaxis" id="build_chart_xaxis" value="followings" onclick="setxFollowings()"> Followings 
-                    <input type="radio" name="build_chart_xaxis" id="build_chart_xaxis" value="likes" onclick ="setxLikes()"> Likes
-                    <input type="radio" name="build_chart_xaxis" id="build_chart_xaxis" value="retweets" onclick ="setxRetweets()"> Retweets<br>
-                <label>Y-Axis Data:</label>
-                    <input type="radio" name="build_chart_yaxis" id="build_chart_yaxis" value="prevalance" checked onclick="setyPrev()"> Term Prevalence 
-                    <input type="radio" name="build_chart_yaxis" id="build_chart_yaxis" value="frequency" onclick ="setyFrequencies()"> Tweet Frequency
-                    <input type="radio" name="build_chart_yaxis" id="build_chart_yaxis" value="periodbetween" onclick="setyPeriod()"> Period Between Tweets
-                    <input type="radio" name="build_chart_yaxis" id="build_chart_yaxis" value="length" onclick="setyLength()"> Tweet Length 
-                    <input type="radio" name="build_chart_yaxis" id="build_chart_yaxis" value="uniquewords" onclick ="setyUniqueWords()"> Unique Words
-                    <input type="radio" name="build_chart_yaxis" id="build_chart_yaxis" value="followers" onclick="setyFollowers()"> Followers
-                    <input type="radio" name="build_chart_yaxis" id="build_chart_yaxis" value="followings" onclick="setyFollowings()"> Followings 
-                    <input type="radio" name="build_chart_yaxis" id="build_chart_yaxis" value="likes" onclick ="setyLikes()"> Likes
-                    <input type="radio" name="build_chart_yaxis" id="build_chart_yaxis" value="retweets" onclick ="setyRetweets()"> Retweets<br>
-                <label>Chart Title:</label>
-                    <input type="text" name="build_chart_title_text" id="build_chart_title_text" value=""/>
-                    <input type="color" name="build_chart_title_color" id="build_chart_title_color" value="#000000"/> <br>
-                <label>X-Axis Label:</label>
-                    <input type="text" name="build_chart_xaxis_text" id="build_chart_xaxis_text" value=""/>
-                    <input type="color" name="build_chart_xaxis_color" id="build_chart_xaxis_color" value="#7f7f7f"/><br>
-                <label>Y-Axis Label:</label>
-                    <input type="text" name="build_chart_yaxis_text" id="build_chart_yaxis_text" value=""/>
-                    <input type="color" name="build_chart_yaxis_color" id="build_chart_yaxis_color" value="#7f7f7f"/><br>
-                <label>Display Y-Axis Value?</label><input id="build_chart_yaxis_display" type = "checkbox" /><br>
                 <label>Opacity:</label><input type="number" name="build_chart_bar_opacity" id="build_chart_bar_opacity" min="0" max="1" value="1"/>
                 <label>Fill Color:</label><input type="color" name="build_chart_bar_fillcolor" id="build_chart_bar_fillcolor" value="#1F77B4"/>
                 <label>Outline Color:</label><input type="color" name="build_chart_bar_outlinecolor" id="build_chart_bar_outlinecolor" value="#000000"/>
@@ -164,44 +164,13 @@
                     <input type="radio" name="build_chart_linemode" id="build_chart_linemode" value="lines+markers" checked onclick="setLineModeBoth()"> Lines and Markers
                     <input type="radio" name="build_chart_linemode" id="build_chart_linemode" value="lines" onclick="setLineModeLines()"> Lines 
                     <input type="radio" name="build_chart_linemode" id="build_chart_linemode" value="markers" onclick ="setLineModeMarkers()"> Markers<br>
-                <label>X-Axis Data:</label>
-                    <input type="radio" name="build_chart_xaxis" id="build_chart_xaxis" value="username" checked onclick="setxUNs()"> Username
-                    <input type="radio" name="build_chart_xaxis" id="build_chart_xaxis" value="term" onclick="setxTerms()"> Searched Terms 
-                    <input type="radio" name="build_chart_xaxis" id="build_chart_xaxis" value="frequency" onclick ="setxFrequencies()"> Tweet Frequency
-                    <input type="radio" name="build_chart_xaxis" id="build_chart_xaxis" value="periodbetween" onclick="setxPeriod()"> Period Between Tweets
-                    <input type="radio" name="build_chart_xaxis" id="build_chart_xaxis" value="length" onclick="setxLength()"> Tweet Length 
-                    <input type="radio" name="build_chart_xaxis" id="build_chart_xaxis" value="uniquewords" onclick ="setxUniqueWords()"> Unique Words
-                    <input type="radio" name="build_chart_xaxis" id="build_chart_xaxis" value="followers" onclick="setxFollowers()"> Followers
-                    <input type="radio" name="build_chart_xaxis" id="build_chart_xaxis" value="followings" onclick="setxFollowings()"> Followings 
-                    <input type="radio" name="build_chart_xaxis" id="build_chart_xaxis" value="likes" onclick ="setxLikes()"> Likes
-                    <input type="radio" name="build_chart_xaxis" id="build_chart_xaxis" value="retweets" onclick ="setxRetweets()"> Retweets<br>
-                <label>Y-Axis Data:</label>
-                    <input type="radio" name="build_chart_yaxis" id="build_chart_yaxis" value="prevalance" checked onclick="setyPrev()"> Term Prevalence 
-                    <input type="radio" name="build_chart_yaxis" id="build_chart_yaxis" value="frequency" onclick ="setyFrequencies()"> Tweet Frequency
-                    <input type="radio" name="build_chart_yaxis" id="build_chart_yaxis" value="periodbetween" onclick="setyPeriod()"> Period Between Tweets
-                    <input type="radio" name="build_chart_yaxis" id="build_chart_yaxis" value="length" onclick="setyLength()"> Tweet Length 
-                    <input type="radio" name="build_chart_yaxis" id="build_chart_yaxis" value="uniquewords" onclick ="setyUniqueWords()"> Unique Words
-                    <input type="radio" name="build_chart_yaxis" id="build_chart_yaxis" value="followers" onclick="setyFollowers()"> Followers
-                    <input type="radio" name="build_chart_yaxis" id="build_chart_yaxis" value="followings" onclick="setyFollowings()"> Followings 
-                    <input type="radio" name="build_chart_yaxis" id="build_chart_yaxis" value="likes" onclick ="setyLikes()"> Likes
-                    <input type="radio" name="build_chart_yaxis" id="build_chart_yaxis" value="retweets" onclick ="setyRetweets()"> Retweets<br>
-                <label>Chart Title:</label>
-                    <input type="text" name="build_chart_title_text" id="build_chart_title_text" value=""/>
-                    <input type="color" name="build_chart_title_color" id="build_chart_title_color" value="#000000"/> <br>
-                <label>X-Axis Label:</label>
-                    <input type="text" name="build_chart_xaxis_text" id="build_chart_xaxis_text" value=""/>
-                    <input type="color" name="build_chart_xaxis_color" id="build_chart_xaxis_color" value="#7f7f7f"/><br>
-                <label>Y-Axis Label:</label>
-                    <input type="text" name="build_chart_yaxis_text" id="build_chart_yaxis_text" value=""/>
-                    <input type="color" name="build_chart_yaxis_color" id="build_chart_yaxis_color" value="#7f7f7f"/><br>
-                <label>Display Y-Axis Value?</label><input id="build_chart_yaxis_display" type = "checkbox" /><br>
                 <div id="build_line_line">
-                        <label>Line Width:</label><input type="number" name="build_chart_bar_outlinewidth" id="build_chart_bar_outlinewidth" min="1" max="10" value="2"/>
-                        <label>Line Color:</label><input type="color" name="build_chart_bar_outlinecolor" id="build_chart_bar_outlinecolor" value="#1F77B4"/>
+                        <label>Line Width:</label><input type="number" name="build_chart_line_linewidth" id="build_chart_line_linewidth" min="1" max="10" value="2"/>
+                        <label>Line Color:</label><input type="color" name="build_chart_line_linecolor" id="build_chart_line_linecolor" value="#1F77B4"/>
                 </div>
                 <div id="build_line_marker">
                     <label>Marker Size:</label></label><input type="number" name="build_chart_line_marker_size" id="build_chart_line_marker_size" min="1" max="24" value="12"/>
-                    <label>Marker Color:</label><input type="color" name="build_chart_bar_fillcolor" id="build_chart_bar_fillcolor" value="#1F77B4"/>
+                    <label>Marker Color:</label><input type="color" name="build_chart_line_marker_color" id="build_chart_line_marker_color" value="#1F77B4"/>
                 </div>
             </form>
             <form id="build_pie_aesthetic">
@@ -1004,12 +973,12 @@
                     text: build_chart_yaxis_display,
                     textposition: 'auto',
                     marker: {
-                        color: $('#build_chart_bar_fillcolor').val(),
+                        color: $('#build_chart_line_marker_color').val(),
                         size: $('#build_chart_line_marker_size').val()
                     },
                     line: {
-                        color: $('#build_chart_bar_outlinecolor').val(),
-                        width: $('##build_chart_bar_outlinewidth').val()
+                        color: $('#build_chart_line_linecolor').val(),
+                        width: $('#build_chart_line_linewidth').val()
                     }
                     }];
             var layout_user = {
