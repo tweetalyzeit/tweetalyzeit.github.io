@@ -271,7 +271,7 @@
 <!--Analytics-->
 
 <script>
-    let csvString = "Timestamp,Username,Include Replies?,Include Retweets?,Search Term,Sample Size,Average Frequency (Tweets/Day),Average Period Between Tweets (Hours),Average Tweet Length (Characters),Unique Words,Tweets Including Search Term,Followers,Following,Average Tweet Likes,Average Tweet Retweets\n";
+    let csvString = "Timestamp,Username,Include Replies?,Include Retweets?,Search Term,Sample Size,Average Frequency (Tweets/Day),Average Period Between Tweets (Hours),Average Tweet Length (Characters),Unique Words,Tweets Including Search Term,Followers,Following,Average Tweet Likes,Average Tweet Retweets,Tweet Clients\n";
     var plotly_timestamp = [];
     var plotly_UNs = [];
     var plotly_replies = [];
@@ -288,6 +288,7 @@
     var plotly_followings = [];
     var plotly_avg_retweets = [];
     var plotly_avg_likes = [];
+    var plotly_tweet_clients = [];
 
     function openImage() {
         let canvas = document.getElementById("wordCloud");
@@ -333,7 +334,7 @@
                     row += "<td>" + $('#replies').is(":checked") + "</td>";
                     row += "<td>" + $('#rts').is(":checked") + "</td>";
                     
-                    csvString += Date(Date.now()) + "," + responseText.name + "," + $('#replies').is(":checked") + "," + $('#rts').is(":checked") + "," + $('#search').val().toLowerCase() + "," + responseText.sampleSize + "," + responseText.perDay + "," + responseText.avgHoursBetween + "," + responseText.avgTweetLength + "," + responseText.uniqueWords + "," + responseText.searchHits + "," + responseText.followers + ","+ responseText.followings + "," + responseText.avg_likes + "," + responseText.avg_retweets + "\n";
+                    csvString += Date(Date.now()) + "," + responseText.name + "," + $('#replies').is(":checked") + "," + $('#rts').is(":checked") + "," + $('#search').val().toLowerCase() + "," + responseText.sampleSize + "," + responseText.perDay + "," + responseText.avgHoursBetween + "," + responseText.avgTweetLength + "," + responseText.uniqueWords + "," + responseText.searchHits + "," + responseText.followers + ","+ responseText.followings + "," + responseText.avg_likes + "," + responseText.avg_retweets + "," + responseText.tweet_clients + "\n";
 
                     plotly_timestamp.push(Date(Date.now()));
                     plotly_UNs.push(responseText.name);
@@ -351,6 +352,12 @@
                     plotly_followings.push(responseText.followings);
                     plotly_avg_retweets.push((responseText.avg_retweets).toFixed(2));
                     plotly_avg_likes.push((responseText.avg_likes).toFixed(2));
+
+                    let client_clean = "";
+                    for (let i = 0; i < responseText.tweet_clients.length; i++){
+                        client_clean += responseText.tweet_clients[i] + "/n";
+                    }
+                    plotly_tweet_clients.push(client_clean);
                 }
                 else
                     row += "<td>Name Not Found</td>";//$("#userSpan").html("Name Not Found");
