@@ -339,7 +339,7 @@
                         client_clean += responseText.tweet_clients[i] + ";";
                     }
 
-                    csvString += Date(Date.now()) + "," + responseText.name + "," + $('#replies').is(":checked") + "," + $('#rts').is(":checked") + "," + $('#search').val().toLowerCase() + "," + responseText.sampleSize + "," + responseText.perDay + "," + responseText.avgHoursBetween + "," + responseText.avgTweetLength + "," + responseText.uniqueWords + "," + responseText.searchHits + "," + responseText.followers + ","+ responseText.followings + "," + responseText.avg_likes + "," + responseText.avg_retweets + "," + client_clean + "\n";
+                    csvString += Date(Date.now()) + "," + responseText.name + "," + $('#replies').is(":checked") + "," + $('#rts').is(":checked") + "," + $('#search').val().toLowerCase() + "," + responseText.sampleSize + "," + responseText.perDay + "," + responseText.avgHoursBetween + "," + responseText.avgTweetLength + "," + responseText.uniqueWords + "," + responseText.searchHits + "," + responseText.followers + ","+ responseText.followings + "," + responseText.avg_likes + "," + responseText.avg_retweets + "," + responseText.tweet_clients + "\n";
 
                     plotly_timestamp.push(Date(Date.now()));
                     plotly_UNs.push(responseText.name);
