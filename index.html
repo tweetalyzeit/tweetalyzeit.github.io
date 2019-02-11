@@ -271,7 +271,7 @@
 <!--Analytics-->
 
 <script>
-    let csvString = "Timestamp,Username,Include Replies?,Include Retweets?,Search Term,Sample Size,Average Frequency (Tweets/Day),Average Period Between Tweets (Hours),Average Tweet Length (Characters),Unique Words,Tweets Including Search Term,Followers,Following,Average Tweet Likes,Average Tweet Retweets,Tweet Clients\n";
+    let csvString = "Timestamp,Username,Include Replies?,Include Retweets?,Search Term,Sample Size,# Retweets,% Retweets,# Replies,% Replies,Time Since Last Tweet (Days),Average Frequency (Tweets/Day),Average Period Between Tweets (Hours),Average Tweet Length (Characters),Unique Words,Tweets Including Search Term,Followers,Following,Average Tweet Likes,Average Tweet Retweets,Tweet Clients\n";
     var plotly_timestamp = [];
     var plotly_UNs = [];
     var plotly_replies = [];
@@ -339,7 +339,7 @@
                         client_clean += responseText.tweet_clients[i] + ";";
                     }
 
-                    csvString += Date(Date.now()) + "," + responseText.name + "," + $('#replies').is(":checked") + "," + $('#rts').is(":checked") + "," + $('#search').val().toLowerCase() + "," + responseText.sampleSize + "," + responseText.perDay + "," + responseText.avgHoursBetween + "," + responseText.avgTweetLength + "," + responseText.uniqueWords + "," + responseText.searchHits + "," + responseText.followers + ","+ responseText.followings + "," + responseText.avg_likes + "," + responseText.avg_retweets + "," + responseText.tweet_clients + "\n";
+                    csvString += Date(Date.now()) + "," + responseText.name + "," + $('#replies').is(":checked") + "," + $('#rts').is(":checked") + "," + $('#search').val().toLowerCase() + "," + responseText.sampleSize + "," + responseText.num_RTs + "," + responseText.perc_RTs + "," + responseText.num_replies + "," + responseText.perc_replies + "," + responseText.daysSince + "," + responseText.perDay + "," + responseText.avgHoursBetween + "," + responseText.avgTweetLength + "," + responseText.uniqueWords + "," + responseText.searchHits + "," + responseText.followers + ","+ responseText.followings + "," + responseText.avg_likes + "," + responseText.avg_retweets + "," + responseText.tweet_clients + "\n";
 
                     plotly_timestamp.push(Date(Date.now()));
                     plotly_UNs.push(responseText.name);
