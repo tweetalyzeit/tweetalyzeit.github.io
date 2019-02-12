@@ -480,7 +480,7 @@
                     Plotly.plot('ResponseTable', data);}
 
                 var data_sc = [{ //------------------------------------------------Sample Composition Pie Chart
-                    values: [responseText.num_RTs,responseText.num_replies,response.text.sampleSize - responseText.num_RTs - responseText.num_replies], 
+                    values: [responseText.num_RTs,responseText.num_replies,responseText.sampleSize - responseText.num_RTs - responseText.num_replies], 
                     labels: ["Retweets", "Replies", "Other"], 
                     type: 'pie',
                     text: [responseText.num_RTs,responseText.num_replies,response.text.sampleSize - responseText.num_RTs - responseText.num_replies],
