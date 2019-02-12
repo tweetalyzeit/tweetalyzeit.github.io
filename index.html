@@ -293,6 +293,7 @@
     var plotly_perc_RTs = [];
     var plotly_num_replies = [];
     var plotly_perc_replies = [];
+    var plotly_daysSince = [];
 
     function openImage() {
         let canvas = document.getElementById("wordCloud");
@@ -366,6 +367,7 @@
                     plotly_perc_RTs.push((responseText.perc_RTs).toFixed(2));
                     plotly_num_replies.push(responseText.num_replies);
                     plotly_perc_replies.push((responseText.perc_replies).toFixed(2));
+                    plotly_daysSince.push((responseText.daysSince).toFixed(2));
                 }
                 else
                     row += "<td>Name Not Found</td>";//$("#userSpan").html("Name Not Found");
@@ -440,6 +442,7 @@
                         plotly_perc_RTs,
                         plotly_num_replies,
                         plotly_perc_replies,
+                        plotly_daysSince,
                         plotly_frequencies,
                         plotly_hoursBetween,
                         plotly_tweetLength,
