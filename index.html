@@ -289,6 +289,10 @@
     var plotly_avg_retweets = [];
     var plotly_avg_likes = [];
     var plotly_tweet_clients = [];
+    var plotly_num_RTs = [];
+    var plotly_perc_RTs = [];
+    var plotly_num_replies = [];
+    var plotly_perc_replies = [];
 
     function openImage() {
         let canvas = document.getElementById("wordCloud");
@@ -358,6 +362,10 @@
                     plotly_avg_retweets.push((responseText.avg_retweets).toFixed(2));
                     plotly_avg_likes.push((responseText.avg_likes).toFixed(2));
                     plotly_tweet_clients.push(client_clean);
+                    plotly_num_RTs.push(responseText.num_RTs);
+                    plotly_perc_RTs.push((responseText.perc_RTs).toFixed(2));
+                    plotly_num_replies.push(responseText.num_replies);
+                    plotly_perc_replies.push((responseText.perc_replies).toFixed(2));
                 }
                 else
                     row += "<td>Name Not Found</td>";//$("#userSpan").html("Name Not Found");
@@ -428,6 +436,10 @@
                         plotly_rts,
                         plotly_searchTerms,
                         plotly_samplesize,
+                        plotly_num_RTs,
+                        plotly_perc_RTs,
+                        plotly_num_replies,
+                        plotly_perc_replies,
                         plotly_frequencies,
                         plotly_hoursBetween,
                         plotly_tweetLength,
@@ -442,7 +454,7 @@
                     type: 'table',
                     header: {
                         values: [["Timestamp"], ["Username"], ["Include Replies?"], ["Include Retweets?"], ["Search Term"],
-                                    ["Sample Size"], ["Average Frequency (Tweets/Day)"], ["Average Period Between Tweets (Hours)"], 
+                                    ["Sample Size"], ["# Retweets"], ["% Retweets"], ["# Replies"], ["% Replies"], ["Time Since Last Tweet (Days)"],["Average Frequency (Tweets/Day)"], ["Average Period Between Tweets (Hours)"], 
                                     ["Average Tweet Length (Characters)"], ["Unique Words"], ["Tweets Including Search Term"],["Followers"], ["Following"], 
                                     ["Average Tweet Likes"], ["Average Tweet Retweets"]],
                         align: "center",
