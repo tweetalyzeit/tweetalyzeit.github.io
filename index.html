@@ -104,6 +104,7 @@
         <br>
         <section id="prefabs">
             <label>Display Raw Response Table?</label><input id="ui_RawResponseTable" type = "checkbox" /><br>
+            <label>Plot Sample Composition?</label><input id="ui_Sample_Composition" type = "checkbox" /><br>
             <label>Plot x: username, y: term prevalence?</label><input id="ui_SSTMU" type = "checkbox" /><br>
             <label>Plot x: username, y: 2 term prevalence?</label><input id="ui_SSTMU2" type = "checkbox" /><br>
             <label>Plot x: term, y: prevalence?</label><input id="ui_MSTSU" type = "checkbox" /><br>
@@ -204,6 +205,8 @@
         <div id="UserGeneratedPlot"><!-- Plotly chart will be drawn inside this DIV --></div>
         <br><br>
         <div id="ResponseTable"><!-- Plotly chart will be drawn inside this DIV --></div>
+        <br><br>
+        <div id="SampleComposition"><!-- Plotly chart will be drawn inside this DIV --></div>
         <br><br>
         <div id="ByUsername_p"><!-- Plotly chart will be drawn inside this DIV --></div>
         <br><br>
@@ -475,6 +478,21 @@
 
                 if($('#ui_RawResponseTable:checked').val()){
                     Plotly.plot('ResponseTable', data);}
+
+                var data_sc = [{ //------------------------------------------------Sample Composition Pie Chart
+                    values: [responseText.num_RTs,responseText.num_replies,response.text.sampleSize - responseText.num_RTs - responseText.num_replies], 
+                    labels: ["Retweets", "Replies", "Other"], 
+                    type: 'pie',
+                    text: [responseText.num_RTs,responseText.num_replies,response.text.sampleSize - responseText.num_RTs - responseText.num_replies],
+                    textposition: 'auto'
+                    }];
+
+                var layout_sc = {
+                    title: 'Sample Composition',
+                    };  
+
+                if($('#ui_Sample_Composition:checked').val()){
+                    Plotly.newPlot('SampleComposition', data_sc, layout_sc);}               
 
                 var data_p = [{ //-------------------------------Prevalence of Single Term by Multiple Users
                     x: plotly_UNs, 
