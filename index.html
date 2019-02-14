@@ -105,6 +105,9 @@
         <section id="prefabs">
             <label>Display Raw Response Table?</label><input id="ui_RawResponseTable" type = "checkbox" /><br>
             <label>Plot Tweet Composition?</label><input id="ui_Sample_Composition" type = "checkbox" /><br>
+            <label>Plot Retweet Prevalence?</label><input id="ui_Composition_RTs" type = "checkbox" /><br>
+            <label>Plot Reply Prevalence?</label><input id="ui_Composition_replies" type = "checkbox" /><br>
+            <label>Plot Retweet and Reply Prevalance?</label><input id="ui_Composition_RTs_replies" type = "checkbox" /><br>
             <label>Plot x: username, y: term prevalence?</label><input id="ui_SSTMU" type = "checkbox" /><br>
             <label>Plot x: username, y: 2 term prevalence?</label><input id="ui_SSTMU2" type = "checkbox" /><br>
             <label>Plot x: term, y: prevalence?</label><input id="ui_MSTSU" type = "checkbox" /><br>
@@ -207,6 +210,12 @@
         <div id="ResponseTable"><!-- Plotly chart will be drawn inside this DIV --></div>
         <br><br>
         <div id="SampleComposition"><!-- Plotly chart will be drawn inside this DIV --></div>
+        <br><br>
+        <div id="Composition_RTs"><!-- Plotly chart will be drawn inside this DIV --></div>
+        <br><br>
+        <div id="Composition_replis"><!-- Plotly chart will be drawn inside this DIV --></div>
+        <br><br>
+        <div id="Composition_RTs_replies"><!-- Plotly chart will be drawn inside this DIV --></div>
         <br><br>
         <div id="ByUsername_p"><!-- Plotly chart will be drawn inside this DIV --></div>
         <br><br>
@@ -494,6 +503,98 @@
                 if($('#ui_Sample_Composition:checked').val()){
                     Plotly.newPlot('SampleComposition', data_sc, layout_sc);}               
 
+                var data_perc_RTs = [{ //-------------------------------Percent of Tweets that are Retweets
+                    x: plotly_UNs, 
+                    y: plotly_perc_RTs, 
+                    type: 'bar',
+                    text: plotly_perc_RTs,
+                    textposition: 'auto'
+                    }];
+
+                var layout_perc_RTs = {
+                    title: 'Prevalence of Retweets in Tweet Composition',
+                    yaxis: {
+                        title: 'Percent Retweets',
+                        titlefont: {
+                            size: 12,
+                            color: 'rgb(107, 107, 107)'},
+                            },
+                    xaxis: {
+                        title: 'Twitter Username',
+                        titlefont: {
+                            size: 12,
+                            color: 'rgb(107, 107, 107)'},
+                            }
+                    };
+
+                if($('#ui_Composition_RTs:checked').val()){
+                    Plotly.newPlot('Composition_RTs', data_perc_RTs, layout_perc_RTs);} 
+
+                var data_perc_replies = [{ //-------------------------------Percent of Tweets that are replies
+                    x: plotly_UNs, 
+                    y: plotly_perc_replies, 
+                    type: 'bar',
+                    text: plotly_perc_replies,
+                    textposition: 'auto'
+                    }];
+
+                var layout_perc_replies = {
+                    title: 'Prevalence of Replies in Tweet Composition',
+                    yaxis: {
+                        title: 'Percent Replies',
+                        titlefont: {
+                            size: 12,
+                            color: 'rgb(107, 107, 107)'},
+                            },
+                    xaxis: {
+                        title: 'Twitter Username',
+                        titlefont: {
+                            size: 12,
+                            color: 'rgb(107, 107, 107)'},
+                            }
+                    };
+
+                if($('#ui_Composition_replies:checked').val()){
+                    Plotly.newPlot('Composition_replies', data_perc_replies, layout_perc_replies);} 
+                
+                var trace7_RTs_replies1 = { // ----------------------------------------------- retweets vs replies
+                    x: plotly_UNs,
+                    y: plotly_perc_RTs,
+                    name: "Retweets",
+                    text: plotly_perc_RTs,
+                    textposition: 'auto',
+                    type: 'bar'
+                    };
+
+                    var trace7_RTs_replies2 = {
+                    x: plotly_UNs,
+                    y: plotly_perc_replies,
+                    name: "Replies",
+                    text: plotly_perc_replies,
+                    textposition: 'auto',
+                    type: 'bar'
+                    };
+
+                    var data_RTs_replies = [trace7_RTs_replies1, trace7_RTs_replies2];
+
+                    var layout7_RTs_replies = {barmode: 'group',
+                        title: 'Prevalence of Retweets vs. Replies in Tweet Composition',
+                        yaxis: {
+                            title: 'Percent',
+                            titlefont: {
+                                size: 12,
+                                color: 'rgb(107, 107, 107)'},
+                                },
+                        xaxis: {
+                            title: 'Twitter Username',
+                            titlefont: {
+                                size: 12,
+                                color: 'rgb(107, 107, 107)'},
+                                }
+                    };
+                if($('#ui_Composition_RTs_replies:checked').val()){
+                    Plotly.newPlot('Composition_RTs_replies', data_RTs_replies, layout7_RTs_replies);}
+                
                 var data_p = [{ //-------------------------------Prevalence of Single Term by Multiple Users
                     x: plotly_UNs, 
                     y: plotly_searchPercent, 
