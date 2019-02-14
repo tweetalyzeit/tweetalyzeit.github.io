@@ -364,7 +364,7 @@
                     plotly_rts.push($('#rts').is(":checked"));
                     plotly_searchHits.push(responseText.searchHits);
                     plotly_searchTerms.push($('#search').val().toLowerCase());
-                    plotly_frequencies.push(responseText.perDay.toFixed(2));
+                    plotly_frequencies.push((responseText.perDay).toFixed(2));
                     plotly_samplesize.push(responseText.sampleSize);
                     plotly_searchPercent.push(((responseText.searchHits / responseText.sampleSize)*100).toFixed(2));
                     plotly_hoursBetween.push((responseText.avgHoursBetween).toFixed(2));
