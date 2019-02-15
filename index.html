@@ -128,6 +128,8 @@
                 <input type="radio" name="build_chart_type" id="build_chart_type" value="pie" onclick ="setPie()"> Pie<br>
             <label>X-Axis Data:</label>
                 <input type="radio" name="build_chart_xaxis" id="build_chart_xaxis" value="username" checked onclick="setxUNs()"> Username
+                <input type="radio" name="build_chart_xaxis" id="build_chart_xaxis" value="comp_RTs" onclick="setxCompRTs()"> Retweet Prevalence 
+                <input type="radio" name="build_chart_xaxis" id="build_chart_xaxis" value="comp_replies" onclick="setxCompReplies()"> Reply Prevalence 
                 <input type="radio" name="build_chart_xaxis" id="build_chart_xaxis" value="term" onclick="setxTerms()"> Searched Terms 
                 <input type="radio" name="build_chart_xaxis" id="build_chart_xaxis" value="frequency" onclick ="setxFrequencies()"> Tweet Frequency
                 <input type="radio" name="build_chart_xaxis" id="build_chart_xaxis" value="periodbetween" onclick="setxPeriod()"> Period Between Tweets
@@ -138,7 +140,9 @@
                 <input type="radio" name="build_chart_xaxis" id="build_chart_xaxis" value="likes" onclick ="setxLikes()"> Likes
                 <input type="radio" name="build_chart_xaxis" id="build_chart_xaxis" value="retweets" onclick ="setxRetweets()"> Retweets<br>
             <label>Y-Axis Data:</label>
-                <input type="radio" name="build_chart_yaxis" id="build_chart_yaxis" value="prevalance" checked onclick="setyPrev()"> Term Prevalence 
+                <input type="radio" name="build_chart_yaxis" id="build_chart_yaxis" value="prevalance" checked onclick="setyPrev()"> Term Prevalence
+                <input type="radio" name="build_chart_yaxis" id="build_chart_yaxis" value="comp_RTs" onclick="setyCompRTs()"> Retweet Prevalence 
+                <input type="radio" name="build_chart_yaxis" id="build_chart_yaxis" value="comp_replies" onclick="setyCompReplies()"> Reply Prevalence  
                 <input type="radio" name="build_chart_yaxis" id="build_chart_yaxis" value="frequency" onclick ="setyFrequencies()"> Tweet Frequency
                 <input type="radio" name="build_chart_yaxis" id="build_chart_yaxis" value="periodbetween" onclick="setyPeriod()"> Period Between Tweets
                 <input type="radio" name="build_chart_yaxis" id="build_chart_yaxis" value="length" onclick="setyLength()"> Tweet Length 
@@ -1001,6 +1005,12 @@
     function setxUNs(){
         build_chart_xaxis = plotly_UNs;
     }
+    function setxCompRTs(){
+        build_chart_xaxis = plotly_perc_RTs;
+    }
+    function setxCompReplies(){
+        build_chart_xaxis = plotly_perc_replies;
+    }
     function setxTerms(){
         build_chart_xaxis = plotly_searchTerms;
     }
@@ -1031,6 +1041,12 @@
     let build_chart_yaxis = plotly_searchPercent;
     function setyPrev(){
         build_chart_yaxis = plotly_searchPercent;
+    }
+    function setyCompRTs(){
+        build_chart_yaxis = plotly_perc_RTs;
+    }
+    function setyCompReplies(){
+        build_chart_yaxis = plotly_perc_replies;
     }
     function setyFrequencies(){
         build_chart_yaxis = plotly_frequencies;
