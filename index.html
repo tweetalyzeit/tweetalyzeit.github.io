@@ -118,6 +118,7 @@
             <label>Plot Followers and Following?</label><input id="ui_Followers_and_Following" type = "checkbox" /><br>
             <label>Plot Likes?</label><input id="ui_Likes" type = "checkbox" /><br>
             <label>Plot Retweets?</label><input id="ui_Retweets" type = "checkbox" /><br>
+            <label>Plot Likes and Retweets?</label><input id="ui_Likes_and_Retweets" type = "checkbox" /><br>
             <label>Generate Word Cloud?</label><input id="ui_WordCloud" type = "checkbox" /><br>
             <label>Minimum number of occurences to appear in Word Cloud: </label> <input id="wordCloudMinSize" type="number" min="1" max="10" value="5" style="width: 35px" />
         </section>
@@ -240,6 +241,8 @@
         <div id="ByLikes"><!-- Plotly chart will be drawn inside this DIV --></div>
         <br><br>
         <div id="ByRetweets"><!-- Plotly chart will be drawn inside this DIV --></div>
+        <br><br>
+        <div id="ByLikesAndRetweets"><!-- Plotly chart will be drawn inside this DIV --></div>
 
         <div id="wordCloudDiv">
             <h2>Word Cloud</h2>
@@ -908,7 +911,44 @@
 
                 if($('#ui_Retweets:checked').val()){
                     Plotly.newPlot('ByRetweets', data9, layout9);}
-                    
+                
+                var trace10_p1 = { // ----------------- likes vs retweets
+                    x: plotly_UNs,
+                    y: plotly_avg_likes,
+                    name: "Likes",
+                    text: plotly_avg_likes,
+                    textposition: 'auto',
+                    type: 'bar'
+                    };
+
+                    var trace10_p2 = {
+                    x: plotly_UNs,
+                    y: plotly_avg_retweets,
+                    name: "Friends (Following)",
+                    text: plotly_avg_retweets,
+                    textposition: 'auto',
+                    type: 'bar'
+                    };
+
+                    var data10 = [trace10_p1, trace10_p2];
+
+                    var layout10 = {barmode: 'group',
+                        title: 'Tweet Likes vs. Tweet Retweets',
+                        yaxis: {
+                            title: '#/Tweet',
+                            titlefont: {
+                                size: 12,
+                                color: 'rgb(107, 107, 107)'},
+                                },
+                        xaxis: {
+                            title: 'Twitter Username',
+                            titlefont: {
+                                size: 12,
+                                color: 'rgb(107, 107, 107)'},
+                                }
+                    };
+                if($('#ui_Likes_and_Retweets:checked').val()){
+                    Plotly.newPlot('ByLikesAndRetweets', data10, layout10);}
                     //----------------------------------------------------------------------------------------------------end plotly 
 
                 //---------------------------------------------------------------------------------------------WORD CLOUD BEGIN
