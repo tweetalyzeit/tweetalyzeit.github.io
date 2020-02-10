@@ -1,24 +1,44 @@
-$(document).ready(function() {
+function generateFunction(){
     const Url='https://tweetgettimestamps.herokuapp.com/?pw=newSreel' + '&user=' + $('#user').val() + '&replies=1&search=';
-    $('.btn').click(function(){
+    $.ajax({
+        url: Url,
+        type:"GET",
+        beforeSend: function(){
+            console.log(Url)
+            $('#submitHandle').attr("disabled",true);
+            $('#submitHandle').html("Loading");  
+        },
+        success: function(responseText){
+            console.log(responseText)
+            $('#submitHandle').html("Done!");
+        },
+        error:function(error){
+            console.log("Error")
+        }
+    })
+}
+
+/*$(document).ready(function() {
+    const Url='https://tweetgettimestamps.herokuapp.com/?pw=newSreel' + '&user=' + $('#user').val() + '&replies=1&search=';
+    $('submitHandle').click(function(){
         $.ajax({
             url: Url,
             type:"GET",
             beforeSend: function(){
                 console.log(Url)
-                $('#.btn').attr("disabled",true);
-                $('#.btn').html("Loading");  
+                $('#submitHandle').attr("disabled",true);
+                $('#submitHandle').html("Loading");  
             },
             success: function(responseText){
                 console.log(responseText)
-                $('#.btn').html("Done!");
+                $('#submitHandle').html("Done!");
             },
             error:function(error){
                 console.log("Error")
             }
         })
     })
-})
+})*/
 
 /*
 $(document).ready(function() {
