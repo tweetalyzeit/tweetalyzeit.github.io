@@ -6,9 +6,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
-  <meta name="author" content="">
+  <meta name="author" content="Kevin Quigley">
 
-  <title>Tweetalyze - Chat</title>
+  <title>Tweetalyze - Markov</title>
 
   <!-- Bootstrap core CSS -->
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -42,7 +42,7 @@
     <div class="container">
       <div class="row">
         <div class="col-xl-9 mx-auto">
-          <h1 class="mb-5">Create a chatbot based on a Twitter user!</h1>
+          <h1 class="mb-5">Generate a tweet!</h1>
         </div>
         <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
           <form>
@@ -55,6 +55,15 @@
               </div>
             </div>
           </form>
+          <br><br>
+          <div style="font-family:Arial, Helvetica, sans-serif;text-align:left;background-color:white;color:black;border-radius:12px;padding-top:24px;padding-right:24px;padding-bottom:24px;padding-left:24px">
+            <h5><img id="profilePic" style="border-radius:50%;float:left">
+              <span id="markovUN" style="font-weight:bold;padding-left:8px;"></span><br>
+              <span id="markovHandle" style="font-size:75%;padding-left:8px"></span></h5>
+            <br>
+            <h4 id="markovResults"></h4>
+            <p id="datetime"></p><hr>
+          </div>
         </div>
       </div>
     </div>
