@@ -210,8 +210,13 @@ function showChart(x_data, y_data, tagID){
 
                     }
             };
+        
+        var config = {
+            modeBarButtonsToRemove: ['zoom2d', 'pan2d', 'select2d', 'lasso2d', 'zoomIn2d', 'zoomOut2d', 'resetScale2d', 'hoverClosestGl2d', 'hoverClosestPie','toggleHover', 'resetViews', 'sendDataToCloud', 'toggleSpikelines', 'resetViewMapbox','hoverClosestCartesian', 'hoverCompareCartesian'], 
+            displaylogo: false
+        };
 
-        Plotly.newPlot(tagID, data3, layout3);
+        Plotly.newPlot(tagID, data3, layout3, config);
     }
 }
 
@@ -241,5 +246,10 @@ function showTriBar(x_data, y_data1, y_data2, y_data3, tagID){
     
     var layout = {barmode: 'stack'};
 
-    Plotly.newPlot(tagID, data, layout);
+    var config2 = {
+        modeBarButtonsToRemove: ['zoom2d', 'pan2d', 'select2d', 'lasso2d', 'zoomIn2d', 'zoomOut2d', 'resetScale2d', 'hoverClosestGl2d', 'hoverClosestPie','toggleHover', 'resetViews', 'sendDataToCloud', 'toggleSpikelines', 'resetViewMapbox','hoverClosestCartesian', 'hoverCompareCartesian'], 
+        displaylogo: false
+    };
+
+    Plotly.newPlot(tagID, data, layout, config2);
 }
