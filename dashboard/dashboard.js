@@ -17,6 +17,12 @@ let array_avgTweetRetweets = [];
 let array_percentRetweets = [];
 let array_percentReplies = [];
 let array_percentOther = [];
+let array_math_median_likes = [];
+let array_math_std_likes = [];
+let array_math_variance_likes = [];
+let array_math_median_retweets = [];
+let array_math_std_retweets = [];
+let array_math_variance_retweets = [];
 
 function getUserInfo(id, user){
     const Url='https://tweetgettimestamps.herokuapp.com/?pw=newSreel' + '&user=' + $(user).val() + inclReplies + inclRetweets + '&search=';
@@ -68,6 +74,12 @@ function addToArrays(responseText){
     array_percentRetweets.push((responseText.perc_RTs*100).toFixed(2));
     array_percentReplies.push((responseText.perc_replies*100).toFixed(2));
     array_percentOther.push(((1-responseText.perc_RTs-responseText.perc_replies)*100).toFixed(2));
+    array_math_median_likes.push(responseText.math_median_likes);
+    array_math_std_likes.push(responseText.math_std_likes.toFixed(2));
+    array_math_variance_likes.push(responseText.math_variance_likes.toFixed(2));
+    array_math_median_retweets.push(responseText.math_median_retweets);
+    array_math_std_retweets.push(responseText.math_std_retweets.toFixed(2));
+    array_math_variance_retweets.push(responseText.math_variance_retweets.toFixed(2));
 }
 function addToCSV(responseText){
     csvString += Date(Date.now()) + "," + responseText.name + "," + inclReplies + "," + inclRetweets + ",," + responseText.sampleSize + "," + responseText.num_RTs + "," + responseText.perc_RTs + "," + responseText.num_replies + "," + responseText.perc_replies + "," + responseText.daysSince + "," + responseText.perDay + "," + responseText.avgHoursBetween + "," + responseText.avgTweetLength + "," + responseText.uniqueWords + "," + responseText.searchHits + "," + responseText.followers + ","+ responseText.followings + "," + responseText.avg_likes + "," + responseText.avg_retweets + "," + responseText.tweet_clients + "\n";
