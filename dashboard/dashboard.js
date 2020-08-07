@@ -20,12 +20,15 @@ let array_percentOther = [];
 let array_math_median_likes = [];
 let array_math_std_likes = [];
 let array_math_variance_likes = [];
+let array_math_sum_likes = [];
 let array_math_median_retweets = [];
 let array_math_std_retweets = [];
 let array_math_variance_retweets = [];
+let array_math_sum_retweets = [];
 let array_math_median_length = [];
 let array_math_std_length = [];
 let array_math_variance_length = [];
+let array_math_sum_length = [];
 let array_math_median_frequency = [];
 
 function getUserInfo(id, user){
@@ -81,12 +84,15 @@ function addToArrays(responseText){
     array_math_median_likes.push(responseText.math_median_likes);
     array_math_std_likes.push(responseText.math_std_likes.toFixed(2));
     array_math_variance_likes.push(responseText.math_variance_likes.toFixed(2));
+    array_math_sum_likes.push(responseText.math_sum_likes);
     array_math_median_retweets.push(responseText.math_median_retweets);
     array_math_std_retweets.push(responseText.math_std_retweets.toFixed(2));
     array_math_variance_retweets.push(responseText.math_variance_retweets.toFixed(2));
+    array_math_sum_retweets.push(responseText.math_sum_retweets);
     array_math_median_length.push(responseText.math_median_length);
     array_math_std_length.push(responseText.math_std_length.toFixed(2));
     array_math_variance_length.push(responseText.math_variance_length.toFixed(2));
+    array_math_sum_length.push(responseText.math_sum_length);
     array_math_median_frequency.push(responseText.math_median_frequency.toFixed(2));
 }
 function addToCSV(responseText){
