@@ -179,7 +179,9 @@
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Sample Size</div>
+                      <span data-toggle="tooltip" title="The number of tweets included in the sample. For each searched user, a sample of up to 200 most recent tweets is retrieved.">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Sample Size</div>
+                      </span>
                       <div class="h5 mb-0 font-weight-bold text-gray-800" id="SampleSize"></div>
                     </div>
 
@@ -194,7 +196,9 @@
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Sample Unique Words</div>
+                      <span data-toggle="tooltip" title="The total number of distinct words in the tweet sample.">
+                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Sample Unique Words</div>
+                      </span>
                       <div class="h5 mb-0 font-weight-bold text-gray-800" id="UniqueWords"></div>
                     </div>
                   </div>
@@ -208,7 +212,9 @@
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Followers</div>
+                      <span data-toggle="tooltip" title="The number of other users following the searched user.">
+                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Followers</div>
+                      </span>
                       <div class="h5 mb-0 font-weight-bold text-gray-800" id="Followers"></div>
                     </div>
 
@@ -223,7 +229,9 @@
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Following</div>
+                      <span data-toggle="tooltip" title="The number of other users that the searched user is following.">
+                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Following</div>
+                      </span>
                       <div class="h5 mb-0 font-weight-bold text-gray-800" id="Following"></div>
                     </div>
                   </div>
@@ -252,7 +260,7 @@
                           <a class="dropdown-item" onclick="showChart(array_username, array_math_median_frequency, 'Frequency')">Median</a>
                         </div>
                       </div>
-                      <span data-toggle="tooltip" title="The rate at which the user tweets. By default, this shows the Sample Harmonic Mean.">
+                      <span data-toggle="tooltip" title="The rate at which the searched user tweets. By default, this shows the Sample Harmonic Mean.">
                         <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Frequency (Tweets/Day)</div>
                       </span>
                       <div class="h5 mb-0 font-weight-bold text-gray-800" id="Frequency"></div>
@@ -285,7 +293,7 @@
                           <a class="dropdown-item" href="#" onclick="downloadTrend(array_trend_length, 'Length')">Download</a>
                         </div>
                       </div>
-                      <span data-toggle="tooltip" title="The number of characters in the user's tweets. By default, this shows the Sample Mean.">
+                      <span data-toggle="tooltip" title="The number of characters in the searched user's tweets. By default, this shows the Sample Mean.">
                         <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Length (Characters)</div>
                       </span>
                       <div class="h5 mb-0 font-weight-bold text-gray-800" id="Length"></div>
@@ -318,7 +326,7 @@
                           <a class="dropdown-item" href="#" onclick="downloadTrend(array_trend_retweets, 'AverageRetweets')">Download</a>
                         </div>
                       </div>
-                      <span data-toggle="tooltip" title="The number of Retweets that the user's tweets receive. By default, this shows the Sample Mean.">
+                      <span data-toggle="tooltip" title="The number of Retweets that the searched user's tweets receive. By default, this shows the Sample Mean.">
                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Retweets</div>
                       </span>
                       <div class="h5 mb-0 font-weight-bold text-gray-800" id="AverageRetweets"></div>
@@ -351,7 +359,7 @@
                           <a class="dropdown-item" href="#" onclick="downloadTrend(array_trend_likes, 'AverageLikes')">Download</a>
                         </div>
                       </div>
-                      <span data-toggle="tooltip" title="The number of Likes that the user's tweets receive. By default, this shows the Sample Mean.">
+                      <span data-toggle="tooltip" title="The number of Likes that the searched user's tweets receive. By default, this shows the Sample Mean.">
                         <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Likes</div>
                       </span>
                       <div class="h5 mb-0 font-weight-bold text-gray-800" id="AverageLikes"></div>
