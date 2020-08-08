@@ -279,6 +279,10 @@
                           <a class="dropdown-item" href="#" onclick="showChart(array_username, array_math_std_length, 'Length')">Standard Deviation</a>
                           <a class="dropdown-item" href="#" onclick="showChart(array_username, array_math_variance_length, 'Length')">Variance</a>
                           <a class="dropdown-item" href="#" onclick="showChart(array_username, array_math_sum_length, 'Length')">Sum</a>
+                          <div class="dropdown-divider"></div>
+                          <div class="dropdown-header">Last User Only:</div>
+                          <a class="dropdown-item" href="#" onclick="showTrendLine(array_trend_length, 'Length')">Trend</a>
+                          <a class="dropdown-item" href="#" onclick="downloadTrend(array_trend_length, 'Length')">Download</a>
                         </div>
                       </div>
                       <span data-toggle="tooltip" title="The number of characters in the user's tweets. By default, this shows the Sample Mean.">
@@ -308,6 +312,10 @@
                           <a class="dropdown-item" href="#" onclick="showChart(array_username, array_math_std_retweets, 'AverageRetweets')">Standard Deviation</a>
                           <a class="dropdown-item" href="#" onclick="showChart(array_username, array_math_variance_retweets, 'AverageRetweets')">Variance</a>
                           <a class="dropdown-item" href="#" onclick="showChart(array_username, array_math_sum_retweets, 'AverageRetweets')">Sum</a>
+                          <div class="dropdown-divider"></div>
+                          <div class="dropdown-header">Last User Only:</div>
+                          <a class="dropdown-item" href="#" onclick="showTrendLine(array_trend_retweets, 'AverageRetweets')">Trend</a>
+                          <a class="dropdown-item" href="#" onclick="downloadTrend(array_trend_retweets, 'AverageRetweets')">Download</a>
                         </div>
                       </div>
                       <span data-toggle="tooltip" title="The number of Retweets that the user's tweets receive. By default, this shows the Sample Mean.">
@@ -337,6 +345,10 @@
                           <a class="dropdown-item" href="#" onclick="showChart(array_username, array_math_std_likes, 'AverageLikes')">Standard Deviation</a>
                           <a class="dropdown-item" href="#" onclick="showChart(array_username, array_math_variance_likes, 'AverageLikes')">Variance</a>
                           <a class="dropdown-item" href="#" onclick="showChart(array_username, array_math_sum_likes, 'AverageLikes')">Sum</a>
+                          <div class="dropdown-divider"></div>
+                          <div class="dropdown-header">Last User Only:</div>
+                          <a class="dropdown-item" href="#" onclick="showTrendLine(array_trend_likes, 'AverageLikes')">Trend</a>
+                          <a class="dropdown-item" href="#" onclick="downloadTrend(array_trend_likes, 'AverageLikes')">Download</a>
                         </div>
                       </div>
                       <span data-toggle="tooltip" title="The number of Likes that the user's tweets receive. By default, this shows the Sample Mean.">

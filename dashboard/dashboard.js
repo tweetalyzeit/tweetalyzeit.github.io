@@ -21,14 +21,17 @@ let array_math_median_likes = [];
 let array_math_std_likes = [];
 let array_math_variance_likes = [];
 let array_math_sum_likes = [];
+let array_trend_likes = [];
 let array_math_median_retweets = [];
 let array_math_std_retweets = [];
 let array_math_variance_retweets = [];
 let array_math_sum_retweets = [];
+let array_trend_retweets = [];
 let array_math_median_length = [];
 let array_math_std_length = [];
 let array_math_variance_length = [];
 let array_math_sum_length = [];
+let array_trend_length = [];
 let array_math_median_frequency = [];
 
 function getUserInfo(id, user){
@@ -85,14 +88,17 @@ function addToArrays(responseText){
     array_math_std_likes.push(responseText.math_std_likes.toFixed(2));
     array_math_variance_likes.push(responseText.math_variance_likes.toFixed(2));
     array_math_sum_likes.push(responseText.math_sum_likes);
+    array_trend_likes = responseText.trend_likes; // only store the trend for the last user
     array_math_median_retweets.push(responseText.math_median_retweets);
     array_math_std_retweets.push(responseText.math_std_retweets.toFixed(2));
     array_math_variance_retweets.push(responseText.math_variance_retweets.toFixed(2));
     array_math_sum_retweets.push(responseText.math_sum_retweets);
+    array_trend_retweets = responseText.trend_retweets; // only store the trend for the last user
     array_math_median_length.push(responseText.math_median_length);
     array_math_std_length.push(responseText.math_std_length.toFixed(2));
     array_math_variance_length.push(responseText.math_variance_length.toFixed(2));
     array_math_sum_length.push(responseText.math_sum_length);
+    array_trend_length = responseText.trend_length; // only store the trend for the last user
     array_math_median_frequency.push(responseText.math_median_frequency.toFixed(2));
 }
 function addToCSV(responseText){
@@ -244,6 +250,48 @@ function showChart(x_data, y_data, tagID){
 
         Plotly.newPlot(tagID, data3, layout3, config);
     }
+}
+
+function showTrendLine(y_data, tagID){
+    $("#" + tagID).html('');
+    let temp_trend_x_data = [];
+    for(let i = 0; i < y_data.length; i++){
+        temp_trend_x_data.push(i);
+    }
+    var dataTrend = [{
+        x: temp_trend_x_data,
+        y: y_data,
+        mode: 'lines'
+    }];
+    var configTrend = {
+        modeBarButtonsToRemove: ['zoom2d', 'pan2d', 'select2d', 'lasso2d', 'zoomIn2d', 'zoomOut2d', 'resetScale2d', 'hoverClosestGl2d', 'hoverClosestPie','toggleHover', 'resetViews', 'sendDataToCloud', 'toggleSpikelines', 'resetViewMapbox','hoverClosestCartesian', 'hoverCompareCartesian'], 
+        displaylogo: false
+    };
+    var layoutTrend = {
+        yaxis: {
+            
+        },
+        xaxis: {
+            showticklabels: false,
+            zeroline: false,
+            showline: false
+        }
+    };
+
+    Plotly.newPlot(tagID, dataTrend, layoutTrend, configTrend);
+}
+function downloadTrend(y_data, tagID){
+    let trendString = "";
+    for(let i = 0; i < y_data.length; i++){
+        trendString += y_data[i] + "\n";
+    }
+    
+    console.log(trendString);
+    var hiddenElement = document.createElement('a');
+    hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(trendString);
+    hiddenElement.target = '_blank';
+    hiddenElement.download = 'tweetalyze-' + tagID + "Values-" + Date(Date.now()) + '.csv';
+    hiddenElement.click();
 }
 
 function showTriBar(x_data, y_data1, y_data2, y_data3, tagID){
