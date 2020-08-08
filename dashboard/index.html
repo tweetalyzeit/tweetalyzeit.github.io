@@ -174,7 +174,7 @@
           <div class="row">
 
             <!-- Sample Size -->
-            <div class="col-xl-3 col-md-6 mb-4">
+            <div class="col-xl-4 col-md-6 mb-4">
               <div class="card border-left-primary shadow h-100 py-2">
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
@@ -189,31 +189,15 @@
                 </div>
               </div>
             </div>
-
-            <!-- Unique Words -->
-            <div class="col-xl-3 col-md-6 mb-4">
-              <div class="card border-left-warning shadow h-100 py-2">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <span data-toggle="tooltip" title="The total number of distinct words in the tweet sample.">
-                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Sample Unique Words</div>
-                      </span>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800" id="UniqueWords"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
           
             <!-- Followers -->
-            <div class="col-xl-3 col-md-6 mb-4">
-              <div class="card border-left-info shadow h-100 py-2">
+            <div class="col-xl-4 col-md-6 mb-4">
+              <div class="card border-left-primary shadow h-100 py-2">
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                       <span data-toggle="tooltip" title="The number of other users following the searched user.">
-                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Followers</div>
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Followers</div>
                       </span>
                       <div class="h5 mb-0 font-weight-bold text-gray-800" id="Followers"></div>
                     </div>
@@ -224,13 +208,13 @@
             </div>
 
             <!-- Following -->
-            <div class="col-xl-3 col-md-6 mb-4">
-              <div class="card border-left-info shadow h-100 py-2">
+            <div class="col-xl-4 col-md-6 mb-4">
+              <div class="card border-left-primary shadow h-100 py-2">
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                       <span data-toggle="tooltip" title="The number of other users that the searched user is following.">
-                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Following</div>
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Following</div>
                       </span>
                       <div class="h5 mb-0 font-weight-bold text-gray-800" id="Following"></div>
                     </div>
@@ -245,7 +229,7 @@
           <div class="row">
 
             <!-- Frequency -->
-            <div class="col-xl-3 col-md-6 mb-4">
+            <div class="col-xl-4 col-md-6 mb-4">
               <div class="card border-left-info shadow h-100 py-2">
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
@@ -271,7 +255,7 @@
             </div>
 
             <!-- Length -->
-            <div class="col-xl-3 col-md-6 mb-4">
+            <div class="col-xl-4 col-md-6 mb-4">
               <div class="card border-left-info shadow h-100 py-2">
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
@@ -303,8 +287,29 @@
               </div>
             </div>
 
+            <!-- Unique Words -->
+            <div class="col-xl-4 col-md-6 mb-4">
+              <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <span data-toggle="tooltip" title="The total number of distinct words in the tweet sample.">
+                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Sample Unique Words</div>
+                      </span>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800" id="UniqueWords"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Content Row -->
+          <div class="row">
+
             <!-- Average Tweet Retweets -->
-            <div class="col-xl-3 col-md-6 mb-4">
+            <div class="col-xl-4 col-md-6 mb-4">
               <div class="card border-left-success shadow h-100 py-2">
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
@@ -337,7 +342,7 @@
             </div>
 
             <!-- Average Tweet Likes -->
-            <div class="col-xl-3 col-md-6 mb-4">
+            <div class="col-xl-4 col-md-6 mb-4">
               <div class="card border-left-danger shadow h-100 py-2">
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
@@ -363,6 +368,40 @@
                         <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Likes</div>
                       </span>
                       <div class="h5 mb-0 font-weight-bold text-gray-800" id="AverageLikes"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Sentiment Score -->
+            <div class="col-xl-4 col-md-6 mb-4">
+              <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="dropdown no-arrow">
+                        <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="float:right">
+                          <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                          <div class="dropdown-header">View:</div>
+                          <a class="dropdown-item" onclick="showChart(array_username, array_math_mean_sentiment_score, 'SentimentScore')">Mean</a>                        
+                          <a class="dropdown-item" onclick="showChart(array_username, array_math_median_sentiment_score, 'SentimentScore')">Median</a>
+                          <a class="dropdown-item" onclick="showChart(array_username, array_math_std_sentiment_score, 'SentimentScore')">Standard Deviation</a>
+                          <a class="dropdown-item" onclick="showChart(array_username, array_math_variance_sentiment_score, 'SentimentScore')">Variance</a>
+                          <a class="dropdown-item" onclick="showChart(array_username, array_math_sum_sentiment_score, 'SentimentScore')">Sum</a>
+                          <div class="dropdown-divider"></div>
+                          <div class="dropdown-header">Last User Only:</div>
+                          <a class="dropdown-item" onclick="showTrendLine(array_trend_sentiment_score, 'SentimentScore')">Trend</a>
+                          <a class="dropdown-item" href="#" onclick="downloadTrend(array_trend_sentiment_score, 'SentimentScore')">Download</a>
+                        </div>
+                      </div>
+                      <span data-toggle="tooltip" title="A subjective rating of the emotion in the searched user's tweets. By default, this shows the Sample Mean. 
+Description from https://www.npmjs.com/package/sentiment: AFINN is a list of words rated for valence with an integer between minus five (negative) and plus five (positive). Sentiment analysis is performed by cross-checking the string tokens (words, emojis) with the AFINN list and getting their respective scores.">
+                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Sentiment Score</div>
+                      </span>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800" id="SentimentScore"></div>
                     </div>
                   </div>
                 </div>

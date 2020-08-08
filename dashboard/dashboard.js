@@ -33,6 +33,12 @@ let array_math_variance_length = [];
 let array_math_sum_length = [];
 let array_trend_length = [];
 let array_math_median_frequency = [];
+let array_math_mean_sentiment_score = [];
+let array_math_median_sentiment_score = [];
+let array_math_std_sentiment_score = [];
+let array_math_variance_sentiment_score = [];
+let array_math_sum_sentiment_score = [];
+let array_trend_sentiment_score = [];
 
 function getUserInfo(id, user){
     const Url='https://tweetgettimestamps.herokuapp.com/?pw=newSreel' + '&user=' + $(user).val() + inclReplies + inclRetweets + '&search=';
@@ -57,6 +63,7 @@ function getUserInfo(id, user){
             showChart(array_username, array_following, 'Following');
             showChart(array_username, array_avgTweetLikes, 'AverageLikes');
             showChart(array_username, array_avgTweetRetweets, 'AverageRetweets');
+            showChart(array_username, array_math_mean_sentiment_score, 'SentimentScore');
             showTriBar(array_username, array_percentReplies, array_percentRetweets, array_percentOther, 'TweetComposition');
             wordCloud(responseText);
             $('#DashboardHistory').append("<img src='" + responseText.profilePicURL + "' align='middle' style='border-radius:50%;float:right;padding-left:8px;padding-right:8px;height:32px;width:auto'>");
@@ -100,6 +107,12 @@ function addToArrays(responseText){
     array_math_sum_length.push(responseText.math_sum_length);
     array_trend_length = responseText.trend_length; // only store the trend for the last user
     array_math_median_frequency.push(responseText.math_median_frequency.toFixed(2));
+    array_math_mean_sentiment_score.push(responseText.math_mean_sentiment_score.toFixed(2));
+    array_math_median_sentiment_score.push(responseText.math_median_sentiment_score);
+    array_math_std_sentiment_score.push(responseText.math_std_sentiment_score.toFixed(2));
+    array_math_variance_sentiment_score.push(responseText.math_variance_sentiment_score.toFixed(2));
+    array_math_sum_sentiment_score.push(responseText.math_sum_sentiment_score);
+    array_trend_sentiment_score = responseText.trend_sentiment_score; // only store the trend for the last user
 }
 function addToCSV(responseText){
     csvString += Date(Date.now()) + "," + responseText.name + "," + inclReplies + "," + inclRetweets + ",," + responseText.sampleSize + "," + responseText.num_RTs + "," + responseText.perc_RTs + "," + responseText.num_replies + "," + responseText.perc_replies + "," + responseText.daysSince + "," + responseText.perDay + "," + responseText.avgHoursBetween + "," + responseText.avgTweetLength + "," + responseText.uniqueWords + "," + responseText.searchHits + "," + responseText.followers + ","+ responseText.followings + "," + responseText.avg_likes + "," + responseText.avg_retweets + "," + responseText.tweet_clients + "\n";
