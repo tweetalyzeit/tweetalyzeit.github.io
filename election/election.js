@@ -32,7 +32,7 @@ function getTrump(){
         success: function(responseText){
             console.log(responseText)
             respTrump = responseText;
-            //graphTrump(resp);
+            //graphTrump(respTrump);
             graph(respBiden, respTrump);
         },
         error:function(error){
@@ -105,7 +105,69 @@ function graph(respBiden, respTrump){
         };
       
       Plotly.newPlot('BarGraph', data, layout, config);
+
+      var trace1 = {
+        x: ['Biden', 'Trump'],
+        y: [respBiden.followers, respTrump.followers],
+        name: 'Followers',
+        type: 'bar',
+        marker: {color: 'rgb(29, 161, 242)'},
+        text: [respBiden.followers, respTrump.followers],
+        textposition: 'auto',
+        textfont: {color: '#FFFFFF'}
+      };
+      
+      var trace2 = {
+        x: ['Biden', 'Trump'],
+        y: [respBiden.followings, respTrump.followings],
+        name: 'Following',
+        type: 'bar',
+        marker: {color: 'rgb(21, 32, 43)'},
+        text: [respBiden.followings, respTrump.followings],
+        textposition: 'auto',
+        textfont: {color: '#FFFFFF'}
+      };
+      
+      var data = [trace1, trace2];
+      
+      var layout = {barmode: 'group',showlegend: false,
+        xaxis: {
+            autorange: true,
+            showgrid: false,
+            showline: false,
+            autotick: true,
+            ticks: '',
+            showticklabels: true
+        },
+        yaxis: {
+            showline: false,
+            autotick: true,
+            ticks: '',
+            showticklabels: false
+        },
+        title: {
+            text:'Followers & Following',
+            font: {
+              family: 'Courier New, monospace',
+              size: 24
+            },
+            xref: 'paper',
+            x: 0.5,
+          },
+
+        };
+
+      var config = {
+        modeBarButtonsToRemove: ['zoom2d', 'pan2d', 'select2d', 'lasso2d', 'zoomIn2d', 'zoomOut2d', 'resetScale2d', 'hoverClosestGl2d', 'hoverClosestPie','toggleHover', 'resetViews', 'sendDataToCloud', 'toggleSpikelines', 'resetViewMapbox','hoverClosestCartesian', 'hoverCompareCartesian'], 
+        displaylogo: false,
+        responsive: true,
+        };
+      
+      Plotly.newPlot('BarGraph2', data, layout, config);
+
+
 }
+
 
 function graphTrump(resp){
     var data = [{
