@@ -1,4 +1,5 @@
 let allTweets = [];
+let allWordClouds = [];
 
 function generateFunction(){
     const Url='https://tweetgettimestamps.herokuapp.com/?pw=newSreel' + '&user=' + $('#user').val() + '&replies=1&search=';
@@ -19,6 +20,28 @@ function generateFunction(){
             //console.log(allTweets);
             $('#AddHistory').append("<img src='" + responseText.profilePicURL + "' style='border-radius:50%;padding-left:8px;padding-right:8px;padding-top:8px;'>");
             search();
+            
+            //create search suggestion bubbles
+            for(var i = 0; i<responseText.wordCloudList.length; i++){
+                if(allWordClouds.some(e => e.word === responseText.wordCloudList[i][0])){
+                    allWordClouds[allWordClouds.findIndex(e => e.word === responseText.wordCloudList[i][0])].count += responseText.wordCloudList[i][1];
+                }
+                else{
+                    allWordClouds.push({word: responseText.wordCloudList[i][0], count: responseText.wordCloudList[i][1]});
+                }
+            }
+            allWordClouds.sort(function (a, b) {
+                return b.count - a.count;
+            });
+            //console.log(allWordClouds);
+            $('#searchSuggestions').html("");
+            var suggestionsHTML = "";
+            for(var j = 0; j < 8; j++){
+                suggestionsHTML += "<button class='btn btn-primary' type='button' style='margin:2px' onclick='suggestedInput(\"" + allWordClouds[j].word + "\")'>" + allWordClouds[j].word + "</button>";
+            }
+            $('#searchSuggestions').html(suggestionsHTML);
+
+            // wrap-up the handle add
             $('#submitHandle').html("Done!");
             $('#submitHandle').attr("disabled",false);
             $('#submitHandle').html("Add");
@@ -95,11 +118,16 @@ function search(){
         };
 
         var config = {
-            modeBarButtonsToRemove: ['zoom2d', 'pan2d', 'select2d', 'lasso2d', 'zoomIn2d', 'zoomOut2d', 'resetScale2d', 'hoverClosestGl2d', 'hoverClosestPie','toggleHover', 'resetViews', 'sendDataToCloud', 'toggleSpikelines', 'resetViewMapbox','hoverClosestCartesian', 'hoverCompareCartesian'], 
+            modeBarButtonsToRemove: ['zoom2d', 'pan2d', 'select2d', 'lasso2d', 'zoomIn2d', 'zoomOut2d', 'resetScale2d', 'hoverClosestGl2d', 'hoverClosestPie','toggleHover', 'resetViews', 'sendDataToCloud', 'toggleSpikelines', 'resetViewMapbox','hoverClosestCartesian', 'hoverCompareCartesian','toImage'], 
             displaylogo: false,
             responsive: true,
         };
           
         Plotly.newPlot('resultsDonut', data, layout, config);
     }
+}
+
+function suggestedInput(term){
+    $('#searchTerm').val(term);
+    search();
 }
