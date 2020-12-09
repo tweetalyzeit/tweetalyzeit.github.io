@@ -12,10 +12,7 @@ function generateFunction(){
             console.log(responseText)
             var resp = responseText;
 
-            classifyPic(resp);
-            $('#submitHandle').html("Done!");
-            $('#submitHandle').attr("disabled",false);
-            $('#submitHandle').html("Classify");  
+            classifyPic(resp); 
         },
         error:function(error){
             console.log("Error")
@@ -36,6 +33,9 @@ function classifyPic(resp) {
         console.log('Predictions: ');
         console.log(predictions);
         $("#Result").html('<img id="img" src="' + resp.profilePicURL + '" crossorigin="anonymous"></img><br><br><p>Guess 1: ' + predictions[0].className + '</p><p>Guess 2: ' + predictions[1].className + '</p><p> Guess 3: ' + predictions[2].className + '</p>');
+        $('#submitHandle').html("Done!");
+        $('#submitHandle').attr("disabled",false);
+        $('#submitHandle').html("Classify"); 
       });
     });
 }
