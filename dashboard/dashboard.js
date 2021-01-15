@@ -42,11 +42,14 @@ let array_trend_sentiment_score = [];
 
 async function getUserInfo(id, user){
     let multipleUsers = $(user).val().includes(",");
+    let userString = $(user).val();
+    userString = userString.replaceAll('@', '');
+    userString = userString.replaceAll(' ', '');
     if(!multipleUsers){
-        queryServer(id, $(user).val());
+        queryServer(id, userString);
     }
     else{
-        var userList = $(user).val().split(',');
+        var userList = userString.split(',');
         for(var iterate = 0; iterate < userList.length; iterate++){
             await queryServer(id, userList[iterate]);
         }

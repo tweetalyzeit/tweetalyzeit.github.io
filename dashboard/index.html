@@ -154,6 +154,16 @@
               </div>
             </div>
           </form>
+          
+          <script>
+          var pressEnter = document.getElementById("user");
+          pressEnter.addEventListener("keydown", function(event) {
+            if (event.keyCode === 13) {
+              event.preventDefault();
+              document.getElementById("submitHandle").click();
+            }
+          });
+        </script>
 
           <!-- Topbar Navbar -->
           <ul class="navbar-nav ml-auto">
