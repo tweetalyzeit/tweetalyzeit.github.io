@@ -40,8 +40,21 @@ let array_math_variance_sentiment_score = [];
 let array_math_sum_sentiment_score = [];
 let array_trend_sentiment_score = [];
 
-function getUserInfo(id, user){
-    const Url='https://tweetgettimestamps.herokuapp.com/?pw=newSreel' + '&user=' + $(user).val() + inclReplies + inclRetweets + '&search=';
+async function getUserInfo(id, user){
+    let multipleUsers = $(user).val().includes(",");
+    if(!multipleUsers){
+        queryServer(id, $(user).val());
+    }
+    else{
+        var userList = $(user).val().split(',');
+        for(var iterate = 0; iterate < userList.length; iterate++){
+            await queryServer(id, userList[iterate]);
+        }
+    }
+}
+
+function queryServer(id, user){
+    const Url='https://tweetgettimestamps.herokuapp.com/?pw=newSreel' + '&user=' + user + inclReplies + inclRetweets + '&search=';
     $.ajax({
         url: Url,
         type:"GET",
@@ -75,6 +88,7 @@ function getUserInfo(id, user){
             $(id).html("Oops!");
         }
     })
+    return new Promise(function(resolve){setTimeout(resolve.bind(null,0),1000)});
 }
 
 function addToArrays(responseText){
