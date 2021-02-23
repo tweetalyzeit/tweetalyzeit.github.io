@@ -127,7 +127,7 @@ function trendTheData(resp) {
         y: temp_curve_likes,
         name: "Mean Likes",
         mode: 'lines',
-        type: 'scatter',
+        type: 'bar',
         opacity: 0.5,
         line: {
             color: 'rgb(224, 36, 94)',
@@ -140,7 +140,7 @@ function trendTheData(resp) {
         y: temp_curve_retweets,
         name: "Mean Retweets",
         mode: 'lines',
-        type: 'scatter',
+        type: 'bar',
         opacity: 0.5,
         line: {
             color: 'rgb(23, 191, 99)',
@@ -149,7 +149,8 @@ function trendTheData(resp) {
         }
     };
 
-    var dataTrend = [trace1, trace2, trace3, trace4];
+    //var dataTrend = [trace1, trace2, trace3, trace4];
+    var dataTrend = [trace1, trace2];
 
     var configTrend = {
         modeBarButtonsToRemove: ['zoom2d', 'pan2d', 'select2d', 'lasso2d', 'zoomIn2d', 'zoomOut2d', 'resetScale2d', 'hoverClosestGl2d', 'hoverClosestPie','toggleHover', 'resetViews', 'sendDataToCloud', 'toggleSpikelines', 'resetViewMapbox','hoverClosestCartesian', 'hoverCompareCartesian'], 

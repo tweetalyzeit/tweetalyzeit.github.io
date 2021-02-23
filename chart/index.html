@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-158371299-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-158371299-1');
+  </script>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Build your own chart based on tweet data!">
+  <meta name="author" content="Kevin Quigley">
+
+  <title>Tweetalyze - Chart Builder</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom fonts for this template -->
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+  <link href="vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+
+  <!-- Custom styles for this template -->
+  <link href="css/landing-page.min.css" rel="stylesheet">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="./jquery.form.js"></script>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <script src="./build.js"></script>
+
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-light bg-light static-top">
+    <div class="container">
+      <a class="navbar-brand" href="https://tweetalyze.com/dashboard/">Tweetalyze</a>
+    </div>
+  </nav>
+
+  <!-- Masthead -->
+  <header class="masthead text-white text-center">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-xl-9 mx-auto">
+          <h1 class="mb-5">Chart Builder</h1>
+        </div>
+        <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
+          <form>
+            <div class="form-row">
+              <div class="col-12 col-md-9 mb-2 mb-md-0">
+                <input class="form-control form-control-lg" type="text" name="user" id="user" maxlength="15" placeholder="Enter a Twitter handle to analyze...">
+              </div>
+              <div class="col-12 col-md-3">
+                <button type="submit" class="btn btn-block btn-lg btn-primary" id="submitHandle" onclick="generateFunction()">Get Data</button>
+              </div>
+            </div>
+            <br>
+
+            <div class="input-group">
+ 
+              <div class="dropdown">
+                <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  X
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                  <button class="dropdown-item" type="button" onclick="setXData('time')">Time</button>
+                  <button class="dropdown-item" type="button" onclick="setXData('unitless')">Unitless</button>
+                </div>
+              </div>
+              <div class="dropdown" style="padding-left:4px;">
+                <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenu3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Y
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenu3">
+                  <button class="dropdown-item" type="button" onclick="setYData('likes')">Likes</button>
+                  <button class="dropdown-item" type="button" onclick="setYData('retweets')">Retweets</button>
+                  <button class="dropdown-item" type="button" onclick="setYData('sentiment')">Sentiment</button>
+                </div>
+              </div>
+
+              <div class="btn-group btn-group-toggle" data-toggle="buttons" style="padding-left:8px;">
+                <label class="btn btn-info active" onclick="setChartType('bar')">
+                  <input type="radio" name="options" id="Bar" autocomplete="off" checked><i class="fas fa-chart-bar"></i> Bar
+                </label>
+                <label class="btn btn-info" onclick="setChartType('line')">
+                  <input type="radio" name="options" id="Line" autocomplete="off"><i class="fas fa-chart-line"></i> Line
+                </label>
+                <!-- <label class="btn btn-info" onclick="setChartType('pie')">
+                  <input type="radio" name="options" id="Pie" autocomplete="off"><i class="fas fa-chart-pie"></i> Pie
+                </label> -->
+              </div>
+
+            </div>
+
+            <div id="LineSettings" style="display: none;">
+              <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                <label class="btn btn-secondary active" onclick="setLineMode('lines')">
+                  <input type="radio" name="options2" autocomplete="off" checked>Lines
+                </label>
+                <label class="btn btn-secondary" onclick="setLineMode('markers')">
+                  <input type="radio" name="options2" autocomplete="off">Markers
+                </label>
+                <label class="btn btn-secondary" onclick="setLineMode('lines+markers')">
+                  <input type="radio" name="options2" autocomplete="off">Both
+                </label>
+              </div>
+            </div>
+
+            <div id="Line_LineSettings" style="display: none;">
+              <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                <label class="btn btn-secondary active" onclick="setLineShape('linear')">
+                  <input type="radio" name="options3" autocomplete="off" checked>Linear
+                </label>
+                <label class="btn btn-secondary" onclick="setLineShape('spline')">
+                  <input type="radio" name="options3" autocomplete="off">Spline
+                </label>
+              </div>
+            </div>
+
+            <br><div id="TrendLine"></div>
+            <br><div id="SentNumbers"></div>
+          </form>
+          <br><br>
+
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Footer -->
+  <footer class="footer bg-light">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 h-100 text-center text-lg-left my-auto">
+          <p class="text-muted small mb-4 mb-lg-0">&copy; Tweetalyze 2021. All Rights Reserved.<br>This page allows users to build their own charts based on recent tweets and replies.</p>
+        </div>
+        <div class="col-lg-6 h-100 text-center text-lg-right my-auto">
+          <ul class="list-inline mb-0">
+            <li class="list-inline-item mr-3">
+              <a href="https://twitter.com/tweetalyzeit">
+                <i class="fab fa-twitter-square fa-2x fa-fw"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
