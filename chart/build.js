@@ -3,9 +3,11 @@ let timestamps = [];
 let units = [];
 
 let chart_type = "bar";
+let chart_title = "Likes";
 let line_mode = "lines";
 let line_shape = "linear";
 let x_axis_data = [];
+let x_axis_label = "Time";
 let y_axis_data = [];
 
 function generateFunction(){
@@ -16,7 +18,7 @@ function generateFunction(){
         beforeSend: function(){
             console.log(Url)
             $('#submitHandle').attr("disabled",true);
-            $('#submitHandle').html("BRB..");  
+            $('#submitHandle').html("Sampling..");  
         },
         success: function(responseText){
             console.log(responseText)
@@ -32,13 +34,16 @@ function generateFunction(){
                 units.push(i);
             }
             timestamps = resp.dates.reverse();
+            
             x_axis_data = timestamps;
             y_axis_data = resp.trend_likes;
+            chart_title = "Likes";
+            x_axis_label = "Time";
 
             trendTheData();
             $('#submitHandle').html("Done!");
             $('#submitHandle').attr("disabled",false);
-            $('#submitHandle').html("More");  
+            $('#submitHandle').html("Sample");  
         },
         error:function(error){
             console.log("Error")
@@ -75,19 +80,25 @@ function setLineShape(shape){
 }
 function setXData(metric){
     switch(metric){
-        case "time": x_axis_data = timestamps; break;
-        case "unitless": x_axis_data = units; break;
+        case "Time": x_axis_data = timestamps; x_axis_label = "Time"; break;
+        case "Unitless": x_axis_data = units; x_axis_label = "Sample #"; break;
+        case "Likes": x_axis_data = resp.trend_likes; x_axis_label = "Likes"; break;
+        case "Retweets": x_axis_data = resp.trend_retweets; x_axis_label = "Retweets"; break;
+        case "Length": x_axis_data = resp.trend_length; x_axis_label = "Length (characters)"; break;
+        case "Sentiment": x_axis_data = resp.trend_sentiment_score; x_axis_label = "Sentiment Score"; break;
         default: x_axis_data = timestamps; break;
     }
     trendTheData();
 }
 function setYData(metric){
     switch(metric){
-        case "likes": y_axis_data = resp.trend_likes; break;
-        case "retweets": y_axis_data = resp.trend_retweets; break;
-        case "sentiment": y_axis_data = resp.trend_sentiment_score; break;
+        case "Likes": y_axis_data = resp.trend_likes; break;
+        case "Retweets": y_axis_data = resp.trend_retweets; break;
+        case "Length": y_axis_data = resp.trend_length; break;
+        case "Sentiment": y_axis_data = resp.trend_sentiment_score; break;
         default: y_axis_data = resp.trend_likes; break;
     }
+    chart_title = metric;
     trendTheData();
 }
 
@@ -99,7 +110,7 @@ function trendTheData() {
         type: chart_type,
         x: x_axis_data,
         y: y_axis_data,
-        name: "Sentiment Score",
+        //name: "Sentiment Score",
         mode: line_mode,
         line: {
             color: 'rgb(29, 161, 242)',
@@ -116,13 +127,34 @@ function trendTheData() {
         responsive: true
     };
     var layoutTrend = {
+        title: {
+            text:chart_title,
+            font: {
+              family: 'Lato',
+              size: 24
+            },
+            xanchor: "right",
+            xref: "paper",
+            yanchor: "middle",
+            yref: "paper",
+            x: 1,
+            y: 1.01,
+        },
         yaxis: {
             
         },
         xaxis: {
             //showticklabels: false,
             zeroline: false,
-            showline: false
+            showline: false,
+            title: {
+                text: x_axis_label,
+                /*font: {
+                  family: 'Courier New, monospace',
+                  size: 18,
+                  color: '#7f7f7f'
+                }*/
+            },
         },
         legend: {
             "orientation": "v",

@@ -62,7 +62,7 @@
                 <input class="form-control form-control-lg" type="text" name="user" id="user" maxlength="15" placeholder="Enter a Twitter handle to analyze...">
               </div>
               <div class="col-12 col-md-3">
-                <button type="submit" class="btn btn-block btn-lg btn-primary" id="submitHandle" onclick="generateFunction()">Get Data</button>
+                <button type="submit" class="btn btn-block btn-lg btn-primary" id="submitHandle" onclick="generateFunction()">Sample</button>
               </div>
             </div>
             <br>
@@ -74,8 +74,12 @@
                   X
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                  <button class="dropdown-item" type="button" onclick="setXData('time')">Time</button>
-                  <button class="dropdown-item" type="button" onclick="setXData('unitless')">Unitless</button>
+                  <button class="dropdown-item" type="button" onclick="setXData('Time')">Time</button>
+                  <button class="dropdown-item" type="button" onclick="setXData('Unitless')">Unitless</button>
+                  <button class="dropdown-item" type="button" onclick="setXData('Likes')">Likes</button>
+                  <button class="dropdown-item" type="button" onclick="setXData('Retweets')">Retweets</button>
+                  <button class="dropdown-item" type="button" onclick="setXData('Length')">Length</button>
+                  <button class="dropdown-item" type="button" onclick="setXData('Sentiment')">Sentiment</button>
                 </div>
               </div>
               <div class="dropdown" style="padding-left:4px;">
@@ -83,9 +87,10 @@
                   Y
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenu3">
-                  <button class="dropdown-item" type="button" onclick="setYData('likes')">Likes</button>
-                  <button class="dropdown-item" type="button" onclick="setYData('retweets')">Retweets</button>
-                  <button class="dropdown-item" type="button" onclick="setYData('sentiment')">Sentiment</button>
+                  <button class="dropdown-item" type="button" onclick="setYData('Likes')">Likes</button>
+                  <button class="dropdown-item" type="button" onclick="setYData('Retweets')">Retweets</button>
+                  <button class="dropdown-item" type="button" onclick="setYData('Length')">Length</button>
+                  <button class="dropdown-item" type="button" onclick="setYData('Sentiment')">Sentiment</button>
                 </div>
               </div>
 
