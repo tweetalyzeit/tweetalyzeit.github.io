@@ -9,6 +9,7 @@ let line_shape = "linear";
 let x_axis_data = [];
 let x_axis_label = "Time";
 let y_axis_data = [];
+let y_axis_label = "Likes";
 
 function generateFunction(){
     const Url='https://tweetgettimestamps.herokuapp.com/?pw=newSreel' + '&user=' + $('#user').val() + '&replies=1&search=';
@@ -37,8 +38,9 @@ function generateFunction(){
             
             x_axis_data = timestamps;
             y_axis_data = resp.trend_likes;
-            chart_title = "Likes";
+            //chart_title = "Likes";
             x_axis_label = "Time";
+            y_axis_label = "Likes";
 
             trendTheData();
             $('#submitHandle').html("Done!");
@@ -85,7 +87,7 @@ function setXData(metric){
         case "Likes": x_axis_data = resp.trend_likes; x_axis_label = "Likes"; break;
         case "Retweets": x_axis_data = resp.trend_retweets; x_axis_label = "Retweets"; break;
         case "Length": x_axis_data = resp.trend_length; x_axis_label = "Length (characters)"; break;
-        case "Sentiment": x_axis_data = resp.trend_sentiment_score; x_axis_label = "Sentiment Score"; break;
+        case "Sentiment": x_axis_data = resp.trend_sentiment_score; x_axis_label = "Sentiment"; break;
         default: x_axis_data = timestamps; break;
     }
     trendTheData();
@@ -98,7 +100,8 @@ function setYData(metric){
         case "Sentiment": y_axis_data = resp.trend_sentiment_score; break;
         default: y_axis_data = resp.trend_likes; break;
     }
-    chart_title = metric;
+    //chart_title = metric;
+    y_axis_label = metric;
     trendTheData();
 }
 
@@ -106,18 +109,28 @@ function trendTheData() {
     //graph the trends
     $("#TrendLine").html('');
 
-    var trace1 = {
-        type: chart_type,
-        x: x_axis_data,
-        y: y_axis_data,
-        //name: "Sentiment Score",
-        mode: line_mode,
-        line: {
-            color: 'rgb(29, 161, 242)',
-            shape: line_shape,
-            //dash: 'dash',
-        }
-    };
+    if(chart_type != "histogram"){
+        var trace1 = {
+            type: chart_type,
+            x: x_axis_data,
+            y: y_axis_data,
+            //name: "Sentiment Score",
+            mode: line_mode,
+            line: {
+                color: 'rgb(29, 161, 242)',
+                shape: line_shape,
+                //dash: 'dash',
+            }
+        };
+        chart_title = y_axis_label;
+    }
+    else{
+        var trace1 = {
+            type: chart_type,
+            x: x_axis_data,
+        };
+        chart_title = x_axis_label;
+    }
 
     var dataTrend = [trace1];
 
