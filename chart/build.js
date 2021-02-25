@@ -59,10 +59,17 @@ function setChartType(type){
     chart_type = type;
     if(chart_type == "line"){
         document.getElementById('LineSettings').style.display = 'block';
+        document.getElementById('BellCurveSwitch').style.display = 'none';
+    }
+    else if (chart_type == "histogram"){
+        document.getElementById('LineSettings').style.display = 'none';
+        document.getElementById('Line_LineSettings').style.display = 'none';
+        document.getElementById('BellCurveSwitch').style.display = 'block';
     }
     else{
         document.getElementById('LineSettings').style.display = 'none';
         document.getElementById('Line_LineSettings').style.display = 'none';
+        document.getElementById('BellCurveSwitch').style.display = 'none';
     }
     trendTheData();
 }
@@ -86,7 +93,7 @@ function setXData(metric){
         case "Unitless": x_axis_data = units; x_axis_label = "Sample #"; break;
         case "Likes": x_axis_data = resp.trend_likes; x_axis_label = "Likes"; break;
         case "Retweets": x_axis_data = resp.trend_retweets; x_axis_label = "Retweets"; break;
-        case "Length": x_axis_data = resp.trend_length; x_axis_label = "Length (characters)"; break;
+        case "Length": x_axis_data = resp.trend_length; x_axis_label = "Length (char)"; break;
         case "Sentiment": x_axis_data = resp.trend_sentiment_score; x_axis_label = "Sentiment"; break;
         default: x_axis_data = timestamps; break;
     }
@@ -123,16 +130,52 @@ function trendTheData() {
             }
         };
         chart_title = y_axis_label;
+        var dataTrend = [trace1];
     }
-    else{
-        var trace1 = {
-            type: chart_type,
-            x: x_axis_data,
-        };
+    else{ // special settings for histograms
+        
+        if(document.getElementById('bellCurveSwitch1').checked == true){
+            var temp_curve_xaxis = [];
+            var temp_curve_yaxis = [];
+            var temp_curve_std = math.std(x_axis_data);
+            var temp_curve_mean = math.mean(x_axis_data);
+            
+            var lowX = Math.min(...x_axis_data);
+            var highX = Math.max(...x_axis_data);
+            var term1 = 1/(temp_curve_std*Math.sqrt(2*Math.PI));
+            for(j = lowX; j <= highX; j++){
+                temp_curve_xaxis.push(j);
+                var term2 = (j-temp_curve_mean)/temp_curve_std;
+                var term3 = Math.pow(term2,2);
+                var term4 = -0.5*term3;
+                var term5 = term1 * Math.pow(Math.E, term4);
+                temp_curve_yaxis.push(term5);
+            }
+            var trace1 = {
+                type: chart_type,
+                x: x_axis_data,
+                histnorm: "probability density",
+            };
+            var trace2 = {
+                type: "line",
+                x: temp_curve_xaxis,
+                y: temp_curve_yaxis,
+                line: {
+                    shape: "spline",
+                }
+            };
+            var dataTrend = [trace1, trace2];
+        }
+        else{
+            var trace1 = {
+                type: chart_type,
+                x: x_axis_data,
+            };
+            var dataTrend = [trace1];
+        }
+
         chart_title = x_axis_label;
     }
-
-    var dataTrend = [trace1];
 
     var configTrend = {
         modeBarButtonsToRemove: ['zoom2d', 'pan2d', 'select2d', 'lasso2d', 'zoomIn2d', 'zoomOut2d', 'resetScale2d', 'hoverClosestGl2d', 'hoverClosestPie','toggleHover', 'resetViews', 'sendDataToCloud', 'toggleSpikelines', 'resetViewMapbox','hoverClosestCartesian', 'hoverCompareCartesian'], 
@@ -169,6 +212,7 @@ function trendTheData() {
                 }*/
             },
         },
+        showlegend: false, // TEMPORARILY HIDING THE LEGEND. MAKE THIS DYNAMIC LATER
         legend: {
             "orientation": "v",
             x: 0.5,

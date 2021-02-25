@@ -69,7 +69,8 @@ function trendTheData(resp) {
         var term3 = Math.pow(term2,2);
         var term4 = -0.5*term3;
         var term5 = term1 * Math.pow(Math.E, term4);
-        temp_curve_likes.push(term5*Math.max(...resp.trend_likes));
+        temp_curve_likes.push(term5);
+        //temp_curve_likes.push(term5*Math.max(...resp.trend_likes));
     }*/
 
     /// plot the averages for each sentiment score

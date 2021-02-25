@@ -34,6 +34,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="./jquery.form.js"></script>
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <script src="https://unpkg.com/mathjs@9.2.0/lib/browser/math.js"></script>
   <script src="./build.js"></script>
 
 </head>
@@ -134,6 +135,11 @@
                   <input type="radio" name="options3" autocomplete="off">Spline
                 </label>
               </div>
+            </div>
+
+            <div class="custom-control custom-switch" id="BellCurveSwitch" style="display:none;">
+              <input type="checkbox" class="custom-control-input" id="bellCurveSwitch1" onclick="trendTheData()">
+              <label class="custom-control-label" for="bellCurveSwitch1" >Bell Curve</label>
             </div>
 
             <br><div id="TrendLine"></div>
