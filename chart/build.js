@@ -38,7 +38,6 @@ function generateFunction(){
             
             x_axis_data = timestamps;
             y_axis_data = resp.trend_likes;
-            //chart_title = "Likes";
             x_axis_label = "Time";
             y_axis_label = "Likes";
 
@@ -60,16 +59,22 @@ function setChartType(type){
     if(chart_type == "line"){
         document.getElementById('LineSettings').style.display = 'block';
         document.getElementById('BellCurveSwitch').style.display = 'none';
+        document.getElementById('PolyTrendSwitch').style.display = 'block';
     }
     else if (chart_type == "histogram"){
         document.getElementById('LineSettings').style.display = 'none';
         document.getElementById('Line_LineSettings').style.display = 'none';
         document.getElementById('BellCurveSwitch').style.display = 'block';
+        document.getElementById('PolyTrendSwitch').style.display = 'none';
     }
-    else{
+    else if (chart_type == "bar"){
         document.getElementById('LineSettings').style.display = 'none';
         document.getElementById('Line_LineSettings').style.display = 'none';
         document.getElementById('BellCurveSwitch').style.display = 'none';
+        document.getElementById('PolyTrendSwitch').style.display = 'block';
+    }
+    else{
+        console.log("There's an error in the setChartType function.");
     }
     trendTheData();
 }
@@ -95,7 +100,7 @@ function setXData(metric){
         case "Retweets": x_axis_data = resp.trend_retweets; x_axis_label = "Retweets"; break;
         case "Length": x_axis_data = resp.trend_length; x_axis_label = "Length (char)"; break;
         case "Sentiment": x_axis_data = resp.trend_sentiment_score; x_axis_label = "Sentiment"; break;
-        default: x_axis_data = timestamps; break;
+        default: x_axis_data = timestamps; x_axis_label = "Error"; break;
     }
     trendTheData();
 }
@@ -107,21 +112,21 @@ function setYData(metric){
         case "Sentiment": y_axis_data = resp.trend_sentiment_score; break;
         default: y_axis_data = resp.trend_likes; break;
     }
-    //chart_title = metric;
     y_axis_label = metric;
     trendTheData();
 }
 
 function trendTheData() {
-    //graph the trends
+    
     $("#TrendLine").html('');
 
     if(chart_type != "histogram"){
+
         var trace1 = {
             type: chart_type,
             x: x_axis_data,
             y: y_axis_data,
-            //name: "Sentiment Score",
+            name: "",
             mode: line_mode,
             line: {
                 color: 'rgb(29, 161, 242)',
@@ -129,12 +134,68 @@ function trendTheData() {
                 //dash: 'dash',
             }
         };
+
+        if(document.getElementById('PolyTrendSwitch1').checked == true){ // if the poly trend switch is turned on
+            // calculate the polynomial regression coefficients https://stackoverflow.com/questions/28269021/how-do-i-create-a-best-fit-polynomial-curve-in-javascript
+            var x = x_axis_data;
+            var y = y_axis_data;
+
+            order = 3;
+
+            var xMatrix = [];
+            var xTemp = [];
+            var yMatrix = numeric.transpose([y]);
+            for (j=0;j<x.length;j++)
+            {
+                xTemp = [];
+                for(i=0;i<=order;i++)
+                {
+                    xTemp.push(1*Math.pow(x[j],i));
+                }
+                xMatrix.push(xTemp);
+            }
+            var xMatrixT = numeric.transpose(xMatrix);
+            var dot1 = numeric.dot(xMatrixT,xMatrix);
+            var dotInv = numeric.inv(dot1);
+            var dot2 = numeric.dot(xMatrixT,yMatrix);
+            var solution = numeric.dot(dotInv,dot2);
+
+            // loop through and generate the curve points
+            var regr_curve_xaxis = [];
+            var regr_curve_yaxis = [];
+            
+            var lowX = Math.min(...x_axis_data);
+            var highX = Math.max(...x_axis_data);
+            for(k = lowX; k <= highX; k++){
+                regr_curve_xaxis.push(k);
+                regr_y_math_0 = parseFloat(solution[0]); 
+                regr_y_math_1 = parseFloat(solution[1])*k;
+                regr_y_math_2 = parseFloat(solution[2])*Math.pow(k,2);
+                regr_y_math_3 = parseFloat(solution[3])*Math.pow(k,3);
+                regr_y_math = regr_y_math_0 + regr_y_math_1 + regr_y_math_2 + regr_y_math_3;
+                regr_curve_yaxis.push(regr_y_math);
+            }
+            var trace2 = {
+                type: "line",
+                x: regr_curve_xaxis,
+                y: regr_curve_yaxis,
+                name: "Polynomial",
+                line: {
+                    shape: "spline",
+                }
+            };
+            // -----------------------------------------------------------------end polynomial regression
+            var dataTrend = [trace1,trace2];
+        }
+        else{ // if the poly trend switch is turned off
+            var dataTrend = [trace1];
+        }
+
         chart_title = y_axis_label;
-        var dataTrend = [trace1];
     }
     else{ // special settings for histograms
         
-        if(document.getElementById('bellCurveSwitch1').checked == true){
+        if(document.getElementById('bellCurveSwitch1').checked == true){ // if the user selects to show the bell curve
             var temp_curve_xaxis = [];
             var temp_curve_yaxis = [];
             var temp_curve_std = math.std(x_axis_data);
@@ -154,19 +215,21 @@ function trendTheData() {
             var trace1 = {
                 type: chart_type,
                 x: x_axis_data,
+                name: "",
                 histnorm: "probability density",
             };
             var trace2 = {
                 type: "line",
                 x: temp_curve_xaxis,
                 y: temp_curve_yaxis,
+                name: "Bell",
                 line: {
                     shape: "spline",
                 }
             };
             var dataTrend = [trace1, trace2];
         }
-        else{
+        else{ // if the user does not want to see the bell curve
             var trace1 = {
                 type: chart_type,
                 x: x_axis_data,
