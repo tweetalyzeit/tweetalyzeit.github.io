@@ -30,6 +30,7 @@
 
   <!-- Custom styles for this template -->
   <link href="css/landing-page.min.css" rel="stylesheet">
+  <link href="css/supp.css" rel="stylesheet">
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="./jquery.form.js"></script>
@@ -46,6 +47,10 @@
   <nav class="navbar navbar-light bg-light static-top">
     <div class="container">
       <a class="navbar-brand" href="https://tweetalyze.com/dashboard/">Tweetalyze</a>
+    </div>
+    <div class="custom-control custom-switch mr-auto WideModeSwitch" id="WideModeSwitch" >
+      <input type="checkbox" class="custom-control-input" id="WideModeSwitch1" onclick="trendTheData()">
+      <label class="custom-control-label" for="WideModeSwitch1" >Wide Mode</label>
     </div>
   </nav>
 
@@ -149,12 +154,12 @@
             </div>
 
             <br><div id="TrendLine"></div>
-            <br><div id="SentNumbers"></div>
+            <!-- <br><div id="SentNumbers"></div> -->
           </form>
-          <br><br>
-
         </div>
       </div>
+      <div id="TrendLine2"></div>
+      <br><div id="SentNumbers"></div>
     </div>
   </header>
 

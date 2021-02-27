@@ -119,6 +119,7 @@ function setYData(metric){
 function trendTheData() {
     
     $("#TrendLine").html('');
+    $("#TrendLine2").html('');
 
     if(chart_type != "histogram"){
 
@@ -296,5 +297,10 @@ function trendTheData() {
           ]
     };
 
-    Plotly.newPlot("TrendLine", dataTrend, layoutTrend, configTrend);
+    if(document.getElementById('WideModeSwitch1').checked == true){
+        Plotly.newPlot("TrendLine2", dataTrend, layoutTrend, configTrend);
+    }
+    else{
+        Plotly.newPlot("TrendLine", dataTrend, layoutTrend, configTrend);
+    }
 }
