@@ -2,19 +2,21 @@ let allTweets = [];
 let allWordClouds = [];
 let handleList = ["ABC", "CBSNews", "CNN","FoxNews", "MSNBC", "NBCNews", "nytimes","USATODAY","WSJ","washingtonpost","business","VICENews","HuffPost","TMZ","CNET","NPR","THR","Newsweek","NewYorker","TIME", "usnews","guardian","BBCWorld","latimes","chicagotribune"];
 
+let lastone = false;
 for(var h = 0; h < handleList.length; h++){
-    generateFunction(handleList[h]);
+    if(h == handleList.length-1){
+        lastone = true;
+    }
+    generateFunction(handleList[h],lastone);
 }
 
-function generateFunction(handle){
+function generateFunction(handle,lastOne){
     const Url='https://tweetgettimestamps.herokuapp.com/?pw=newSreel' + '&user=' + handle + '&replies=1&rts=1&search=';
     $.ajax({
         url: Url,
         type:"GET",
         beforeSend: function(){
             console.log(Url)
-            $('#submitHandle').attr("disabled",true);
-            $('#submitHandle').html("Loading");  
         },
         success: function(responseText){
             console.log(responseText)
@@ -39,22 +41,19 @@ function generateFunction(handle){
             allWordClouds.sort(function (a, b) {
                 return b.count - a.count;
             });
-            //console.log(allWordClouds);
-            $('#searchSuggestions').html("");
-            var suggestionsHTML = "";
-            for(var j = 0; j < 25; j++){
-                suggestionsHTML += "<button class='btn btn-primary' type='button' style='margin:2px' onclick='suggestedInput(\"" + allWordClouds[j].word + "\")'>" + allWordClouds[j].word + "</button>";
-            }
-            $('#searchSuggestions').html(suggestionsHTML);
 
-            // wrap-up the handle add
-            $('#submitHandle').html("Done!");
-            $('#submitHandle').attr("disabled",false);
-            $('#submitHandle').html("Add");
+            if(lastOne == true){
+                $('#searchSuggestions').html("");
+                var suggestionsHTML = "";
+                for(var j = 0; j < 25; j++){
+                    suggestionsHTML += "<button class='btn btn-primary' type='button' style='margin:2px' onclick='suggestedInput(\"" + allWordClouds[j].word + "\")'>" + allWordClouds[j].word + "</button>";
+                }
+                $('#searchSuggestions').html(suggestionsHTML);
+            }
+            
         },
         error:function(error){
             console.log("Error")
-            $('#submitHandle').html("Oops!");
         }
     })
 }
