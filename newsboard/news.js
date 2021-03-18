@@ -21,7 +21,7 @@ function generateFunction(handle){
             var arr = responseText.tweetBodies;
             for(var i = 0; i < arr.length; i++){
                 var myDate = new Date(responseText.dates[i]);
-                allTweets.push({username: responseText.name, userlabel: responseText.userLabel, profilePic: responseText.profilePicURL, timestamp: myDate.toLocaleString(), tweetText: arr[i]});
+                allTweets.push({username: responseText.name, userlabel: responseText.userLabel, profilePic: responseText.profilePicURL, tweetID: responseText.tweetIDs[i], timestamp: myDate.toLocaleString(), tweetText: arr[i]});
             }
             //console.log(allTweets);
             $('#AddHistory').append("<img src='" + responseText.profilePicURL + "' style='border-radius:50%;padding-left:8px;padding-right:8px;padding-top:8px;'>");
@@ -71,7 +71,7 @@ function search(){
         var plotlyValues = [];
         var plotlyLabels = [];
         for(var j = 0; j < results.length; j++){
-            resultsHTML += '<h5><img style="border-radius:50%;float:left" src="' + results[j].entry.profilePic +  '"><span style="font-weight:bold;padding-left:8px;">' + results[j].entry.userlabel + ' (<a href="https://twitter.com/' + results[j].entry.username +  '">@'+ results[j].entry.username + '</a>)</span><br><span style="font-size:75%;padding-left:8px">' + results[j].entry.timestamp + '</span><br><span style="font-size:75%;">' + results[j].entry.tweetText +'</span></h5><hr>';
+            resultsHTML += '<h5><img style="border-radius:50%;float:left" src="' + results[j].entry.profilePic +  '"><span style="font-weight:bold;padding-left:8px;">' + results[j].entry.userlabel + ' (<a href="https://twitter.com/' + results[j].entry.username +  '">@'+ results[j].entry.username + '</a>)</span><br><span style="font-size:75%;padding-left:8px;"><a style="color:grey;" href="https://twitter.com/' + results[j].entry.username + '/status/' + results[j].entry.tweetID + '">' + results[j].entry.timestamp + '</a></span><br><span style="font-size:75%;">' + results[j].entry.tweetText +'</span></h5><hr>';
             
             if(plotlyLabels.includes(results[j].entry.username)){
                 plotlyValues[results[j].entry.username]++;
