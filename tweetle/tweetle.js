@@ -71,6 +71,7 @@ function checkGuess(){
                 turnCounter += 1;
                 document.getElementById("guess" + turnCounter.toString()).disabled = false;
                 document.getElementById("guess" + turnCounter.toString()).placeholder = "Guess how many likes...";
+                document.getElementById("guess" + turnCounter.toString()).focus();
             }
             else{ // no more guesses, player loses
                 console.log("you lose")
@@ -80,3 +81,10 @@ function checkGuess(){
         }
     }
 }
+
+// submit guess if enter key is hit
+document.addEventListener("keyup", function(event) {
+    if (event.keyCode === 13) {
+        checkGuess();
+    }
+});
