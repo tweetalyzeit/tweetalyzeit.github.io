@@ -37,7 +37,7 @@ function generateFunction(){
             //console.log(allWordClouds);
             $('#searchSuggestions').html("");
             var suggestionsHTML = "";
-            for(var j = 0; j < 8; j++){
+            for(var j = 0; j < 25; j++){
                 suggestionsHTML += "<button class='btn btn-primary' type='button' style='margin:2px' onclick='suggestedInput(\"" + allWordClouds[j].word + "\")'>" + allWordClouds[j].word + "</button>";
             }
             $('#searchSuggestions').html(suggestionsHTML);
