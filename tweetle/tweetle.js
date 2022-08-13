@@ -53,6 +53,7 @@ function checkGuess(){
             document.getElementById("guess" + turnCounter.toString()).disabled = true;
             document.getElementById("guess" + turnCounter.toString()).style.backgroundColor = "#A6ECA8";
             document.getElementById("guess" + turnCounter.toString()).value = currentGuess.toString() + ": " + "That's correct! You win!";
+            document.getElementById("progressBar").style="height:16px;width:100%;background-color:#A6ECA8;border-radius:10px;";
         }
         else{ //if the player did not guess the correct answer
             document.getElementById("guess" + turnCounter.toString()).type = "text";
@@ -61,10 +62,12 @@ function checkGuess(){
             if(currentGuess < correctAnswer){ // guess is too low
                 console.log("go higher");
                 document.getElementById("guess" + turnCounter.toString()).value = currentGuess.toString() + ": " + "Too low!";
+                document.getElementById("progressBar").style="height:16px;width:" + (currentGuess/correctAnswer)*100 + "%;background-color:#1D9BF0;border-radius:10px;";
             }
             else{ // guess is too high
                 console.log("go lower");
                 document.getElementById("guess" + turnCounter.toString()).value = currentGuess.toString() + ": " + "Too high!";
+                document.getElementById("progressBar").style="height:16px;width:" + ((correctAnswer/currentGuess)*100).toString() + "%;background-color:#1D9BF0;border-radius:10px;";
             }
 
             if(turnCounter < 6){ // get the next guess input ready
