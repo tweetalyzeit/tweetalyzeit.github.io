@@ -47,7 +47,7 @@ function checkGuess(){
     isEmpty = currentGuess.toString().length;
     console.log("Is Empty? 0  means yes: " + isEmpty);
 
-    if(isEmpty != 0){
+    if(isEmpty != 0 && currentGuess>=0){
         if(currentGuess == correctAnswer){ //win condition
             console.log("you win");
             document.getElementById("sendGuess").style.display = "none";
