@@ -35,7 +35,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="./jquery.form.js"></script>
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-  <script src="./tweetle.js"></script>
+
 </head>
 
 <body>
@@ -43,9 +43,26 @@
   <!-- Navigation -->
   <nav class="navbar navbar-light bg-light static-top">
     <div class="container">
-      <a class="navbar-brand" href="https://tweetalyze.com/dashboard/">Tweetle</a>
+      <a class="navbar-brand" href="https://tweetalyze.com/dashboard/">Tweetle</a><button id="myBtn2" type="button" class="btn btn-light"><i class="fas fa-info-circle"></i></button>
     </div>
   </nav>
+
+  <!-- The Modal -->
+  <div id="myModal2" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+        <div class="modal-header">
+          <div>Welcome to Tweetle</div>
+        </div>
+        <div class="modal-body">
+            <div><br>Try to guess the number of likes on the tweet in 6 tries.<br><br></div>
+        </div>
+        <div class="modal-footer">
+          <br><br>
+          <div>Made by Kevin Quigley.<br></div>
+        </div>
+    </div>
+</div>
 
   <!-- Masthead -->
 
@@ -90,6 +107,7 @@
         </div>
       </div>
     </div>
+
   </body>
 
   <!-- Footer -->
@@ -99,7 +117,6 @@
         <div class="col-lg-6 h-100 text-center text-lg-left my-auto">
           <p class="text-muted small mb-4 mb-lg-0">&copy; Tweetalyze 2022. All Rights Reserved.</p>
         </div>
-      
       </div>
     </div>
   </footer>
@@ -107,7 +124,7 @@
   <!-- Bootstrap core JavaScript -->
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-</body>
+  
+  <script src="./tweetle.js"></script>
 
 </html>

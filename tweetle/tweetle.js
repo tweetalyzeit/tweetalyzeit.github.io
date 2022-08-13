@@ -4,7 +4,7 @@ var currentGuess = 0; // the users last guess
 resultsHTML = ""; // the HTML string that populates the tweet card
 
 //let handleList = ["ABC", "CBSNews", "CNN","FoxNews", "MSNBC", "NBCNews", "nytimes","USATODAY","WSJ","washingtonpost","business","VICENews","HuffPost","TMZ","CNET","NPR","THR","Newsweek","NewYorker","TIME", "usnews","guardian","BBCWorld","latimes","chicagotribune"];
-let handleList = ["elonmusk", "prattprattpratt","AnnaKendrick47","azizansari","chrissyteigen","VancityReynolds","mindykaling","ConanOBrien","evilhag","SHAQ","TheEllenShow","JimGaffigan","GabbySidibe","kristenschaaled","bjnovak","oliviamunn","SteveMartinToGo","WhitneyCummings","rickygervais","IMKristenBell","tommychong","amyschumer"];
+let handleList = ["elonmusk", "prattprattpratt","AnnaKendrick47","azizansari","chrissyteigen","VancityReynolds","mindykaling","ConanOBrien","evilhag","SHAQ","TheEllenShow","JimGaffigan","GabbySidibe","kristenschaaled","bjnovak","oliviamunn","SteveMartinToGo","WhitneyCummings","rickygervais","tommychong","amyschumer"];
 var pickAUser = handleList[Math.floor(Math.random() * handleList.length)]; // pick a random user from the list
 
 generateFunction(pickAUser);
@@ -88,3 +88,20 @@ document.addEventListener("keyup", function(event) {
         checkGuess();
     }
 });
+
+
+// MODAL HANDLING --------------------------------------------------------------------
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal2) {
+    modal2.style.display = "none";
+  }
+}
+//SECOND MODAL  
+var modal2 = document.getElementById("myModal2");
+var btn2 = document.getElementById("myBtn2");
+var span2 = document.getElementsByClassName("close")[1];
+btn2.onclick = function() {
+  modal2.style.display = "block";
+}
