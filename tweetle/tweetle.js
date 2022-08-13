@@ -20,12 +20,14 @@ function generateFunction(handle){
         success: function(responseText){
             console.log(responseText)
             var arr = responseText.tweetBodies; // store all tweet text
-            var sortedLikes = responseText.trend_likes.reverse(); // reverse the like data to be ordered in line with tweet bodies
+            //var sortedLikes = responseText.trend_likes.reverse(); // reverse the like data to be ordered in line with tweet bodies
+            var sortedRetweets = responseText.trend_retweets.reverse(); // reverse the RT data to be ordered in line with tweet bodies
 
             var pickATweet = Math.floor(Math.random() * arr.length); //pick a random tweet from this user's sample
-
-            correctAnswer = sortedLikes[pickATweet];
+            //correctAnswer = sortedLikes[pickATweet];
+            correctAnswer = sortedRetweets[pickATweet];
             console.log("Correct Answer: " + correctAnswer);
+
             var myDate = new Date(responseText.dates[pickATweet]); // get the specific tweet's timestamp
             resultsHTML = '<h5><img style="border-radius:50%;float:left" src="' + responseText.profilePicURL +  '"><span style="font-weight:bold;padding-left:8px;">' + responseText.userLabel + ' (<a href="https://twitter.com/' + responseText.name +  '" target="_blank">@'+ responseText.name + '</a>)</span><br><span style="font-size:75%;padding-left:8px;"><a style="color:grey;" href="https://twitter.com/' + responseText.name + '/status/' + responseText.tweetIDs[pickATweet] + '" target="_blank">' + myDate.toLocaleString() + '</a></span><br><span style="font-size:75%;">' + arr[pickATweet] +'</span></h5>';
             $('#searchResults').html(resultsHTML);
@@ -73,7 +75,7 @@ function checkGuess(){
             if(turnCounter < 6){ // get the next guess input ready
                 turnCounter += 1;
                 document.getElementById("guess" + turnCounter.toString()).disabled = false;
-                document.getElementById("guess" + turnCounter.toString()).placeholder = "Guess how many likes...";
+                document.getElementById("guess" + turnCounter.toString()).placeholder = "Guess how many retweets...";
                 document.getElementById("guess" + turnCounter.toString()).focus();
             }
             else{ // no more guesses, player loses
