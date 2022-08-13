@@ -39,7 +39,7 @@
     animation-name: slideIn;
     animation-duration: 0.4s;
     font-size: 5vw;
-    font-family: 'Roboto', sans-serif;
+    /*font-family: 'Roboto', sans-serif;*/
   }
   
     
@@ -48,20 +48,20 @@
     background-color: #1D9BF0;
     color: white;
     font-size: 6vw;
-    font-family: 'Roboto', sans-serif;
+    /*font-family: 'Roboto', sans-serif;*/
   }
   
   .modal-body {
     padding: 4px 16px;
     color: black;
-    font-family: 'Roboto', sans-serif;
+    /*font-family: 'Roboto', sans-serif;*/
   }
   
   .modal-footer {
     padding: 4px 16px;
     background-color: white;
     color: black;
-    font-family: 'Roboto', sans-serif;
+    /*font-family: 'Roboto', sans-serif;*/
   }
   
   /* Add Animation */

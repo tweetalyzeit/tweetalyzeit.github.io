@@ -4,7 +4,7 @@ var currentGuess = 0; // the users last guess
 resultsHTML = ""; // the HTML string that populates the tweet card
 
 //let handleList = ["ABC", "CBSNews", "CNN","FoxNews", "MSNBC", "NBCNews", "nytimes","USATODAY","WSJ","washingtonpost","business","VICENews","HuffPost","TMZ","CNET","NPR","THR","Newsweek","NewYorker","TIME", "usnews","guardian","BBCWorld","latimes","chicagotribune"];
-let handleList = ["elonmusk", "prattprattpratt","AnnaKendrick47","azizansari","chrissyteigen","VancityReynolds","mindykaling","ConanOBrien","evilhag","SHAQ","TheEllenShow","JimGaffigan","GabbySidibe","kristenschaaled","bjnovak","oliviamunn","SteveMartinToGo","WhitneyCummings","rickygervais","tommychong","amyschumer"];
+let handleList = ["prattprattpratt","AnnaKendrick47","azizansari","chrissyteigen","VancityReynolds","ConanOBrien","SHAQ","TheEllenShow","JimGaffigan","oliviamunn","SteveMartinToGo","WhitneyCummings","rickygervais","tommychong","amyschumer"];
 var pickAUser = handleList[Math.floor(Math.random() * handleList.length)]; // pick a random user from the list
 
 generateFunction(pickAUser);
@@ -55,7 +55,7 @@ function checkGuess(){
             document.getElementById("guess" + turnCounter.toString()).disabled = true;
             document.getElementById("guess" + turnCounter.toString()).style.backgroundColor = "#A6ECA8";
             document.getElementById("guess" + turnCounter.toString()).value = currentGuess.toString() + ": " + "That's correct! You win!";
-            document.getElementById("progressBar").style="height:16px;width:100%;background-color:#A6ECA8;border-radius:10px;";
+            document.getElementById("progressBar").style="height:12px;width:100%;background-color:#A6ECA8;border-radius:8px;";
         }
         else{ //if the player did not guess the correct answer
             document.getElementById("guess" + turnCounter.toString()).type = "text";
@@ -64,12 +64,12 @@ function checkGuess(){
             if(currentGuess < correctAnswer){ // guess is too low
                 console.log("go higher");
                 document.getElementById("guess" + turnCounter.toString()).value = currentGuess.toString() + ": " + "Too low!";
-                document.getElementById("progressBar").style="height:16px;width:" + (currentGuess/correctAnswer)*100 + "%;background-color:#1D9BF0;border-radius:10px;";
+                document.getElementById("progressBar").style="height:12px;width:" + ((currentGuess/correctAnswer)*100).toString() + "%;background-color:#1D9BF0;border-radius:8px;";
             }
             else{ // guess is too high
                 console.log("go lower");
                 document.getElementById("guess" + turnCounter.toString()).value = currentGuess.toString() + ": " + "Too high!";
-                document.getElementById("progressBar").style="height:16px;width:" + ((correctAnswer/currentGuess)*100).toString() + "%;background-color:#1D9BF0;border-radius:10px;";
+                document.getElementById("progressBar").style="height:12px;width:" + ((correctAnswer/currentGuess)*100).toString() + "%;background-color:#1D9BF0;border-radius:8px;";
             }
 
             if(turnCounter < 6){ // get the next guess input ready
@@ -81,6 +81,8 @@ function checkGuess(){
             else{ // no more guesses, player loses
                 console.log("you lose")
                 document.getElementById("sendGuess").style.display = "none";
+                document.getElementById("results").innerHTML = "The correct answer was " + correctAnswer.toString() + ". You were off by " + (Math.abs(correctAnswer-currentGuess)).toString() + "!<br><br>";
+                modal2.style.display = "block";
             }
             
         }
