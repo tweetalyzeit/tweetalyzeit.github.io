@@ -63,36 +63,31 @@ function checkGuess(){
             if(currentGuess < correctAnswer){ // guess is too low
                 console.log("go higher");
 
-                /*
-                document.getElementById("guess" + turnCounter.toString()).style.backgroundColor = "#EAE4A6";
-                document.getElementById("guess" + turnCounter.toString()).style.maxWidth = ((currentGuess/correctAnswer)*100).toString() + "%";
-                document.getElementById("guess" + turnCounter.toString() + "bar").innerHTML += "<div style='border-top-right-radius:0.3rem;border-bottom-right-radius:0.3rem;background-color:#EEEEEE;width:" + ((1-(currentGuess/correctAnswer))*100).toString() + "%;'></div>";
-                document.getElementById("guess" + turnCounter.toString()).value = currentGuess.toString() + ": " + "Too low!";
-                */
-
                 document.getElementById("guess" + turnCounter.toString() + "bar").className = "";
-                document.getElementById("guess" + turnCounter.toString() + "bar").innerHTML = "<div class='progress input-group mb-3' style='height:calc(1.5em + 1rem + 2px);font-size:1.25rem;border-radius:0.3rem;'><div class='progress-bar' role='progressbar' style='width:" + ((currentGuess/correctAnswer)*100).toString() + "%;color:#495057;background-color: #EAE4A6;'><div style='padding:.5rem 1rem;text-align: left;'>" + currentGuess.toString() + ": Too low!</div></div></div>";                
-
-                //document.getElementById("progressBar").style="height:12px;width:" + ((currentGuess/correctAnswer)*100).toString() + "%;background-color:#1D9BF0;border-radius:8px;";
+                document.getElementById("guess" + turnCounter.toString() + "bar").innerHTML = "<div class='progress input-group mb-3' style='height:calc(1.5em + 1rem + 2px);font-size:1.25rem;border-radius:0.3rem;'><div id='progressbar" + turnCounter.toString() +"' class='progress-bar' role='progressbar' style='width:0%;color:#495057;background-color: #EAE4A6;transition: width 1s ease 0s;'><div style='padding:.5rem 1rem;text-align: left;'>" + currentGuess.toString() + ": Too low!</div></div></div>";
+                //start the bar width at 0 and then increase at the end to handle transition wonkiness
             }
             else{ // guess is too high
                 console.log("go lower");
                 document.getElementById("guess" + turnCounter.toString()).style.backgroundColor = "#E8A4A4";
                 document.getElementById("guess" + turnCounter.toString()).value = currentGuess.toString() + ": " + "Too high!";
-                //document.getElementById("progressBar").style="height:12px;width:" + ((correctAnswer/currentGuess)*100).toString() + "%;background-color:#1D9BF0;border-radius:8px;";
             }
 
-            if(turnCounter < 6){ // get the next guess input ready
-                turnCounter += 1;
+            turnCounter += 1;
+            if(turnCounter <= 6){ // get the next guess input ready
                 document.getElementById("guess" + turnCounter.toString()).disabled = false;
                 document.getElementById("guess" + turnCounter.toString()).placeholder = "Guess how many retweets...";
                 document.getElementById("guess" + turnCounter.toString()).focus();
+
             }
             else{ // no more guesses, player loses
                 console.log("you lose")
                 document.getElementById("sendGuess").style.display = "none";
                 document.getElementById("results").innerHTML = "The correct answer was " + correctAnswer.toString() + ". You were off by " + (Math.abs(correctAnswer-currentGuess)).toString() + "!<br><br>";
                 modal2.style.display = "block";
+            }
+            if(currentGuess < correctAnswer){ // increase the bar on the previous guess now since it was not working in the guess is too low section
+                document.getElementById("progressbar" + (turnCounter-1).toString()).style.width = ((currentGuess/correctAnswer)*100).toString() + "%"; 
             }
             
         }
