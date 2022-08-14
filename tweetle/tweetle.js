@@ -4,7 +4,7 @@ var currentGuess = 0; // the users last guess
 resultsHTML = ""; // the HTML string that populates the tweet card
 
 //let handleList = ["ABC", "CBSNews", "CNN","FoxNews", "MSNBC", "NBCNews", "nytimes","USATODAY","WSJ","washingtonpost","business","VICENews","HuffPost","TMZ","CNET","NPR","THR","Newsweek","NewYorker","TIME", "usnews","guardian","BBCWorld","latimes","chicagotribune"];
-let handleList = ["prattprattpratt","AnnaKendrick47","azizansari","chrissyteigen","VancityReynolds","ConanOBrien","SHAQ","TheEllenShow","JimGaffigan","oliviamunn","SteveMartinToGo","amyschumer"];
+let handleList = ["prattprattpratt","AnnaKendrick47","azizansari","chrissyteigen","VancityReynolds","ConanOBrien","SHAQ","TheEllenShow","JimGaffigan","oliviamunn","SteveMartinToGo","amyschumer","RobertDowneyJr","ChrisEvans","MarkRuffalo","chrishemsworth","GrahamStephan","RealHughJackman","brielarson","TheRock","katyperry","jtimberlake","jimmyfallon","neiltyson","ActuallyNPH","ZooeyDeschanel","Pink","Nick_Offerman"];
 var pickAUser = handleList[Math.floor(Math.random() * handleList.length)]; // pick a random user from the list
 
 generateFunction(pickAUser);
