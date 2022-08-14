@@ -69,7 +69,7 @@ function checkGuess(){
                 console.log("you lose")
                 document.getElementById("sendGuess").style.display = "none";
                 document.getElementById("modalTitle").innerHTML = "Thank you for playing Tweetle";
-                document.getElementById("results").innerHTML = "<br>The correct answer was " + correctAnswer.toString() + ". You were off by " + (Math.abs(correctAnswer-currentGuess)).toString() + "!<br><br>";
+                document.getElementById("results").innerHTML = "<br>Sorry, the correct answer was " + correctAnswer.toString() + ".<br>You were off by " + (Math.abs(correctAnswer-currentGuess)).toString() + "!<br><br>";
                 setTimeout(function(){modal2.style.display = "block";},2000);
             }
         }
@@ -78,9 +78,11 @@ function checkGuess(){
         if(currentGuess == correctAnswer){ //win condition
             console.log("you win");
             document.getElementById("sendGuess").style.display = "none";
+            //modal
             document.getElementById("modalTitle").innerHTML = "Thank you for playing Tweetle";
             document.getElementById("results").innerHTML = "<br>Congratulations, you won after " + (turnCounter-1).toString() + " turns!<br><br>";
             setTimeout(function(){modal2.style.display = "block";},2000);
+            //progress bar
             document.getElementById("progressbar" + (turnCounter-1).toString()).style.width = "100%";
             setTimeout(function(){document.getElementById("progressbar" + (turnCounter-1).toString()).style.backgroundColor = "#A6ECA8";document.getElementById("progressbarcontainer" + (turnCounter-1).toString()).style.animation = "pulse 1s";}, 1000);
         }
