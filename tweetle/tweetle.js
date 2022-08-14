@@ -45,52 +45,52 @@ function checkGuess(){
 
     //check if the input is empty before proceeding
     isEmpty = currentGuess.toString().length;
-    console.log("Is Empty? 0  means yes: " + isEmpty);
+    //console.log("Is Empty? 0  means yes: " + isEmpty);
 
     if(isEmpty != 0 && currentGuess>=0){
-        if(currentGuess == correctAnswer){ //win condition
-            console.log("you win");
-            document.getElementById("sendGuess").style.display = "none";
-            document.getElementById("guess" + turnCounter.toString()).type = "text";
-            document.getElementById("guess" + turnCounter.toString()).disabled = true;
-            document.getElementById("guess" + turnCounter.toString()).style.backgroundColor = "#A6ECA8";
-            document.getElementById("guess" + turnCounter.toString()).value = currentGuess.toString() + ": " + "That's correct! You win!";
-            //document.getElementById("progressBar").style="height:12px;width:100%;background-color:#A6ECA8;border-radius:8px;";
-        }
-        else{ //if the player did not guess the correct answer
-            document.getElementById("guess" + turnCounter.toString()).type = "text";
-            document.getElementById("guess" + turnCounter.toString()).disabled = true;
-            if(currentGuess < correctAnswer){ // guess is too low
-                console.log("go higher");
 
-                document.getElementById("guess" + turnCounter.toString() + "bar").className = "";
-                document.getElementById("guess" + turnCounter.toString() + "bar").innerHTML = "<div class='progress input-group mb-3' style='height:calc(1.5em + 1rem + 2px);font-size:1.25rem;border-radius:0.3rem;'><div id='progressbar" + turnCounter.toString() +"' class='progress-bar' role='progressbar' style='width:0%;color:#495057;background-color: #EAE4A6;transition: width 1s ease 0s;'><div style='padding:.5rem 1rem;text-align: left;'>" + currentGuess.toString() + ": Too low!</div></div></div>";
-                //start the bar width at 0 and then increase at the end to handle transition wonkiness
-            }
-            else{ // guess is too high
-                console.log("go lower");
-                document.getElementById("guess" + turnCounter.toString()).style.backgroundColor = "#E8A4A4";
-                document.getElementById("guess" + turnCounter.toString()).value = currentGuess.toString() + ": " + "Too high!";
-            }
+        document.getElementById("guess" + turnCounter.toString() + "bar").className = "";
+        document.getElementById("guess" + turnCounter.toString() + "bar").innerHTML = "<div id='progressbarcontainer" + turnCounter.toString() +  "'class='progress input-group mb-3' style='height:calc(1.5em + 1rem + 2px);font-size:1.25rem;border-radius:0.3rem;'><div id='progressbar" + turnCounter.toString() +"' class='progress-bar' role='progressbar' style='width:0%;color:#495057;background-color: #EAE4A6;transition: width 1s ease 0s;'><div style='padding:.5rem 1rem;text-align: left;'>" + currentGuess.toString() + "</div></div></div>";
 
-            turnCounter += 1;
-            if(turnCounter <= 6){ // get the next guess input ready
+        //dummy text to force the progress bar to work
+        document.getElementById("guess7").disabled = false;
+        document.getElementById("guess7").placeholder = "Guess how many retweets...";
+        document.getElementById("guess7").focus();
+
+        //setup the next turn or declare the game over
+        turnCounter += 1;
+        if(currentGuess != correctAnswer){
+            if(turnCounter <= 6){ // get the next guess input ready unless the player is winning
                 document.getElementById("guess" + turnCounter.toString()).disabled = false;
                 document.getElementById("guess" + turnCounter.toString()).placeholder = "Guess how many retweets...";
                 document.getElementById("guess" + turnCounter.toString()).focus();
-
             }
             else{ // no more guesses, player loses
                 console.log("you lose")
                 document.getElementById("sendGuess").style.display = "none";
-                document.getElementById("results").innerHTML = "The correct answer was " + correctAnswer.toString() + ". You were off by " + (Math.abs(correctAnswer-currentGuess)).toString() + "!<br><br>";
-                modal2.style.display = "block";
+                document.getElementById("modalTitle").innerHTML = "Thank you for playing Tweetle";
+                document.getElementById("results").innerHTML = "<br>The correct answer was " + correctAnswer.toString() + ". You were off by " + (Math.abs(correctAnswer-currentGuess)).toString() + "!<br><br>";
+                setTimeout(function(){modal2.style.display = "block";},1000);
             }
-            if(currentGuess < correctAnswer){ // increase the bar on the previous guess now since it was not working in the guess is too low section
-                document.getElementById("progressbar" + (turnCounter-1).toString()).style.width = ((currentGuess/correctAnswer)*100).toString() + "%"; 
-            }
-            
         }
+
+        //evaluate the guess
+        if(currentGuess == correctAnswer){ //win condition
+            console.log("you win");
+            document.getElementById("sendGuess").style.display = "none";
+            document.getElementById("progressbar" + (turnCounter-1).toString()).style.width = "100%";
+            setTimeout(function(){document.getElementById("progressbar" + (turnCounter-1).toString()).style.backgroundColor = "#A6ECA8";document.getElementById("progressbarcontainer" + (turnCounter-1).toString()).style.animation = "pulse 1s";}, 1000);
+        }
+        else if(currentGuess < correctAnswer){ // if the previous guess was too low
+            console.log("go higher");
+            document.getElementById("progressbar" + (turnCounter-1).toString()).style.width = ((currentGuess/correctAnswer)*100).toString() + "%"; 
+        }
+        else{ // if the previous guess was too high
+            console.log("go lower");
+            document.getElementById("progressbar" + (turnCounter-1).toString()).style.width = "100%";
+            setTimeout(function(){document.getElementById("progressbar" + (turnCounter-1).toString()).style.backgroundColor = "#E8A4A4";document.getElementById("progressbarcontainer" + (turnCounter-1).toString()).style.animation = "shake 0.5s";}, 1000);
+        }
+        
     }
 }
 

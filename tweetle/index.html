@@ -52,11 +52,10 @@
     <!-- Modal content -->
     <div class="modal-content">
         <div class="modal-header">
-          <div>Welcome to Tweetle</div>
+          <div id="modalTitle">Welcome to Tweetle</div>
         </div>
         <div class="modal-body">
-            <div><br>Try to guess the number of retweets on the tweet in 6 tries.<br><br></div>
-            <div id="results"></div>
+            <div id="results"><br>Try to guess the number of retweets on the tweet in 6 tries.<br><br></div>
         </div>
         <div class="modal-footer">
           <br><br>
@@ -101,6 +100,11 @@
 
           <div id="guess6bar" class="input-group mb-3">
             <input class="form-control form-control-lg" type="number" min="0" id="guess6" placeholder="" disabled="true">
+          </div>
+
+          <!--dummy input that exists only to manipulate broken CSS transitions-->
+          <div id="guess7bar" class="input-group mb-3" style="display: none;">
+            <input class="form-control form-control-lg" type="number" min="0" id="guess7" placeholder="" disabled="true">
           </div>
 
           <button id="sendGuess" class="block" onclick="checkGuess()"><i class="fas fa-paper-plane"></i></button>
