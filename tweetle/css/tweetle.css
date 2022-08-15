@@ -25,7 +25,8 @@
     -webkit-animation-name: fadeIn; /* Fade in the background */
     -webkit-animation-duration: 0.4s;
     animation-name: fadeIn;
-    animation-duration: 0.4s
+    animation-duration: 0.4s;
+    border-radius: 0%;
   }
   
   /* Modal Content */
@@ -49,12 +50,14 @@
     color: white;
     font-size: 6vw;
     /*font-family: 'Roboto', sans-serif;*/
+    border-radius: 0%;
   }
   
   .modal-body {
     padding: 4px 16px;
     color: black;
     /*font-family: 'Roboto', sans-serif;*/
+    border-radius: 0%;
   }
   
   .modal-footer {
@@ -62,6 +65,7 @@
     background-color: white;
     color: black;
     /*font-family: 'Roboto', sans-serif;*/
+    border-radius: 0%;
   }
   
   /* Add Animation */

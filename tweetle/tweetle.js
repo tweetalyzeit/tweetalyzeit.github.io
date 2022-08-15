@@ -3,7 +3,11 @@ var correctAnswer = 0; // the correct number of likes
 var currentGuess = 0; // the users last guess
 resultsHTML = ""; // the HTML string that populates the tweet card
 
-//let handleList = ["ABC", "CBSNews", "CNN","FoxNews", "MSNBC", "NBCNews", "nytimes","USATODAY","WSJ","washingtonpost","business","VICENews","HuffPost","TMZ","CNET","NPR","THR","Newsweek","NewYorker","TIME", "usnews","guardian","BBCWorld","latimes","chicagotribune"];
+var distributionOfWonGuesses = [];
+for(var i = 1; i <= 6; i++){
+    distributionOfWonGuesses[i] = 0;
+}
+
 let handleList = ["prattprattpratt","AnnaKendrick47","azizansari","chrissyteigen","VancityReynolds","ConanOBrien","SHAQ","TheEllenShow","JimGaffigan","oliviamunn","SteveMartinToGo","amyschumer","RobertDowneyJr","ChrisEvans","MarkRuffalo","chrishemsworth","GrahamStephan","RealHughJackman","brielarson","TheRock","katyperry","jtimberlake","jimmyfallon","neiltyson","ActuallyNPH","ZooeyDeschanel","Pink","Nick_Offerman"];
 var pickAUser = handleList[Math.floor(Math.random() * handleList.length)]; // pick a random user from the list
 
@@ -78,6 +82,8 @@ function checkGuess(){
         if(currentGuess == correctAnswer){ //win condition
             console.log("you win");
             document.getElementById("sendGuess").style.display = "none";
+            distributionOfWonGuesses[turnCounter-1] += 1;
+            plotDist();
             //modal
             document.getElementById("modalTitle").innerHTML = "Thank you for playing Tweetle";
             document.getElementById("results").innerHTML = "<br>Congratulations, you won after " + (turnCounter-1).toString() + " turns!<br><br>";
@@ -121,4 +127,58 @@ var btn2 = document.getElementById("myBtn2");
 var span2 = document.getElementsByClassName("close")[1];
 btn2.onclick = function() {
   modal2.style.display = "block";
+}
+
+
+//PLOT DISTRIBUTION 
+function plotDist(){
+    var distributionXData = [];
+    for(var n = 1; n <= 6; n++){
+        distributionXData.push(distributionOfWonGuesses[n]);
+    }
+    var distChartData = [
+        {
+            type: 'bar',
+            x: distributionXData,
+            y: [1,2,3,4,5,6],
+            orientation: 'h',
+            textposition: 'inside',
+            text: distributionXData,
+        }
+      ];
+    var config = {
+        modeBarButtonsToRemove: ['zoom2d', 'pan2d', 'select2d', 'lasso2d', 'zoomIn2d', 'zoomOut2d', 'resetScale2d', 'hoverClosestGl2d', 'hoverClosestPie','toggleHover', 'resetViews', 'sendDataToCloud', 'toggleSpikelines', 'resetViewMapbox','hoverClosestCartesian', 'hoverCompareCartesian','toImage'], 
+        displaylogo: false,
+        responsive: true,
+    };
+    var layout = {
+        width: 440,
+        height: 300,
+        yaxis: {
+            tick0: 1,
+            dtick: 1,
+            tickfont: {
+                family: 'Roboto, sans-serif',
+                size: 16,
+            },
+            fixedrange: true,
+        },
+        xaxis:{
+            showgrid: false,
+            fixedrange: true,
+        },
+        margin: {
+            l: 40,
+            r: 100,
+            b: 20,
+            t: 40,
+            pad: 16,
+        },
+        font: {
+            size: 14,
+            family: 'Roboto, sans-serif',
+        }
+    };
+      
+    Plotly.newPlot('distrbutionChart', distChartData, layout, config);
 }
