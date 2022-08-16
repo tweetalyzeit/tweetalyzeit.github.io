@@ -8,7 +8,7 @@ for(var i = 1; i <= 6; i++){
     distributionOfWonGuesses[i] = 0;
 }
 
-let handleList = ["prattprattpratt","AnnaKendrick47","azizansari","chrissyteigen","VancityReynolds","ConanOBrien","SHAQ","TheEllenShow","JimGaffigan","oliviamunn","SteveMartinToGo","amyschumer","RobertDowneyJr","ChrisEvans","MarkRuffalo","chrishemsworth","GrahamStephan","RealHughJackman","brielarson","TheRock","katyperry","jtimberlake","jimmyfallon","neiltyson","ActuallyNPH","ZooeyDeschanel","Pink","Nick_Offerman"];
+let handleList = ["prattprattpratt","AnnaKendrick47","azizansari","chrissyteigen","VancityReynolds","ConanOBrien","SHAQ","TheEllenShow","JimGaffigan","SteveMartinToGo","amyschumer","RobertDowneyJr","ChrisEvans","MarkRuffalo","chrishemsworth","GrahamStephan","RealHughJackman","brielarson","TheRock","katyperry","jtimberlake","jimmyfallon","neiltyson","ActuallyNPH","ZooeyDeschanel","Pink","Nick_Offerman","BenAffleck","AvrilLavigne"];
 var pickAUser = handleList[Math.floor(Math.random() * handleList.length)]; // pick a random user from the list
 
 generateFunction(pickAUser);
@@ -153,7 +153,7 @@ function plotDist(){
     };
     var layout = {
         width: 440,
-        height: 300,
+        height: 320,
         yaxis: {
             tick0: 1,
             dtick: 1,
@@ -171,7 +171,7 @@ function plotDist(){
             l: 40,
             r: 100,
             b: 20,
-            t: 40,
+            t: 20,
             pad: 16,
         },
         font: {
