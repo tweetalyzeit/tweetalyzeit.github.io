@@ -3,6 +3,16 @@ var correctAnswer = 0; // the correct number of likes
 var currentGuess = 0; // the users last guess
 resultsHTML = ""; // the HTML string that populates the tweet card
 
+//STATS initialization
+//not yet in use
+var gamesPlayed = 0;
+var gamesWon = 0;
+var sumOfLostDifferences = 0; // can be divided by gamesPlayed to get mean difference
+var firstGuesses = []; // it could be cool to show mean, median, and mode first guess
+var countOfHighGuesses = 0;
+var countOfLowGuesses = 0; // should we show a pie graph of too high vs too low
+
+//in use with plotly graph showing distribution how many attempts it takes to win. need to add mean, median, and mode???
 var distributionOfWonGuesses = [];
 for(var i = 1; i <= 6; i++){
     distributionOfWonGuesses[i] = 0;
@@ -129,6 +139,30 @@ btn2.onclick = function() {
   modal2.style.display = "block";
 }
 
+//COOKIE FUNCTIONS
+function setCookie(cname, cvalue) {
+    var exdays = 36525;
+    const d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    let expires = "expires="+ d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+function getCookie(cname) {
+    let name = cname + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for(let i = 0; i <ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
 
 //PLOT DISTRIBUTION 
 function plotDist(){
