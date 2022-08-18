@@ -18,8 +18,16 @@ for(var i = 1; i <= 6; i++){
     distributionOfWonGuesses[i] = 0;
 }
 
-let handleList = ["prattprattpratt","AnnaKendrick47","azizansari","chrissyteigen","VancityReynolds","ConanOBrien","SHAQ","TheEllenShow","JimGaffigan","SteveMartinToGo","amyschumer","RobertDowneyJr","ChrisEvans","MarkRuffalo","chrishemsworth","GrahamStephan","RealHughJackman","brielarson","TheRock","katyperry","jtimberlake","jimmyfallon","neiltyson","ActuallyNPH","ZooeyDeschanel","Pink","Nick_Offerman","BenAffleck","AvrilLavigne"];
-var pickAUser = handleList[Math.floor(Math.random() * handleList.length)]; // pick a random user from the list
+let params = (new URL(document.location)).searchParams;
+let urlHandle = params.get('h'); // check the URL for forced handles
+
+if(!!urlHandle){ //check if url handle is not null, then use the given handle
+    var pickAUser = urlHandle;
+}
+else{ // otherwise, pick one randomly from the list
+    let handleList = ["prattprattpratt","AnnaKendrick47","azizansari","chrissyteigen","VancityReynolds","ConanOBrien","SHAQ","TheEllenShow","JimGaffigan","SteveMartinToGo","amyschumer","RobertDowneyJr","ChrisEvans","MarkRuffalo","chrishemsworth","GrahamStephan","RealHughJackman","brielarson","TheRock","katyperry","jtimberlake","jimmyfallon","neiltyson","ActuallyNPH","ZooeyDeschanel","Pink","Nick_Offerman","BenAffleck","AvrilLavigne"];
+    var pickAUser = handleList[Math.floor(Math.random() * handleList.length)]; // pick a random user from the list
+}
 
 generateFunction(pickAUser);
 
