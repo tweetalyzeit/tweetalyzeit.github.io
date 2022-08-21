@@ -3,21 +3,53 @@ var correctAnswer = 0; // the correct number of likes
 var currentGuess = 0; // the users last guess
 resultsHTML = ""; // the HTML string that populates the tweet card
 
-//STATS initialization
-//not yet in use
-var gamesPlayed = 0;
-var gamesWon = 0;
-var sumOfLostDifferences = 0; // can be divided by gamesPlayed to get mean difference
+// MODAL HANDLING --------------------------------------------------------------------
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal2) {
+      modal2.style.display = "none";
+    }
+  }
+  //SECOND MODAL  
+  var modal2 = document.getElementById("myModal2");
+  var btn2 = document.getElementById("myBtn2");
+  var span2 = document.getElementsByClassName("close")[1];
+  btn2.onclick = function() {
+    modal2.style.display = "block";
+  }
+//end of modal handling --------------------------------------------------------------
+
+//STATS initialization----------------------------------------------------------------
+if(getCookie("tweetle_gamesPlayed") != ""){ // number of games completed in history
+    var gamesPlayed = parseInt(getCookie("tweetle_gamesPlayed"));
+    document.getElementById("gamesPlayed").innerHTML = "Played: " + gamesPlayed + "<br>";
+}
+else{
+    var gamesPlayed = 0;
+    //modal2.style.display = "block"; //pop instructions on first play, not nice on desktop
+}
+if(getCookie("tweetle_gamesWon") != ""){ // number of games won in history
+    var gamesWon = parseInt(getCookie("tweetle_gamesWon"));
+    document.getElementById("gamesWon").innerHTML = "Won: " + gamesWon + "<br>";
+}
+else{
+    var gamesWon = 0;
+}
+
+var sumOfLostDifferences = 0; // can be divided by (gamesPlayed-gamesWon) to get mean difference of losses
 var firstGuesses = []; // it could be cool to show mean, median, and mode first guess
 var countOfHighGuesses = 0;
 var countOfLowGuesses = 0; // should we show a pie graph of too high vs too low
+//What about streak? Max Streak, Current Streak
 
 //in use with plotly graph showing distribution how many attempts it takes to win. need to add mean, median, and mode???
 var distributionOfWonGuesses = [];
 for(var i = 1; i <= 6; i++){
     distributionOfWonGuesses[i] = 0;
 }
+//end of stats------------------------------------------------------------------------
 
+//check the URL to determine whether to use a given handle or randomly pick one
 let params = (new URL(document.location)).searchParams;
 let urlHandle = params.get('h'); // check the URL for forced handles
 
@@ -88,9 +120,11 @@ function checkGuess(){
                 document.getElementById("guess" + turnCounter.toString()).focus();
             }
             else{ // no more guesses, player loses
-                console.log("you lose")
-                document.getElementById("sendGuess").style.display = "none";
-                document.getElementById("modalTitle").innerHTML = "Thank you for playing Tweetle";
+                console.log("you lose");
+                // Update Games Played
+                gamesPlayed += 1;
+                updateCookiesAndDOM();
+
                 document.getElementById("results").innerHTML = "<br>Sorry, the correct answer was " + correctAnswer.toString() + ".<br>You were off by " + (Math.abs(correctAnswer-currentGuess)).toString() + "!<br><br>";
                 setTimeout(function(){modal2.style.display = "block";},2000);
             }
@@ -99,11 +133,14 @@ function checkGuess(){
         //evaluate the guess
         if(currentGuess == correctAnswer){ //win condition
             console.log("you win");
-            document.getElementById("sendGuess").style.display = "none";
+            // Update Games Played and Won
+            gamesPlayed += 1;
+            gamesWon += 1;
+            updateCookiesAndDOM();
+
             distributionOfWonGuesses[turnCounter-1] += 1;
             plotDist();
             //modal
-            document.getElementById("modalTitle").innerHTML = "Thank you for playing Tweetle";
             document.getElementById("results").innerHTML = "<br>Congratulations, you won after " + (turnCounter-1).toString() + " turns!<br><br>";
             setTimeout(function(){modal2.style.display = "block";},2000);
             //progress bar
@@ -131,20 +168,17 @@ document.addEventListener("keyup", function(event) {
 });
 
 
-// MODAL HANDLING --------------------------------------------------------------------
+//UPDATE STATS COOKIES AND DOM ELEMENTS
+function updateCookiesAndDOM(){
+    document.getElementById("sendGuess").style.display = "none"; // get rid of the submit button
+    document.getElementById("modalTitle").innerHTML = "Thank you for playing Tweetle";
+    document.getElementById("goodLuck").innerHTML = "<br>";
 
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modal2) {
-    modal2.style.display = "none";
-  }
-}
-//SECOND MODAL  
-var modal2 = document.getElementById("myModal2");
-var btn2 = document.getElementById("myBtn2");
-var span2 = document.getElementsByClassName("close")[1];
-btn2.onclick = function() {
-  modal2.style.display = "block";
+    //stats
+    setCookie("tweetle_gamesPlayed", gamesPlayed.toString());
+    document.getElementById("gamesPlayed").innerHTML = "Played: " + gamesPlayed + "<br>";
+    setCookie("tweetle_gamesWon", gamesWon.toString());
+    document.getElementById("gamesWon").innerHTML = "Won: " + gamesWon + "<br>";
 }
 
 //COOKIE FUNCTIONS
