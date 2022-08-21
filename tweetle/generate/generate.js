@@ -20,7 +20,7 @@ function generateFunction(handle){
             document.getElementById("copy").style.display = "block";
         },
         error:function(error){
-            console.log("Error")
+            console.log("Error");
         }
     })
 }
