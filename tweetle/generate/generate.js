@@ -39,7 +39,7 @@ function play(){
 function share(){
     const shareData = {
         title: 'Tweetle',
-        text: 'Try playing Tweetle using @' + username + "'s tweets!",
+        text: 'Try playing Tweetle using @' + username + "'s tweets!\n",
         url: customLink
     }
     navigator.share(shareData);
