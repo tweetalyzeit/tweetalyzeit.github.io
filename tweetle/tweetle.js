@@ -66,10 +66,14 @@ else{
 //var countOfLowGuesses = 0; // should we show a pie graph of too high vs too low
 //var firstGuesses = []; // it could be cool to show mean, median, and mode first guess
 
-//in use with plotly graph showing distribution how many attempts it takes to win. need to add mean, median, and mode???
-var distributionOfWonGuesses = [];
+var distributionOfWonGuesses = []; // do not show in dom, will be used by plotly graph upon game completion
 for(var i = 1; i <= 6; i++){
-    distributionOfWonGuesses[i] = 0;
+    if(getCookie("tweetle_distributon" + i.toString()) != ""){
+        distributionOfWonGuesses[i] = parseInt(getCookie("tweetle_distributon" + i.toString()));
+    }
+    else{
+        distributionOfWonGuesses[i] = 0;
+    }
 }
 //end of stats------------------------------------------------------------------------
 
@@ -166,16 +170,15 @@ function checkGuess(){
             if(currentStreak>maxStreak){
                 maxStreak = currentStreak;
             }
-            updateCookiesAndDOM();
-
             distributionOfWonGuesses[turnCounter-1] += 1;
+            updateCookiesAndDOM();
             plotDist();
             //modal
             if(turnCounter-1 > 1){
-                document.getElementById("results").innerHTML = "<br>Congratulations, you won after " + (turnCounter-1).toString() + " turns!<br><br>";
+                document.getElementById("results").innerHTML = "<br>Congratulations, you won after " + (turnCounter-1).toString() + " turns!";
             }
             else{
-                document.getElementById("results").innerHTML = "<br>Wow, you got it on your first try!<br><br>";
+                document.getElementById("results").innerHTML = "<br>Wow, you got it on your first try!";
             }
             setTimeout(function(){modal2.style.display = "block";},2000);
             //progress bar
@@ -223,6 +226,7 @@ function updateCookiesAndDOM(){
     document.getElementById("currentStreak").innerHTML = "Current Streak: " + currentStreak + "<br>";
     setCookie("tweetle_maxStreak", maxStreak.toString());
     document.getElementById("maxStreak").innerHTML = "Max Streak: " + maxStreak + "<br>";
+    setCookie("tweetle_distribution" + (turnCounter-1).toString(), distributionOfWonGuesses[turnCounter-1].toString()); // dom updated via plotly function
 }
 
 //COOKIE FUNCTIONS
@@ -273,7 +277,7 @@ function plotDist(){
     };
     var layout = {
         width: 440,
-        height: 320,
+        height: 240,
         yaxis: {
             tick0: 1,
             dtick: 1,
@@ -291,7 +295,7 @@ function plotDist(){
             l: 40,
             r: 100,
             b: 20,
-            t: 20,
+            t: 0,
             pad: 16,
         },
         font: {
