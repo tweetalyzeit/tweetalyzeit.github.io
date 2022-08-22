@@ -155,7 +155,7 @@ function checkGuess(){
                 currentStreak = 0;
                 updateCookiesAndDOM();
 
-                document.getElementById("results").innerHTML = "<br>Sorry, the correct answer was " + correctAnswer.toString() + ".<br>You were off by " + (Math.abs(correctAnswer-currentGuess)).toString() + "!<br><br>";
+                document.getElementById("results").innerHTML = "<br>Sorry, the correct answer was " + correctAnswer.toString() + ".<br>You were off by " + (Math.abs(correctAnswer-currentGuess)).toString() + "!";
                 setTimeout(function(){modal2.style.display = "block";},2000);
             }
         }
