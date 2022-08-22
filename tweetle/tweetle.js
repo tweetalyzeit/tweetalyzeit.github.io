@@ -39,7 +39,9 @@ else{
 var avgLossAmount = 0; //defined globally since it will not be calculated if there is no existing save data
 if(getCookie("tweetle_sumOfLostDifferences") != ""){ // the sum of loss differences, used to calculate the mean
     var sumOfLostDifferences = parseInt(getCookie("tweetle_sumOfLostDifferences"));
-    avgLossAmount = sumOfLostDifferences/(gamesPlayed-gamesWon);
+    if(sumOfLostDifferences > 0){
+        avgLossAmount = sumOfLostDifferences/(gamesPlayed-gamesWon);
+    }
     document.getElementById("avgLossAmount").innerHTML = "Average Loss Amount: " + avgLossAmount + "<br>";
 }
 else{
