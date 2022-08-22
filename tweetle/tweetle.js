@@ -47,7 +47,7 @@ else{
 }
 if(getCookie("tweetle_currentStreak") != ""){ // current number of consecutive wins
     var currentStreak = parseInt(getCookie("tweetle_currentStreak"));
-    document.getElementById("currentSteak").innerHTML = "Current Streak: " + currentStreak + "<br>";
+    document.getElementById("currentStreak").innerHTML = "Current Streak: " + currentStreak + "<br>";
 }
 else{
     var currentStreak = 0;
