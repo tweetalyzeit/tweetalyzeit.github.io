@@ -22,7 +22,8 @@ window.onclick = function(event) {
 //STATS initialization----------------------------------------------------------------
 if(getCookie("tweetle_gamesPlayed") != ""){ // number of games completed in history
     var gamesPlayed = parseInt(getCookie("tweetle_gamesPlayed"));
-    document.getElementById("gamesPlayed").innerHTML = "Played: " + gamesPlayed + "<br>";
+    document.getElementById("gamesPlayed").innerHTML = "<hr>Played: " + gamesPlayed + "<br>";
+    document.getElementById("goodLuck").innerHTML = "<br>";
 }
 else{
     var gamesPlayed = 0;
@@ -35,12 +36,33 @@ if(getCookie("tweetle_gamesWon") != ""){ // number of games won in history
 else{
     var gamesWon = 0;
 }
+var avgLossAmount = 0; //defined globally since it will not be calculated if there is no existing save data
+if(getCookie("tweetle_sumOfLostDifferences") != ""){ // the sum of loss differences, used to calculate the mean
+    var sumOfLostDifferences = parseInt(getCookie("tweetle_sumOfLostDifferences"));
+    avgLossAmount = sumOfLostDifferences/(gamesPlayed-gamesWon);
+    document.getElementById("avgLossAmount").innerHTML = "Average Loss Amount: " + avgLossAmount + "<br>";
+}
+else{
+    var sumOfLostDifferences = 0;
+}
+if(getCookie("tweetle_currentStreak") != ""){ // current number of consecutive wins
+    var currentStreak = parseInt(getCookie("tweetle_currentStreak"));
+    document.getElementById("currentSteak").innerHTML = "Current Streak: " + currentStreak + "<br>";
+}
+else{
+    var currentStreak = 0;
+}
+if(getCookie("tweetle_maxStreak") != ""){ // current number of consecutive wins
+    var maxStreak = parseInt(getCookie("tweetle_maxStreak"));
+    document.getElementById("maxStreak").innerHTML = "Max Streak: " + maxStreak + "<br>";
+}
+else{
+    var maxStreak = 0;
+}
 
-var sumOfLostDifferences = 0; // can be divided by (gamesPlayed-gamesWon) to get mean difference of losses
-var firstGuesses = []; // it could be cool to show mean, median, and mode first guess
-var countOfHighGuesses = 0;
-var countOfLowGuesses = 0; // should we show a pie graph of too high vs too low
-//What about streak? Max Streak, Current Streak
+//var countOfHighGuesses = 0;
+//var countOfLowGuesses = 0; // should we show a pie graph of too high vs too low
+//var firstGuesses = []; // it could be cool to show mean, median, and mode first guess
 
 //in use with plotly graph showing distribution how many attempts it takes to win. need to add mean, median, and mode???
 var distributionOfWonGuesses = [];
@@ -121,8 +143,10 @@ function checkGuess(){
             }
             else{ // no more guesses, player loses
                 console.log("you lose");
-                // Update Games Played
+                // Update Games Played, sum of loss differences, and streak
                 gamesPlayed += 1;
+                sumOfLostDifferences += Math.abs(correctAnswer-currentGuess);
+                currentStreak = 0;
                 updateCookiesAndDOM();
 
                 document.getElementById("results").innerHTML = "<br>Sorry, the correct answer was " + correctAnswer.toString() + ".<br>You were off by " + (Math.abs(correctAnswer-currentGuess)).toString() + "!<br><br>";
@@ -133,15 +157,24 @@ function checkGuess(){
         //evaluate the guess
         if(currentGuess == correctAnswer){ //win condition
             console.log("you win");
-            // Update Games Played and Won
+            // Update Games Played, won, and streaks
             gamesPlayed += 1;
             gamesWon += 1;
+            currentStreak += 1;
+            if(currentStreak>maxStreak){
+                maxStreak = currentStreak;
+            }
             updateCookiesAndDOM();
 
             distributionOfWonGuesses[turnCounter-1] += 1;
             plotDist();
             //modal
-            document.getElementById("results").innerHTML = "<br>Congratulations, you won after " + (turnCounter-1).toString() + " turns!<br><br>";
+            if(turnCounter-1 > 1){
+                document.getElementById("results").innerHTML = "<br>Congratulations, you won after " + (turnCounter-1).toString() + " turns!<br><br>";
+            }
+            else{
+                document.getElementById("results").innerHTML = "<br>Wow, you got it on your first try!<br><br>";
+            }
             setTimeout(function(){modal2.style.display = "block";},2000);
             //progress bar
             document.getElementById("progressbar" + (turnCounter-1).toString()).style.width = "100%";
@@ -168,7 +201,7 @@ document.addEventListener("keyup", function(event) {
 });
 
 
-//UPDATE STATS COOKIES AND DOM ELEMENTS
+//UPDATE STATS COOKIES AND DOM ELEMENTS after game end
 function updateCookiesAndDOM(){
     document.getElementById("sendGuess").style.display = "none"; // get rid of the submit button
     document.getElementById("modalTitle").innerHTML = "Thank you for playing Tweetle";
@@ -176,9 +209,18 @@ function updateCookiesAndDOM(){
 
     //stats
     setCookie("tweetle_gamesPlayed", gamesPlayed.toString());
-    document.getElementById("gamesPlayed").innerHTML = "Played: " + gamesPlayed + "<br>";
+    document.getElementById("gamesPlayed").innerHTML = "<hr>Played: " + gamesPlayed + "<br>";
     setCookie("tweetle_gamesWon", gamesWon.toString());
     document.getElementById("gamesWon").innerHTML = "Won: " + gamesWon + "<br>";
+    setCookie("tweetle_sumOfLostDifferences", sumOfLostDifferences.toString());
+    if(sumOfLostDifferences > 0){
+        avgLossAmount = sumOfLostDifferences/(gamesPlayed-gamesWon);
+    }
+    document.getElementById("avgLossAmount").innerHTML = "Average Loss Amount: " + avgLossAmount + "<br>";
+    setCookie("tweetle_currentStreak", currentStreak.toString());
+    document.getElementById("currentStreak").innerHTML = "Current Streak: " + currentStreak + "<br>";
+    setCookie("tweetle_maxStreak", maxStreak.toString());
+    document.getElementById("maxStreak").innerHTML = "Max Streak: " + maxStreak + "<br>";
 }
 
 //COOKIE FUNCTIONS
