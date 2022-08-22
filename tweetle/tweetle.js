@@ -68,8 +68,8 @@ else{
 
 var distributionOfWonGuesses = []; // do not show in dom, will be used by plotly graph upon game completion
 for(var i = 1; i <= 6; i++){
-    if(getCookie("tweetle_distributon" + i.toString()) != ""){
-        distributionOfWonGuesses[i] = parseInt(getCookie("tweetle_distributon" + i.toString()));
+    if(getCookie("tweetle_distribution" + i.toString()) != ""){
+        distributionOfWonGuesses[i] = parseInt(getCookie("tweetle_distribution" + i.toString()));
     }
     else{
         distributionOfWonGuesses[i] = 0;
