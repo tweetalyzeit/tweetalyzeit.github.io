@@ -227,7 +227,9 @@ function updateCookiesAndDOM(){
     document.getElementById("currentStreak").innerHTML = "Current Streak: " + currentStreak + "<br>";
     setCookie("tweetle_maxStreak", maxStreak.toString());
     document.getElementById("maxStreak").innerHTML = "Max Streak: " + maxStreak + "<br>";
-    setCookie("tweetle_distribution" + (turnCounter-1).toString(), distributionOfWonGuesses[turnCounter-1].toString()); // dom updated via plotly function
+    if(distributionOfWonGuesses[turnCounter-1] > 0){
+        setCookie("tweetle_distribution" + (turnCounter-1).toString(), distributionOfWonGuesses[turnCounter-1].toString()); // dom updated via plotly function
+    }
 }
 
 //COOKIE FUNCTIONS
@@ -278,7 +280,7 @@ function plotDist(){
     };
     var layout = {
         width: 440,
-        height: 200,
+        height: 160,
         yaxis: {
             tick0: 1,
             dtick: 1,
@@ -300,7 +302,7 @@ function plotDist(){
             pad: 16,
         },
         font: {
-            size: 12,
+            size: 11,
             family: 'Roboto, sans-serif',
         }
     };
