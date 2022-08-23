@@ -302,7 +302,7 @@ function plotDist(){
             pad: 16,
         },
         font: {
-            size: 11,
+            size: 10,
             family: 'Roboto, sans-serif',
         }
     };
