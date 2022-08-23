@@ -70,12 +70,12 @@ var distributionOfWonGuesses = []; // do not show in dom, will be used by plotly
 for(var i = 1; i <= 6; i++){
     if(getCookie("tweetle_distribution" + i.toString()) != ""){
         distributionOfWonGuesses[i] = parseInt(getCookie("tweetle_distribution" + i.toString()));
+        plotDist();
     }
     else{
         distributionOfWonGuesses[i] = 0;
     }
 }
-plotDist();
 //end of stats------------------------------------------------------------------------
 
 //check the URL to determine whether to use a given handle or randomly pick one
