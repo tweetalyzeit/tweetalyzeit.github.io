@@ -41,7 +41,7 @@ var avgLossAmount = 0; //defined globally since it will not be calculated if the
 if(getCookie("tweetle_sumOfLostDifferences") != ""){ // the sum of loss differences, used to calculate the mean
     var sumOfLostDifferences = parseInt(getCookie("tweetle_sumOfLostDifferences"));
     if(sumOfLostDifferences > 0){
-        avgLossAmount = sumOfLostDifferences/(gamesPlayed-gamesWon);
+        avgLossAmount = (sumOfLostDifferences/(gamesPlayed-gamesWon)).toFixed(2);
     }
     document.getElementById("avgLossAmount").innerHTML = "Average Loss Amount: " + avgLossAmount + "<br>";
 }
@@ -238,7 +238,7 @@ function updateCookiesAndDOM(){
     document.getElementById("gamesWon").innerHTML = "Won: " + gamesWon + "<br>";
     setCookie("tweetle_sumOfLostDifferences", sumOfLostDifferences.toString());
     if(sumOfLostDifferences > 0){
-        avgLossAmount = sumOfLostDifferences/(gamesPlayed-gamesWon);
+        avgLossAmount = (sumOfLostDifferences/(gamesPlayed-gamesWon)).toFixed(2);
     }
     document.getElementById("avgLossAmount").innerHTML = "Average Loss Amount: " + avgLossAmount + "<br>";
     setCookie("tweetle_currentStreak", currentStreak.toString());
