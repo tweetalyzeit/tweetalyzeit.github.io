@@ -9,6 +9,16 @@
     text-align: center;
     color: white;
   }
+  .replayButton{
+    border-color: #fefefe;
+    border-width: 16px;
+    border-style: none;
+    background-color: #fefefe;
+    text-align: center;
+    color: #1D9BF0;
+    float:right;
+    font-size: 5vw;
+  }
 
   /* The Modal (background) */
 .modal {

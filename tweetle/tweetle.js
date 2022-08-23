@@ -2,6 +2,7 @@ var turnCounter = 1; // track which turn it is
 var correctAnswer = 0; // the correct number of likes
 var currentGuess = 0; // the users last guess
 resultsHTML = ""; // the HTML string that populates the tweet card
+var shareText = "";
 
 // MODAL HANDLING --------------------------------------------------------------------
 // When the user clicks anywhere outside of the modal, close it
@@ -156,7 +157,7 @@ function checkGuess(){
                 currentStreak = 0;
                 updateCookiesAndDOM();
 
-                document.getElementById("results").innerHTML = "<br>Sorry, the correct answer was " + correctAnswer.toString() + ".<br>You were off by " + (Math.abs(correctAnswer-currentGuess)).toString() + "!";
+                document.getElementById("results").innerHTML = "<br>Sorry, the correct answer was " + correctAnswer.toString() + ".<br>You were off by " + (Math.abs(correctAnswer-currentGuess)).toString() + "!<button class='replayButton' onclick='share()'><i class='fas fa-share-alt'></i></button>  <button class='replayButton' onclick='location.reload();'><i class='fas fa-redo-alt'></i></button>";
                 setTimeout(function(){modal2.style.display = "block";},2000);
             }
         }
@@ -164,6 +165,7 @@ function checkGuess(){
         //evaluate the guess
         if(currentGuess == correctAnswer){ //win condition
             console.log("you win");
+            shareText += "🟩🟩🟩🟩🟩\n";
             // Update Games Played, won, and streaks
             gamesPlayed += 1;
             gamesWon += 1;
@@ -176,10 +178,10 @@ function checkGuess(){
             plotDist();
             //modal
             if(turnCounter-1 > 1){
-                document.getElementById("results").innerHTML = "<br>Congratulations, you won after " + (turnCounter-1).toString() + " turns!";
+                document.getElementById("results").innerHTML = "<br>Congratulations, you won after " + (turnCounter-1).toString() + " turns!<button class='replayButton' onclick='share()'><i class='fas fa-share-alt'></i></button>  <button class='replayButton' onclick='location.reload();'><i class='fas fa-redo-alt'></i></button>";
             }
             else{
-                document.getElementById("results").innerHTML = "<br>Wow, you got it on your first try!";
+                document.getElementById("results").innerHTML = "<br>Wow, you got it on your first try!<button class='replayButton' onclick='share()'><i class='fas fa-share-alt'></i></button>  <button class='replayButton' onclick='location.reload();'><i class='fas fa-redo-alt'></i></button>";
             }
             setTimeout(function(){modal2.style.display = "block";},2000);
             //progress bar
@@ -188,10 +190,26 @@ function checkGuess(){
         }
         else if(currentGuess < correctAnswer){ // if the previous guess was too low
             console.log("go higher");
+            if(((currentGuess/correctAnswer)*100) >= 80){
+                shareText += "🟨🟨🟨🟨🟨\n";
+            }
+            else if(((currentGuess/correctAnswer)*100) >= 60){
+                shareText += "🟨🟨🟨🟨\n";
+            }
+            else if(((currentGuess/correctAnswer)*100) >= 40){
+                shareText += "🟨🟨🟨\n";
+            }
+            else if(((currentGuess/correctAnswer)*100) >= 20){
+                shareText += "🟨🟨\n";
+            }
+            else {
+                shareText += "🟨\n";
+            }
             document.getElementById("progressbar" + (turnCounter-1).toString()).style.width = ((currentGuess/correctAnswer)*100).toString() + "%"; 
         }
         else{ // if the previous guess was too high
             console.log("go lower");
+            shareText += "🟥🟥🟥🟥🟥\n";
             document.getElementById("progressbar" + (turnCounter-1).toString()).style.width = "100%";
             setTimeout(function(){document.getElementById("progressbar" + (turnCounter-1).toString()).style.backgroundColor = "#E8A4A4";document.getElementById("progressbarcontainer" + (turnCounter-1).toString()).style.animation = "shake 0.5s";}, 1000);
         }
@@ -230,6 +248,15 @@ function updateCookiesAndDOM(){
     if(distributionOfWonGuesses[turnCounter-1] > 0){
         setCookie("tweetle_distribution" + (turnCounter-1).toString(), distributionOfWonGuesses[turnCounter-1].toString()); // dom updated via plotly function
     }
+}
+
+function share(){
+    const shareData = {
+        title: 'Tweetle',
+        text: 'Try playing Tweetle!\n' + shareText,
+        url: 'https://tweetalyze.com/tweetle/'
+    }
+    navigator.share(shareData);
 }
 
 //COOKIE FUNCTIONS
