@@ -75,6 +75,7 @@ for(var i = 1; i <= 6; i++){
         distributionOfWonGuesses[i] = 0;
     }
 }
+plotDist();
 //end of stats------------------------------------------------------------------------
 
 //check the URL to determine whether to use a given handle or randomly pick one
@@ -277,13 +278,13 @@ function plotDist(){
     };
     var layout = {
         width: 440,
-        height: 240,
+        height: 200,
         yaxis: {
             tick0: 1,
             dtick: 1,
             tickfont: {
                 family: 'Roboto, sans-serif',
-                size: 16,
+                size: 14,
             },
             fixedrange: true,
         },
@@ -299,7 +300,7 @@ function plotDist(){
             pad: 16,
         },
         font: {
-            size: 14,
+            size: 12,
             family: 'Roboto, sans-serif',
         }
     };
