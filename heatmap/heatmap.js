@@ -6,6 +6,22 @@ let WednesdayTimes = [];
 let ThursdayTimes = [];
 let FridayTimes = [];
 let SaturdayTimes = [];
+
+let SundaySumLikes = [];
+let SundayMeanLikes = []; // for each index in the array: SundayMeanLikes = SundaySumLikes[n] / SundayTimes[n]
+let MondaySumLikes = [];
+let MondayMeanLikes = []; //the mean will need to be recalculated after each sample, whereas sum and count will be cumulative
+let TuesdaySumLikes = [];
+let TuesdayMeanLikes = [];
+let WednesdaySumLikes = [];
+let WednesdayMeanLikes = [];
+let ThursdaySumLikes = [];
+let ThursdayMeanLikes = [];
+let FridaySumLikes = [];
+let FridayMeanLikes = [];
+let SaturdaySumLikes = [];
+let SaturdayMeanLikes= [];
+
 for(var i = 0; i < 24; i++){
     SundayTimes[i] = 0;
     MondayTimes[i] = 0;
@@ -14,13 +30,26 @@ for(var i = 0; i < 24; i++){
     ThursdayTimes[i] = 0;
     FridayTimes[i] = 0;
     SaturdayTimes[i] = 0;
+
+    SundaySumLikes[i] = 0;
+    SundayMeanLikes[i] = null;
+    MondaySumLikes[i] = 0;
+    MondayMeanLikes[i] = null;
+    TuesdaySumLikes[i] = 0;
+    TuesdayMeanLikes[i] = null;
+    WednesdaySumLikes[i] = 0;
+    WednesdayMeanLikes[i] = null;
+    ThursdaySumLikes[i] = 0;
+    ThursdayMeanLikes[i] = null;
+    FridaySumLikes[i] = 0;
+    FridayMeanLikes[i] = null;
+    SaturdaySumLikes[i] = 0;
+    SaturdayMeanLikes[i] = null;
 }
 
 includedHandles = "Sampled Users: ";
 
 //initialize caption data
-//newestTimestamp;
-//oldestTimestamp;
 sampleSize = 0;
 
 // get the user's current browser timezone
@@ -46,21 +75,10 @@ function generateFunction(){
         },
         success: function(responseText){
             console.log(responseText);
+
+            //update UI elements with sample info
             $('#AddHistory').append("<img src='" + responseText.profilePicURL + "' style='border-radius:50%;padding-left:8px;padding-right:8px;padding-top:8px;'>");
 
-            //get caption data
-            /*currentTweetsNewestTimestamp = new Date(responseText.dates[0]);
-            if(newestTimestamp != null){
-                if(currentTweetsNewestTimestamp > newestTimestamp){
-                    newestTimestamp = currentTweetsNewestTimestamp;
-                }
-            }
-            currentTweetsOldestTimestamp = new Date(responseText.dates[responseText.dates.length]);
-            if(oldestTimestamp != null){
-                if(currentTweetsOldestTimestamp < oldestTimestamp){
-                    oldestTimestamp = currentTweetsOldestTimestamp;
-                }
-            }*/
             sampleSize += responseText.dates.length;
             console.log("Sample Size: " + sampleSize);
             document.getElementById("sampleSize").innerHTML = "Sample Size: " + sampleSize.toString();
@@ -72,6 +90,9 @@ function generateFunction(){
                 includedHandles += ", @" + responseText.name;
             }
             document.getElementById("includedHandles").innerHTML = includedHandles;
+
+            //copy and reverse the given like array to get it into descending order, like the timestamps and tweets
+            likeArray = responseText.trend_likes.slice().reverse(); // slice makes a copy of the array before reversing
 
             // map timestamps into heatmap data array format
             for(var j = 0; j < responseText.dates.length; j++){ 
@@ -86,14 +107,49 @@ function generateFunction(){
                 //console.log("Hour: " + currentTweetsHourOfDay); // returns an integer, 0-23
 
                 switch(currentTweetsDayOfWeek){
-                    case 0: SundayTimes[currentTweetsHourOfDay] += 1; break;
-                    case 1: MondayTimes[currentTweetsHourOfDay] += 1; break;
-                    case 2: TuesdayTimes[currentTweetsHourOfDay] += 1; break;
-                    case 3: WednesdayTimes[currentTweetsHourOfDay] += 1; break;
-                    case 4: ThursdayTimes[currentTweetsHourOfDay] += 1; break;
-                    case 5: FridayTimes[currentTweetsHourOfDay] += 1; break;
-                    case 6: SaturdayTimes[currentTweetsHourOfDay] += 1; break;
-                    default: console.log("There is an error inside the switch that increments the heatmap counter arrays!"); break;
+                    case 0: SundayTimes[currentTweetsHourOfDay] += 1; 
+                        SundaySumLikes[currentTweetsHourOfDay] += likeArray[j]; 
+                        if(SundayTimes[currentTweetsHourOfDay] > 0){
+                            SundayMeanLikes[currentTweetsHourOfDay] = SundaySumLikes[currentTweetsHourOfDay] / SundayTimes[currentTweetsHourOfDay];
+                        }
+                        break;
+                    case 1: MondayTimes[currentTweetsHourOfDay] += 1; 
+                        MondaySumLikes[currentTweetsHourOfDay] += likeArray[j];
+                        if(MondayTimes[currentTweetsHourOfDay] > 0){
+                            MondayMeanLikes[currentTweetsHourOfDay] = MondaySumLikes[currentTweetsHourOfDay] / MondayTimes[currentTweetsHourOfDay];
+                        }
+                        break;
+                    case 2: TuesdayTimes[currentTweetsHourOfDay] += 1; 
+                        TuesdaySumLikes[currentTweetsHourOfDay] += likeArray[j];
+                        if(TuesdayTimes[currentTweetsHourOfDay] > 0){
+                            TuesdayMeanLikes[currentTweetsHourOfDay] = TuesdaySumLikes[currentTweetsHourOfDay] / TuesdayTimes[currentTweetsHourOfDay];
+                        }
+                        break;
+                    case 3: WednesdayTimes[currentTweetsHourOfDay] += 1;
+                        WednesdaySumLikes[currentTweetsHourOfDay] += likeArray[j];
+                        if(WednesdayTimes[currentTweetsHourOfDay] > 0){
+                            WednesdayMeanLikes[currentTweetsHourOfDay] = WednesdaySumLikes[currentTweetsHourOfDay] / WednesdayTimes[currentTweetsHourOfDay];
+                        }
+                        break;
+                    case 4: ThursdayTimes[currentTweetsHourOfDay] += 1; 
+                        ThursdaySumLikes[currentTweetsHourOfDay] += likeArray[j];
+                        if(ThursdayTimes[currentTweetsHourOfDay] > 0){
+                            ThursdayMeanLikes[currentTweetsHourOfDay] = ThursdaySumLikes[currentTweetsHourOfDay] / ThursdayTimes[currentTweetsHourOfDay];
+                        }
+                        break;
+                    case 5: FridayTimes[currentTweetsHourOfDay] += 1; 
+                        FridaySumLikes[currentTweetsHourOfDay] += likeArray[j];
+                        if(FridayTimes[currentTweetsHourOfDay] > 0){
+                            FridayMeanLikes[currentTweetsHourOfDay] = FridaySumLikes[currentTweetsHourOfDay] / FridayTimes[currentTweetsHourOfDay];
+                        }
+                        break;
+                    case 6: SaturdayTimes[currentTweetsHourOfDay] += 1; 
+                        SaturdaySumLikes[currentTweetsHourOfDay] += likeArray[j];
+                        if(SaturdayTimes[currentTweetsHourOfDay] > 0){
+                            SaturdayMeanLikes[currentTweetsHourOfDay] = SaturdaySumLikes[currentTweetsHourOfDay] / SaturdayTimes[currentTweetsHourOfDay];
+                        }
+                        break;
+                    default: console.log("There is an error inside the switch that updates the zvalue array data!"); break;
                 }
             }
             
@@ -111,15 +167,31 @@ function generateFunction(){
     })
 }
 
-function plotHeatmap(){
+function plotHeatmap(heatmapType){
+    zvalue = [];
+    zlabel = "Count";
+    chartTitle = "Sample Distribution";
+    switch(heatmapType){
+        case "meanLikes": 
+            zvalue = [SaturdayMeanLikes, FridayMeanLikes, ThursdayMeanLikes, WednesdayMeanLikes, TuesdayMeanLikes, MondayMeanLikes, SundayMeanLikes];
+            zlabel = "Likes";
+            chartTitle = "Mean Tweet Likes";
+            break;
+        default: 
+            zvalue = [SaturdayTimes,FridayTimes,ThursdayTimes,WednesdayTimes,TuesdayTimes,MondayTimes,SundayTimes]; 
+            zlabel = "Count";
+            chartTitle = "Sample Distribution";
+            break;
+    }
+
     var data = [
         {
-          z: [SaturdayTimes,FridayTimes,ThursdayTimes,WednesdayTimes,TuesdayTimes,MondayTimes,SundayTimes],
+          z: zvalue,
           y: ['Sat','Fri','Thurs','Wed','Tues','Mon','Sun'],
           x: ['00', '01', '02', '03', '04', '05','06','07','08','09','10','11','12','13','14','15','16','17','18','19','20','21','22','23'],
           type: 'heatmap',
           hoverongaps: false,
-          hovertemplate: "Day: %{y}<br>Hour: %{x}<br>Count: %{z}<extra></extra>",
+          hovertemplate: "Day: %{y}<br>Hour: %{x}<br>" + zlabel + ": %{z}<extra></extra>",
         }
       ];
 
@@ -132,7 +204,7 @@ function plotHeatmap(){
             },
             label: "Hour: ",
         },
-        title: "Tweet Times",
+        title: chartTitle,
     }
 
     var config = {

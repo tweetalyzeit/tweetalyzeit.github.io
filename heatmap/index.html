@@ -52,7 +52,7 @@
     <div class="container">
       <div class="row">
         <div class="col-xl-9 mx-auto">
-          <h1 class="mb-5">Tweet Time Heatmap<br></h1>
+          <h1 class="mb-5">Tw(heat)maps<br></h1>
         </div>
         <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
           <form>
@@ -69,6 +69,21 @@
           </form>
           <br><br>
 
+          <div class="dropdown">
+            <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Heatmap Type
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+              <button class="dropdown-item" type="button" onclick="plotHeatmap('count')">Sample Distribution</button>
+              <button class="dropdown-item" type="button" onclick="plotHeatmap('meanLikes')">Mean Likes</button>
+              <button class="dropdown-item" type="button" onclick="plotHeatmap('')"><i>Median Likes</i></button>
+              <button class="dropdown-item" type="button" onclick="plotHeatmap('')"><i>Max Likes</i></button>
+              <button class="dropdown-item" type="button" onclick="plotHeatmap('')"><i>Mean Retweets</i></button>
+              <button class="dropdown-item" type="button" onclick="plotHeatmap('')"><i>Median Retweets</i></button>
+              <button class="dropdown-item" type="button" onclick="plotHeatmap('')"><i>Max Retweets</i></button>
+            </div>
+          </div>
+          <br>
           <div id="heatmap"></div>
           <div id="sampleSize"></div>
           <div id="includedHandles"></div>
