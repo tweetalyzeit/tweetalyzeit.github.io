@@ -32,7 +32,7 @@ else{
 }
 if(getCookie("tweetle_gamesWon") != ""){ // number of games won in history
     var gamesWon = parseInt(getCookie("tweetle_gamesWon"));
-    document.getElementById("gamesWon").innerHTML = "Won: " + gamesWon + "<br>";
+    document.getElementById("gamesWon").innerHTML = "Won: " + gamesWon + " (" + ((gamesWon/gamesPlayed)*100).toFixed(2) + "%)<br>";
 }
 else{
     var gamesWon = 0;
@@ -236,7 +236,7 @@ function updateCookiesAndDOM(){
     setCookie("tweetle_gamesPlayed", gamesPlayed.toString());
     document.getElementById("gamesPlayed").innerHTML = "<hr>Played: " + gamesPlayed + "<br>";
     setCookie("tweetle_gamesWon", gamesWon.toString());
-    document.getElementById("gamesWon").innerHTML = "Won: " + gamesWon + "<br>";
+    document.getElementById("gamesWon").innerHTML = "Won: " + gamesWon + " (" + ((gamesWon/gamesPlayed)*100).toFixed(2) + "%)<br>";
     setCookie("tweetle_sumOfLostDifferences", sumOfLostDifferences.toString());
     if(sumOfLostDifferences > 0){
         avgLossAmount = (sumOfLostDifferences/(gamesPlayed-gamesWon)).toFixed(2);
